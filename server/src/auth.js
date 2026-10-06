@@ -27,7 +27,10 @@ export async function checkPassword(password, stored) {
 }
 
 // ---- Tokens: bearer JWTs so the same API serves web + future native apps ----
-const secret = (env) => env.JWT_SECRET || 'dev-secret';
+const secret = (env) => {
+  if (!env.JWT_SECRET) throw new Error('JWT_SECRET is not set (wrangler secret put JWT_SECRET, or .dev.vars locally)');
+  return env.JWT_SECRET;
+};
 const DAY = 86400;
 
 export const signToken = (env, userId) => sign({ sub: userId, exp: Math.floor(Date.now() / 1000) + 30 * DAY }, secret(env));

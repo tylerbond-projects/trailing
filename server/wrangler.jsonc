@@ -16,7 +16,7 @@
   },
 
   "d1_databases": [
-    { "binding": "DB", "database_name": "trailing", "database_id": "REPLACE_WITH_D1_ID", "migrations_dir": "migrations" }
+    { "binding": "DB", "database_name": "trailing", "database_id": "e45ebd6c-5351-4c39-b91c-5db1e81ec71a", "migrations_dir": "migrations" }
   ],
   "r2_buckets": [{ "binding": "PHOTOS", "bucket_name": "trailing-photos" }],
 
