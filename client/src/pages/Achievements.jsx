@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { api } from '../lib/api.js';
 import { Spinner } from '../components/ui.jsx';
 import { parseDate } from '../lib/format.js';
+import Icon from '../components/Icon.jsx';
 
 const fmt = (n) => (n >= 1000 ? Math.round(n).toLocaleString() : Number.isInteger(n) ? n : n.toFixed(1));
 
@@ -9,11 +10,11 @@ export function AchievementBadge({ a, small }) {
   const earned = !!a.earned_at;
   const pct = Math.min(100, (a.current / a.target) * 100);
   if (small) {
-    return <span className={`ach-mini tier-${a.tier}`} title={`${a.name} — ${a.description}`}>{a.icon}</span>;
+    return <span className={`ach-mini tier-${a.tier}`} title={`${a.name} — ${a.description}`}><Icon name={a.icon} size={19} /></span>;
   }
   return (
     <div className={`achievement card tier-${a.tier} ${earned ? 'earned' : 'locked'}`}>
-      <div className="ach-icon">{a.icon}</div>
+      <div className="ach-icon"><Icon name={a.icon} size={26} /></div>
       <div className="grow">
         <strong>{a.name}</strong>
         <div className="muted small">{a.description}</div>

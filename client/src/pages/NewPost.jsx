@@ -5,6 +5,7 @@ import { Tabs, ErrorText, Spinner, Empty } from '../components/ui.jsx';
 import PhotoPicker from '../components/PhotoPicker.jsx';
 import TrailSelect, { useTrails } from '../components/TrailSelect.jsx';
 import { miles, feet, duration, parseLocal, ACTIVITY_ICON, ACTIVITY_LABEL } from '../lib/format.js';
+import Icon, { IconText } from '../components/Icon.jsx';
 
 const nowLocal = () => {
   const d = new Date();
@@ -19,8 +20,8 @@ export default function NewPost() {
     <div className="page narrow">
       <div className="page-head"><h1>Share an activity</h1></div>
       <Tabs value={tab} onChange={setTab} tabs={[
-        { value: 'manual', label: '✍️ Log manually' },
-        { value: 'strava', label: '🟧 Import from Strava' },
+        { value: 'manual', label: <IconText icon="pencil">Log manually</IconText> },
+        { value: 'strava', label: <IconText icon="activity">Import from Strava</IconText> },
       ]} />
       {tab === 'strava' ? <StravaImport /> : <ManualPost initialTrail={params.get('trail')} />}
     </div>
@@ -84,7 +85,7 @@ function ManualPost({ initialTrail }) {
     <form className="card form" onSubmit={submit}>
       <div className="segmented">
         {['Hike', 'TrailRun', 'Run', 'Walk'].map((t) => (
-          <button type="button" key={t} className={a.type === t ? 'active' : ''} onClick={() => setA({ ...a, type: t })}>{ACTIVITY_ICON[t]} {ACTIVITY_LABEL[t]}</button>
+          <button type="button" key={t} className={a.type === t ? 'active' : ''} onClick={() => setA({ ...a, type: t })}><IconText icon={ACTIVITY_ICON[t]}>{ACTIVITY_LABEL[t]}</IconText></button>
         ))}
       </div>
       <Composer {...{ body, setBody, photos, setPhotos, trailId, setTrailId }} />
@@ -151,7 +152,7 @@ function StravaImport() {
   if (!status) return <Spinner />;
   if (!status.configured) {
     return (
-      <Empty icon="🟧" title="Strava isn't set up on this server yet">
+      <Empty icon="activity" title="Strava isn't set up on this server yet">
         Add <code>STRAVA_CLIENT_ID</code> and <code>STRAVA_CLIENT_SECRET</code> to <code>server/.env</code> (see the README), then restart.
       </Empty>
     );
@@ -171,11 +172,11 @@ function StravaImport() {
     return (
       <form className="card form" onSubmit={submit}>
         <div className="strava-selected">
-          <strong>{ACTIVITY_ICON[selected.type] || '🏃'} {selected.name}</strong>
+          <strong className="with-icon"><Icon name={ACTIVITY_ICON[selected.type] || 'run'} />{selected.name}</strong>
           <span className="muted small">{miles(selected.distance_mi)} · {feet(selected.elevation_gain_ft)} · {duration(selected.moving_time_s)}</span>
           <button type="button" className="btn small" onClick={() => setSelected(null)}>Change</button>
         </div>
-        {selected.suggested_trail_id && <p className="muted small">📍 We matched this to a trail based on where you started.</p>}
+        {selected.suggested_trail_id && <p className="muted small with-icon"><Icon name="pin" size={14} />We matched this to a trail based on where you started.</p>}
         <Composer {...{ body, setBody, photos, setPhotos, trailId, setTrailId }} />
         <ErrorText error={error} />
         <button className="btn primary block" disabled={busy}>{busy ? 'Importing…' : 'Import & post'}</button>
@@ -188,7 +189,7 @@ function StravaImport() {
       {list.length === 0 && <Empty title="No recent hikes or runs on Strava" />}
       {list.map((act) => (
         <button key={act.strava_id} className="card list-row" disabled={act.imported} onClick={() => pick(act)}>
-          <span className="list-icon">{ACTIVITY_ICON[act.type] || '🏃'}</span>
+          <span className="list-icon"><Icon name={ACTIVITY_ICON[act.type] || 'run'} size={24} /></span>
           <span className="grow left">
             <strong>{act.name}</strong>
             <span className="muted small block">{parseLocal(act.start_date).toLocaleDateString()} · {miles(act.distance_mi)} · {feet(act.elevation_gain_ft)}</span>

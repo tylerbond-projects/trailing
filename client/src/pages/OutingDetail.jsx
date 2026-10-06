@@ -5,6 +5,7 @@ import { useAuth } from '../lib/auth.jsx';
 import { Avatar, Difficulty, Spinner, ErrorText } from '../components/ui.jsx';
 import TrailArt from '../components/TrailArt.jsx';
 import { eventDate, miles, feet } from '../lib/format.js';
+import Icon, { IconText } from '../components/Icon.jsx';
 
 export default function OutingDetail() {
   const { id } = useParams();
@@ -43,13 +44,13 @@ export default function OutingDetail() {
           <h1>{o.title}</h1>
           {o.cancelled && <div className="callout warn">This hike was cancelled.</div>}
           <Link to={`/trails/${o.trail.slug}`} className="post-trail">
-            <span>📍 {o.trail.name} · {miles(o.trail.distance_mi)} · ↗ {feet(o.trail.elevation_gain_ft)}</span>
+            <span className="with-icon"><Icon name="pin" size={16} />{o.trail.name} · {miles(o.trail.distance_mi)} · {feet(o.trail.elevation_gain_ft)} gain</span>
             <Difficulty score={o.trail.difficulty_score} label={o.trail.difficulty_label} compact />
           </Link>
           <div className="chips small">
-            <span className="chip static">{o.visibility === 'public' ? '🌎 Public' : '🤝 Friends only'}</span>
+            <span className="chip static">{o.visibility === 'public' ? <IconText icon="globe" size={14}>Public</IconText> : <IconText icon="users" size={14}>Friends only</IconText>}</span>
             {o.pace && <span className="chip static cap">{o.pace} pace</span>}
-            <span className="chip static">👥 {o.member_count}{o.max_people ? ` / ${o.max_people}` : ''} going</span>
+            <span className="chip static"><IconText icon="users" size={14}>{o.member_count}{o.max_people ? ` / ${o.max_people}` : ''} going</IconText></span>
           </div>
           {o.description && <p className="pre">{o.description}</p>}
 
@@ -58,14 +59,14 @@ export default function OutingDetail() {
             <div className="row wrap">
               {o.is_member ? (
                 <>
-                  <Link className="btn primary" to={`/chat/${o.conversation_id}`}>💬 Open group chat</Link>
+                  <Link className="btn primary" to={`/chat/${o.conversation_id}`}><Icon name="chat" size={17} /> Open group chat</Link>
                   {isHost ? <button className="btn danger" onClick={() => confirm('Cancel this hike for everyone?') && act('DELETE', '')}>Cancel hike</button>
                     : <button className="btn" onClick={() => act('DELETE')}>Leave</button>}
                 </>
               ) : (
-                <button className="btn primary" disabled={full} onClick={() => act('POST')}>{full ? 'Group is full' : '🙋 Join this hike'}</button>
+                <button className="btn primary" disabled={full} onClick={() => act('POST')}>{full ? 'Group is full' : <><Icon name="user-plus" size={17} /> Join this hike</>}</button>
               )}
-              <a className="btn" href={`https://www.google.com/maps/dir/?api=1&destination=${o.trail.lat},${o.trail.lng}`} target="_blank" rel="noreferrer">🧭 Directions</a>
+              <a className="btn" href={`https://www.google.com/maps/dir/?api=1&destination=${o.trail.lat},${o.trail.lng}`} target="_blank" rel="noreferrer"><Icon name="compass" size={17} /> Directions</a>
             </div>
           )}
           {!o.is_member && !o.cancelled && <p className="muted small">Joining adds you to a group chat with everyone going.</p>}

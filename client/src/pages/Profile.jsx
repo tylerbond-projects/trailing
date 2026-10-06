@@ -5,8 +5,9 @@ import { Avatar, Spinner, Tabs, Empty, Modal } from '../components/ui.jsx';
 import PostCard from '../components/PostCard.jsx';
 import { AchievementBadge } from './Achievements.jsx';
 import { miles, feet, duration, parseLocal, ACTIVITY_ICON } from '../lib/format.js';
+import Icon, { IconText } from '../components/Icon.jsx';
 
-const TYPE_LABEL = { hiker: '🥾 Hiker', runner: '🏃 Runner', both: '⛰️ Hiker & runner' };
+const TYPE_LABEL = { hiker: ['boot', 'Hiker'], runner: ['run', 'Runner'], both: ['mountain', 'Hiker & runner'] };
 
 export default function Profile() {
   const { username } = useParams();
@@ -52,7 +53,7 @@ export default function Profile() {
         <Avatar user={u} size={88} />
         <div className="grow">
           <h1>{u.display_name}</h1>
-          <div className="muted">@{u.username} · {TYPE_LABEL[u.activity_type]}</div>
+          <div className="muted">@{u.username} · <IconText icon={TYPE_LABEL[u.activity_type][0]} size={14}>{TYPE_LABEL[u.activity_type][1]}</IconText></div>
           {u.bio && <p>{u.bio}</p>}
           <div className="follow-counts">
             <button className="link" onClick={() => showList('followers')}><strong>{stats.followers}</strong> followers</button>
@@ -63,8 +64,8 @@ export default function Profile() {
           <div className="row wrap">
             {p.is_me ? <Link to="/settings" className="btn">Edit profile</Link> : (
               <>
-                <button className={`btn ${p.following ? '' : 'primary'}`} onClick={toggleFollow}>{p.following ? 'Following ✓' : p.follows_you ? 'Follow back' : 'Follow'}</button>
-                {p.is_friend && <button className="btn" onClick={message}>💬 Message</button>}
+                <button className={`btn ${p.following ? '' : 'primary'}`} onClick={toggleFollow}>{p.following ? <><Icon name="check" size={16} /> Following</> : p.follows_you ? 'Follow back' : 'Follow'}</button>
+                {p.is_friend && <button className="btn" onClick={message}><Icon name="chat" size={17} /> Message</button>}
               </>
             )}
           </div>
@@ -97,11 +98,11 @@ export default function Profile() {
         <div className="card">
           {activities.map((a) => (
             <div key={a.id} className="list-row plain">
-              <span className="list-icon">{ACTIVITY_ICON[a.type]}</span>
+              <span className="list-icon"><Icon name={ACTIVITY_ICON[a.type]} size={24} /></span>
               <span className="grow">
                 <strong>{a.name}</strong>
                 <span className="muted small block">
-                  {parseLocal(a.start_date).toLocaleDateString()} · {miles(a.distance_mi)} · ↗ {feet(a.elevation_gain_ft)}{a.moving_time_s ? ` · ${duration(a.moving_time_s)}` : ''}
+                  {parseLocal(a.start_date).toLocaleDateString()} · {miles(a.distance_mi)} · {feet(a.elevation_gain_ft)} gain{a.moving_time_s ? ` · ${duration(a.moving_time_s)}` : ''}
                   {a.trail_slug && <> · <Link to={`/trails/${a.trail_slug}`}>{a.trail_name}</Link></>}
                 </span>
               </span>

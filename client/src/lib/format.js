@@ -39,12 +39,24 @@ export function eventDate(iso) {
 }
 
 export const ACTIVITY_LABEL = { Hike: 'Hike', Run: 'Run', TrailRun: 'Trail run', Walk: 'Walk' };
-export const ACTIVITY_ICON = { Hike: '🥾', Run: '🏃', TrailRun: '⛰️', Walk: '🚶' };
+export const ACTIVITY_ICON = { Hike: 'boot', Run: 'run', TrailRun: 'mountain', Walk: 'walk' };
 
-export const FEATURE_LABELS = {
-  summit: '🚩 Summit', views: '🔭 Views', 'city-views': '🌆 City views', waterfall: '💦 Waterfall', lake: '🏞️ Lake',
-  river: '🌊 River', wildflowers: '🌼 Wildflowers', 'fall-colors': '🍂 Fall colors', wildlife: '🦌 Wildlife',
-  cave: '🕳️ Cave', 'hot-springs': '♨️ Hot springs', canyon: '🏜️ Canyon', shade: '🌲 Shade', solitude: '🤫 Solitude',
-  accessible: '♿ Accessible', climbing: '🧗 Climbing',
+export const FEATURES = {
+  summit: { icon: 'flag', label: 'Summit' },
+  views: { icon: 'binoculars', label: 'Views' },
+  'city-views': { icon: 'buildings', label: 'City views' },
+  waterfall: { icon: 'waterfall', label: 'Waterfall' },
+  lake: { icon: 'lake', label: 'Lake' },
+  river: { icon: 'waves', label: 'River' },
+  wildflowers: { icon: 'flower', label: 'Wildflowers' },
+  'fall-colors': { icon: 'leaf', label: 'Fall colors' },
+  wildlife: { icon: 'paw', label: 'Wildlife' },
+  cave: { icon: 'cave', label: 'Cave' },
+  'hot-springs': { icon: 'steam', label: 'Hot springs' },
+  canyon: { icon: 'canyon', label: 'Canyon' },
+  shade: { icon: 'tree', label: 'Shade' },
+  solitude: { icon: 'moon', label: 'Solitude' },
+  accessible: { icon: 'accessible', label: 'Accessible' },
+  climbing: { icon: 'carabiner', label: 'Climbing' },
 };
-export const featureLabel = (f) => FEATURE_LABELS[f] || f;
+export const featureLabel = (f) => FEATURES[f]?.label || f;

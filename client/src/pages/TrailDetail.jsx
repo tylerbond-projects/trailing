@@ -7,7 +7,8 @@ import TrailCard from '../components/TrailCard.jsx';
 import PhotoPicker from '../components/PhotoPicker.jsx';
 import OutingCard from '../components/OutingCard.jsx';
 import { Difficulty, Stars, Spinner, Avatar, UserLink, Modal, ErrorText } from '../components/ui.jsx';
-import { miles, feet, durationMin, featureLabel, timeAgo } from '../lib/format.js';
+import { miles, feet, durationMin, timeAgo } from '../lib/format.js';
+import Icon, { Feature, IconText } from '../components/Icon.jsx';
 
 const DOGS = { leash: 'Allowed on leash', yes: 'Allowed', no: 'Not allowed' };
 const VOTE_LABEL = { easier: 'Easier than rated', accurate: 'About right', harder: 'Harder than rated' };
@@ -43,16 +44,16 @@ export default function TrailDetail() {
           <div className="hero-meta">
             <Difficulty score={t.difficulty_score} label={t.difficulty_label} />
             {rating.count > 0 && <span><Stars value={rating.average} size={15} /> {rating.average.toFixed(1)} ({rating.count})</span>}
-            {data.completions > 0 && <span>👣 {data.completions} completed</span>}
+            {data.completions > 0 && <span className="with-icon"><Icon name="footprints" size={16} />{data.completions} completed</span>}
           </div>
         </div>
       </div>
 
       <div className="action-bar">
-        <button className={`btn ${data.saved ? 'active' : ''}`} onClick={toggleSave}>{data.saved ? '★ Saved' : '☆ Save'}</button>
-        <Link className="btn primary" to={`/post/new?trail=${t.slug}`}>{data.done ? '✓ Log again' : '🥾 Log this hike'}</Link>
-        <Link className="btn" to={`/hikes/new?trail=${t.slug}`}>👥 Plan a group hike</Link>
-        <a className="btn" href={`https://www.google.com/maps/dir/?api=1&destination=${t.lat},${t.lng}`} target="_blank" rel="noreferrer">🧭 Directions</a>
+        <button className={`btn ${data.saved ? 'active' : ''}`} onClick={toggleSave}><Icon name={data.saved ? 'star-fill' : 'star'} size={17} /> {data.saved ? 'Saved' : 'Save'}</button>
+        <Link className="btn primary" to={`/post/new?trail=${t.slug}`}><Icon name={data.done ? 'check' : 'boot'} size={17} /> {data.done ? 'Log again' : 'Log this hike'}</Link>
+        <Link className="btn" to={`/hikes/new?trail=${t.slug}`}><Icon name="users" size={17} /> Plan a group hike</Link>
+        <a className="btn" href={`https://www.google.com/maps/dir/?api=1&destination=${t.lat},${t.lng}`} target="_blank" rel="noreferrer"><Icon name="compass" size={17} /> Directions</a>
       </div>
 
       <div className="detail-grid">
@@ -68,9 +69,9 @@ export default function TrailDetail() {
 
           <section>
             <p className="lead">{t.description}</p>
-            {t.tips && <div className="callout">💡 <strong>Tip:</strong> {t.tips}</div>}
-            {t.permit && <div className="callout warn">🎟️ {t.permit}</div>}
-            <div className="chips">{t.features.map((f) => <span key={f} className="chip static">{featureLabel(f)}</span>)}</div>
+            {t.tips && <div className="callout with-icon top"><Icon name="lightbulb" size={18} /><span><strong>Tip:</strong> {t.tips}</span></div>}
+            {t.permit && <div className="callout warn with-icon top"><Icon name="ticket" size={18} /><span>{t.permit}</span></div>}
+            <div className="chips">{t.features.map((f) => <span key={f} className="chip static"><Feature f={f} /></span>)}</div>
           </section>
 
           <section className="card pad">
@@ -105,7 +106,7 @@ export default function TrailDetail() {
           <section>
             <div className="section-head">
               <h2>Photos {photos.length > 0 && <span className="muted">({photos.length})</span>}</h2>
-              <button className="btn small" onClick={() => setPhotoOpen(true)}>📷 Add photos</button>
+              <button className="btn small" onClick={() => setPhotoOpen(true)}><Icon name="camera" size={16} /> Add photos</button>
             </div>
             {photos.length === 0 ? <p className="muted">No photos yet — be the first to share one.</p> : (
               <div className="gallery">
@@ -119,14 +120,14 @@ export default function TrailDetail() {
           <section>
             <div className="section-head">
               <h2>Reviews</h2>
-              <button className="btn small primary" onClick={() => setReviewOpen(true)}>{data.my_review ? '✏️ Edit your review' : '✍️ Write a review'}</button>
+              <button className="btn small primary" onClick={() => setReviewOpen(true)}><Icon name="pencil" size={16} /> {data.my_review ? 'Edit your review' : 'Write a review'}</button>
             </div>
             {rating.count > 0 && (
               <div className="rating-summary card pad">
                 <div className="rating-big"><strong>{rating.average.toFixed(1)}</strong><Stars value={rating.average} size={18} /><span className="muted small">{rating.count} review{rating.count > 1 ? 's' : ''}</span></div>
                 <div className="rating-bars">
                   {[5, 4, 3, 2, 1].map((n) => (
-                    <div key={n} className="vote-row"><span className="small">{n}★</span><div className="bar"><div style={{ width: `${(rating.distribution[n - 1] / rating.count) * 100}%` }} /></div></div>
+                    <div key={n} className="vote-row"><span className="small with-icon">{n}<Icon name="star-fill" size={11} /></span><div className="bar"><div style={{ width: `${(rating.distribution[n - 1] / rating.count) * 100}%` }} /></div></div>
                   ))}
                 </div>
               </div>
@@ -150,12 +151,12 @@ export default function TrailDetail() {
           <section className="card pad">
             <h3>Good to know</h3>
             <dl className="facts">
-              <dt>🐕 Dogs</dt><dd>{DOGS[t.dogs] || 'Check local rules'}</dd>
-              <dt>👨‍👧 Kids</dt><dd>{t.kid_friendly == null ? '—' : t.kid_friendly ? 'Kid friendly' : 'Better for experienced hikers'}</dd>
-              <dt>📅 Best seasons</dt><dd className="cap">{t.best_seasons.join(', ')}</dd>
-              <dt>🏃 Good for</dt><dd className="cap">{t.activities.join(', ').replace(/-/g, ' ')}</dd>
-              <dt>💵 Fees</dt><dd>{t.fee || 'None'}</dd>
-              <dt>📍 Trailhead</dt><dd>{t.lat.toFixed(4)}, {t.lng.toFixed(4)}</dd>
+              <dt><IconText icon="paw">Dogs</IconText></dt><dd>{DOGS[t.dogs] || 'Check local rules'}</dd>
+              <dt><IconText icon="family">Kids</IconText></dt><dd>{t.kid_friendly == null ? '—' : t.kid_friendly ? 'Kid friendly' : 'Better for experienced hikers'}</dd>
+              <dt><IconText icon="calendar">Best seasons</IconText></dt><dd className="cap">{t.best_seasons.join(', ')}</dd>
+              <dt><IconText icon="run">Good for</IconText></dt><dd className="cap">{t.activities.join(', ').replace(/-/g, ' ')}</dd>
+              <dt><IconText icon="coin">Fees</IconText></dt><dd>{t.fee || 'None'}</dd>
+              <dt><IconText icon="pin">Trailhead</IconText></dt><dd>{t.lat.toFixed(4)}, {t.lng.toFixed(4)}</dd>
             </dl>
           </section>
           <TrailMap trails={[t]} center={[t.lat, t.lng]} zoom={13} height={260} />

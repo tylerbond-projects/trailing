@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Avatar, Difficulty } from './ui.jsx';
 import { parseDate, miles } from '../lib/format.js';
+import Icon from './Icon.jsx';
 
 export default function OutingCard({ outing: o, hideTrail }) {
   const d = parseDate(o.starts_at);
@@ -15,7 +16,7 @@ export default function OutingCard({ outing: o, hideTrail }) {
       <div className="grow">
         <h3>{o.title}</h3>
         {!hideTrail && (
-          <div className="muted small">📍 {o.trail.name} · {miles(o.trail.distance_mi)} <Difficulty score={o.trail.difficulty_score} label={o.trail.difficulty_label} compact /></div>
+          <div className="muted small"><Icon name="pin" size={13} className="inline" /> {o.trail.name} · {miles(o.trail.distance_mi)} <Difficulty score={o.trail.difficulty_score} label={o.trail.difficulty_label} compact /></div>
         )}
         <div className="outing-meta">
           <Avatar user={o.host} size={22} /> <span className="small">{o.host.display_name}</span>

@@ -3,8 +3,8 @@ import { api } from '../lib/api.js';
 import TrailCard from '../components/TrailCard.jsx';
 import TrailMap from '../components/Map.jsx';
 import { Spinner, Empty } from '../components/ui.jsx';
-import { featureLabel } from '../lib/format.js';
 import { storage } from '../lib/storage.js';
+import { Feature, IconText } from '../components/Icon.jsx';
 
 const DIFFICULTY = [
   { label: 'Easy', min: 1, max: 2 }, { label: 'Moderate', min: 3, max: 4 },
@@ -51,8 +51,8 @@ export default function Explore() {
       <div className="page-head">
         <h1>Explore trails</h1>
         <div className="segmented small">
-          <button className={view === 'list' ? 'active' : ''} onClick={() => setView('list')}>☰ List</button>
-          <button className={view === 'map' ? 'active' : ''} onClick={() => setView('map')}>🗺️ Map</button>
+          <button className={view === 'list' ? 'active' : ''} onClick={() => setView('list')}><IconText icon="list" size={15}>List</IconText></button>
+          <button className={view === 'map' ? 'active' : ''} onClick={() => setView('map')}><IconText icon="map" size={15}>Map</IconText></button>
         </div>
       </div>
 
@@ -74,12 +74,12 @@ export default function Explore() {
           <span className="chip-sep" />
           {LENGTHS.map((l) => <button key={l.v} className={`chip ${filters.maxDistance === l.v ? 'active' : ''}`} onClick={() => toggle('maxDistance', l.v)}>{l.label}</button>)}
           <span className="chip-sep" />
-          <button className={`chip ${filters.run ? 'active' : ''}`} onClick={() => setFilters({ ...filters, run: !filters.run })}>🏃 Runnable</button>
-          <button className={`chip ${filters.dogs ? 'active' : ''}`} onClick={() => setFilters({ ...filters, dogs: !filters.dogs })}>🐕 Dog friendly</button>
-          <button className={`chip ${filters.kid ? 'active' : ''}`} onClick={() => setFilters({ ...filters, kid: !filters.kid })}>👨‍👧 Kid friendly</button>
+          <button className={`chip ${filters.run ? 'active' : ''}`} onClick={() => setFilters({ ...filters, run: !filters.run })}><IconText icon="run" size={14}>Runnable</IconText></button>
+          <button className={`chip ${filters.dogs ? 'active' : ''}`} onClick={() => setFilters({ ...filters, dogs: !filters.dogs })}><IconText icon="paw" size={14}>Dog friendly</IconText></button>
+          <button className={`chip ${filters.kid ? 'active' : ''}`} onClick={() => setFilters({ ...filters, kid: !filters.kid })}><IconText icon="family" size={14}>Kid friendly</IconText></button>
         </div>
         <div className="chips scroll">
-          {FEATURES.map((f) => <button key={f} className={`chip ${filters.features.includes(f) ? 'active' : ''}`} onClick={() => toggleFeature(f)}>{featureLabel(f)}</button>)}
+          {FEATURES.map((f) => <button key={f} className={`chip ${filters.features.includes(f) ? 'active' : ''}`} onClick={() => toggleFeature(f)}><Feature f={f} /></button>)}
         </div>
       </div>
 
@@ -89,7 +89,7 @@ export default function Explore() {
             {trails.length} trail{trails.length === 1 ? '' : 's'}{region ? ` in ${region.name}` : ''}
             {active ? <> · <button className="link" onClick={() => setFilters({ ...filters, diff: null, maxDistance: null, features: [], run: false, dogs: false, kid: false })}>Clear filters</button></> : null}
           </p>
-          {trails.length === 0 && <Empty icon="🔍" title="No trails match those filters" />}
+          {trails.length === 0 && <Empty icon="search" title="No trails match those filters" />}
           {view === 'map'
             ? <TrailMap trails={trails} height={560} />
             : <div className="grid">{trails.map((t) => <TrailCard key={t.id} trail={t} />)}</div>}

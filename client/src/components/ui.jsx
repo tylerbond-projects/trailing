@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { assetUrl } from '../lib/api.js';
+import Icon from './Icon.jsx';
 
 const AVATAR_COLORS = ['#2f6b4f', '#b4572e', '#3a6ea5', '#7a5c99', '#a8742c', '#3f7f7a', '#9c4363'];
 const hash = (s) => [...String(s)].reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 7);
@@ -33,8 +34,8 @@ export function Stars({ value = 0, size = 16, onChange }) {
         const fill = Math.max(0, Math.min(1, value - n + 1));
         const star = (
           <span className="star" key={n}>
-            <span className="star-bg">★</span>
-            <span className="star-fg" style={{ width: `${fill * 100}%` }}>★</span>
+            <span className="star-bg"><Icon name="star-fill" size={size} /></span>
+            <span className="star-fg" style={{ width: `${fill * 100}%` }}><Icon name="star-fill" size={size} /></span>
           </span>
         );
         return onChange
@@ -49,10 +50,10 @@ export function Spinner() {
   return <div className="spinner" aria-label="Loading" />;
 }
 
-export function Empty({ icon = '🌲', title, children }) {
+export function Empty({ icon = 'tree', title, children }) {
   return (
     <div className="empty">
-      <div className="empty-icon">{icon}</div>
+      <div className="empty-icon"><Icon name={icon} size={40} strokeWidth={1.5} /></div>
       <h3>{title}</h3>
       {children && <div className="muted">{children}</div>}
     </div>
@@ -65,7 +66,7 @@ export function Modal({ title, onClose, children, wide }) {
       <div className={`modal ${wide ? 'wide' : ''}`} role="dialog" aria-modal="true" aria-label={title}>
         <div className="modal-head">
           <h2>{title}</h2>
-          <button className="icon-btn" onClick={onClose} aria-label="Close">✕</button>
+          <button className="icon-btn" onClick={onClose} aria-label="Close"><Icon name="close" size={20} /></button>
         </div>
         <div className="modal-body">{children}</div>
       </div>

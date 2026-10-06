@@ -2,6 +2,7 @@ import { createContext, useCallback, useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSocketEvent } from '../lib/socket.js';
 import { useAuth } from '../lib/auth.jsx';
+import Icon from './Icon.jsx';
 
 const ToastContext = createContext(() => {});
 export const useToast = () => useContext(ToastContext);
@@ -23,13 +24,13 @@ export function ToastProvider({ children }) {
   });
   useSocketEvent('notification', (n) => {
     const name = n.user?.display_name;
-    if (n.type === 'follow') push({ icon: '👋', title: `${name} followed you`, to: `/u/${n.user.username}` });
-    if (n.type === 'like') push({ icon: '♥', title: `${name} liked your post` });
-    if (n.type === 'comment') push({ icon: '💬', title: `${name} commented on your post` });
+    if (n.type === 'follow') push({ icon: 'user-plus', title: `${name} followed you`, to: `/u/${n.user.username}` });
+    if (n.type === 'like') push({ icon: 'heart-fill', title: `${name} liked your post` });
+    if (n.type === 'comment') push({ icon: 'chat', title: `${name} commented on your post` });
   });
   useSocketEvent('message', (m) => {
     if (!user || m.user_id === user.id || location.pathname === `/chat/${m.conversation_id}`) return;
-    push({ icon: '💬', title: m.user ? m.user.display_name : 'Group hike', body: m.body.slice(0, 80), to: `/chat/${m.conversation_id}` });
+    push({ icon: 'chat', title: m.user ? m.user.display_name : 'Group hike', body: m.body.slice(0, 80), to: `/chat/${m.conversation_id}` });
   });
 
   return (
@@ -38,7 +39,7 @@ export function ToastProvider({ children }) {
       <div className="toasts" aria-live="polite">
         {toasts.map((t) => (
           <button key={t.id} className={`toast ${t.kind || ''}`} onClick={() => { if (t.to) navigate(t.to); setToasts((all) => all.filter((x) => x.id !== t.id)); }}>
-            <span className="toast-icon">{t.icon}</span>
+            <span className="toast-icon"><Icon name={t.icon} size={20} /></span>
             <span><strong>{t.title}</strong>{t.body && <span className="toast-body">{t.body}</span>}</span>
           </button>
         ))}

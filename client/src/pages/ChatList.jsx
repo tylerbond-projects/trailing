@@ -5,6 +5,7 @@ import { useAuth } from '../lib/auth.jsx';
 import { useSocketEvent } from '../lib/socket.js';
 import { Avatar, Spinner, Empty, Modal } from '../components/ui.jsx';
 import { timeAgo, parseDate } from '../lib/format.js';
+import Icon from '../components/Icon.jsx';
 
 export default function ChatList() {
   const { user } = useAuth();
@@ -29,21 +30,21 @@ export default function ChatList() {
   if (!convs) return <Spinner />;
   return (
     <div className="page narrow">
-      <div className="page-head"><h1>Chat</h1><button className="btn primary" onClick={openPicker}>+ New message</button></div>
-      {convs.length === 0 && <Empty icon="💬" title="No conversations yet">Message a friend, or join a group hike to chat with everyone going.</Empty>}
+      <div className="page-head"><h1>Chat</h1><button className="btn primary" onClick={openPicker}><Icon name="plus" size={17} /> New message</button></div>
+      {convs.length === 0 && <Empty icon="chat" title="No conversations yet">Message a friend, or join a group hike to chat with everyone going.</Empty>}
       <div className="card">
         {convs.map((c) => {
           const outingPast = c.outing && parseDate(c.outing.starts_at) < new Date();
           return (
             <Link key={c.id} to={`/chat/${c.id}`} className={`list-row plain conv ${c.unread ? 'unread' : ''}`}>
-              {c.type === 'direct' ? <Avatar user={c.other} size={46} /> : <span className="avatar group" style={{ width: 46, height: 46 }}>🥾</span>}
+              {c.type === 'direct' ? <Avatar user={c.other} size={46} /> : <span className="avatar group" style={{ width: 46, height: 46 }}><Icon name="users" size={22} /></span>}
               <span className="grow left">
                 <span className="conv-title">
                   <strong>{c.title}</strong>
                   {c.type === 'outing' && <span className="pill small">{c.outing?.cancelled ? 'Cancelled' : outingPast ? 'Past hike' : `${c.members.length} going`}</span>}
                 </span>
                 <span className="muted small block ellipsis">
-                  {c.last_message ? `${c.last_message.user_id === user.id ? 'You: ' : ''}${c.last_message.body}` : 'Say hi 👋'}
+                  {c.last_message ? `${c.last_message.user_id === user.id ? 'You: ' : ''}${c.last_message.body}` : 'Say hi'}
                 </span>
               </span>
               <span className="conv-side">

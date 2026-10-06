@@ -3,7 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="theme-color" content="#f4ecdb" />
+    <meta name="theme-color" content="#f4ecdb" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#1b1915" media="(prefers-color-scheme: dark)" />
+    <script>
+      // Apply the saved theme before first paint to avoid a flash.
+      try { var t = localStorage.getItem('trailing.theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}
+    </script>
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="description" content="Trailing — the social trail app for hikers and runners." />
     <link rel="manifest" href="/manifest.webmanifest" />

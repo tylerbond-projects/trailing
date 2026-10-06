@@ -7,53 +7,53 @@ const FT_PER_M = 3.28084;
 // tier: bronze | silver | gold | platinum (purely cosmetic).
 const STATIC_ACHIEVEMENTS = [
   // Getting started
-  { id: 'first-steps', name: 'First Steps', icon: '👣', category: 'Milestones', tier: 'bronze', metric: 'activities', target: 1, description: 'Log your first hike or run.' },
-  { id: 'regular', name: 'Trail Regular', icon: '🥾', category: 'Milestones', tier: 'silver', metric: 'activities', target: 25, description: 'Log 25 activities.' },
-  { id: 'centurion', name: 'Centurion', icon: '💯', category: 'Milestones', tier: 'gold', metric: 'activities', target: 100, description: 'Log 100 activities.' },
+  { id: 'first-steps', name: 'First Steps', icon: 'footprints', category: 'Milestones', tier: 'bronze', metric: 'activities', target: 1, description: 'Log your first hike or run.' },
+  { id: 'regular', name: 'Trail Regular', icon: 'boot', category: 'Milestones', tier: 'silver', metric: 'activities', target: 25, description: 'Log 25 activities.' },
+  { id: 'centurion', name: 'Centurion', icon: 'shield', category: 'Milestones', tier: 'gold', metric: 'activities', target: 100, description: 'Log 100 activities.' },
 
   // Distance
-  { id: 'miles-10', name: 'Double Digits', icon: '📏', category: 'Distance', tier: 'bronze', metric: 'totalMiles', target: 10, description: 'Cover 10 total miles.' },
-  { id: 'miles-100', name: 'Century Club', icon: '🧭', category: 'Distance', tier: 'silver', metric: 'totalMiles', target: 100, description: 'Cover 100 total miles.' },
-  { id: 'miles-500', name: 'Long Hauler', icon: '🗺️', category: 'Distance', tier: 'gold', metric: 'totalMiles', target: 500, description: 'Cover 500 total miles.' },
-  { id: 'miles-1000', name: 'Thousand Miler', icon: '🌎', category: 'Distance', tier: 'platinum', metric: 'totalMiles', target: 1000, description: 'Cover 1,000 total miles.' },
-  { id: 'big-day', name: 'Big Day Out', icon: '☀️', category: 'Distance', tier: 'silver', metric: 'longestHikeMi', target: 10, description: 'Complete a single hike of 10+ miles.' },
+  { id: 'miles-10', name: 'Double Digits', icon: 'ruler', category: 'Distance', tier: 'bronze', metric: 'totalMiles', target: 10, description: 'Cover 10 total miles.' },
+  { id: 'miles-100', name: 'Century Club', icon: 'compass', category: 'Distance', tier: 'silver', metric: 'totalMiles', target: 100, description: 'Cover 100 total miles.' },
+  { id: 'miles-500', name: 'Long Hauler', icon: 'map', category: 'Distance', tier: 'gold', metric: 'totalMiles', target: 500, description: 'Cover 500 total miles.' },
+  { id: 'miles-1000', name: 'Thousand Miler', icon: 'globe', category: 'Distance', tier: 'platinum', metric: 'totalMiles', target: 1000, description: 'Cover 1,000 total miles.' },
+  { id: 'big-day', name: 'Big Day Out', icon: 'sun', category: 'Distance', tier: 'silver', metric: 'longestHikeMi', target: 10, description: 'Complete a single hike of 10+ miles.' },
 
   // Elevation
-  { id: 'climb-10k', name: 'Ten Thousand Feet', icon: '⛰️', category: 'Elevation', tier: 'bronze', metric: 'totalElevationFt', target: 10000, description: 'Climb 10,000 ft in total.' },
-  { id: 'everest', name: 'Everesting', icon: '🏔️', category: 'Elevation', tier: 'gold', metric: 'totalElevationFt', target: 29032, description: 'Climb the height of Mount Everest (29,032 ft) in total.' },
-  { id: 'vertical-mile', name: 'Vertical Mile', icon: '🧗', category: 'Elevation', tier: 'gold', metric: 'maxGainFt', target: 5280, description: 'Gain 5,280 ft in a single activity.' },
+  { id: 'climb-10k', name: 'Ten Thousand Feet', icon: 'mountain', category: 'Elevation', tier: 'bronze', metric: 'totalElevationFt', target: 10000, description: 'Climb 10,000 ft in total.' },
+  { id: 'everest', name: 'Everesting', icon: 'mountains', category: 'Elevation', tier: 'gold', metric: 'totalElevationFt', target: 29032, description: 'Climb the height of Mount Everest (29,032 ft) in total.' },
+  { id: 'vertical-mile', name: 'Vertical Mile', icon: 'carabiner', category: 'Elevation', tier: 'gold', metric: 'maxGainFt', target: 5280, description: 'Gain 5,280 ft in a single activity.' },
 
   // Running
-  { id: 'first-5k', name: '5K Finisher', icon: '🏃', category: 'Running', tier: 'bronze', metric: 'longestRunMi', target: 3.1, description: 'Complete a run of at least 5 km.' },
-  { id: 'ten-k', name: '10K Strong', icon: '🏃‍♀️', category: 'Running', tier: 'bronze', metric: 'longestRunMi', target: 6.2, description: 'Complete a run of at least 10 km.' },
-  { id: 'half-marathon', name: 'Half Marathoner', icon: '🥈', category: 'Running', tier: 'silver', metric: 'longestRunMi', target: 13.1, description: 'Run 13.1 miles in one go.' },
-  { id: 'marathon', name: 'Marathoner', icon: '🥇', category: 'Running', tier: 'gold', metric: 'longestRunMi', target: 26.2, description: 'Run 26.2 miles in one go.' },
-  { id: 'ultra', name: 'Ultra', icon: '🔥', category: 'Running', tier: 'platinum', metric: 'longestRunMi', target: 31, description: 'Run 50 km or more in one go.' },
+  { id: 'first-5k', name: '5K Finisher', icon: 'run', category: 'Running', tier: 'bronze', metric: 'longestRunMi', target: 3.1, description: 'Complete a run of at least 5 km.' },
+  { id: 'ten-k', name: '10K Strong', icon: 'run', category: 'Running', tier: 'bronze', metric: 'longestRunMi', target: 6.2, description: 'Complete a run of at least 10 km.' },
+  { id: 'half-marathon', name: 'Half Marathoner', icon: 'medal', category: 'Running', tier: 'silver', metric: 'longestRunMi', target: 13.1, description: 'Run 13.1 miles in one go.' },
+  { id: 'marathon', name: 'Marathoner', icon: 'medal', category: 'Running', tier: 'gold', metric: 'longestRunMi', target: 26.2, description: 'Run 26.2 miles in one go.' },
+  { id: 'ultra', name: 'Ultra', icon: 'flame', category: 'Running', tier: 'platinum', metric: 'longestRunMi', target: 31, description: 'Run 50 km or more in one go.' },
 
   // Exploration
-  { id: 'explorer-5', name: 'Explorer', icon: '🧭', category: 'Exploration', tier: 'bronze', metric: 'uniqueTrails', target: 5, description: 'Complete 5 different trails.' },
-  { id: 'explorer-15', name: 'Pathfinder', icon: '🗺️', category: 'Exploration', tier: 'silver', metric: 'uniqueTrails', target: 15, description: 'Complete 15 different trails.' },
-  { id: 'peak-bagger', name: 'Peak Bagger', icon: '🚩', category: 'Exploration', tier: 'silver', metric: 'summitTrails', target: 3, description: 'Reach 3 different summits.' },
-  { id: 'summit-collector', name: 'Summit Collector', icon: '👑', category: 'Exploration', tier: 'gold', metric: 'summitTrails', target: 10, description: 'Reach 10 different summits.' },
-  { id: 'timp', name: 'King of Timp', icon: '🏔️', category: 'Exploration', tier: 'gold', metric: 'timp', target: 1, description: 'Summit Mount Timpanogos by any route.' },
-  { id: 'waterfalls', name: 'Chasing Waterfalls', icon: '💦', category: 'Exploration', tier: 'silver', metric: 'waterfallTrails', target: 5, description: 'Visit 5 trails with waterfalls.' },
-  { id: 'lakes', name: 'Lake Hopper', icon: '🏞️', category: 'Exploration', tier: 'silver', metric: 'lakeTrails', target: 3, description: 'Visit 3 trails with alpine lakes.' },
-  { id: 'hot-springs', name: 'Soak It In', icon: '♨️', category: 'Exploration', tier: 'bronze', metric: 'hotSpringTrails', target: 1, description: 'Hike to a hot spring.' },
+  { id: 'explorer-5', name: 'Explorer', icon: 'compass', category: 'Exploration', tier: 'bronze', metric: 'uniqueTrails', target: 5, description: 'Complete 5 different trails.' },
+  { id: 'explorer-15', name: 'Pathfinder', icon: 'map', category: 'Exploration', tier: 'silver', metric: 'uniqueTrails', target: 15, description: 'Complete 15 different trails.' },
+  { id: 'peak-bagger', name: 'Peak Bagger', icon: 'flag', category: 'Exploration', tier: 'silver', metric: 'summitTrails', target: 3, description: 'Reach 3 different summits.' },
+  { id: 'summit-collector', name: 'Summit Collector', icon: 'crown', category: 'Exploration', tier: 'gold', metric: 'summitTrails', target: 10, description: 'Reach 10 different summits.' },
+  { id: 'timp', name: 'King of Timp', icon: 'mountain-flag', category: 'Exploration', tier: 'gold', metric: 'timp', target: 1, description: 'Summit Mount Timpanogos by any route.' },
+  { id: 'waterfalls', name: 'Chasing Waterfalls', icon: 'waterfall', category: 'Exploration', tier: 'silver', metric: 'waterfallTrails', target: 5, description: 'Visit 5 trails with waterfalls.' },
+  { id: 'lakes', name: 'Lake Hopper', icon: 'lake', category: 'Exploration', tier: 'silver', metric: 'lakeTrails', target: 3, description: 'Visit 3 trails with alpine lakes.' },
+  { id: 'hot-springs', name: 'Soak It In', icon: 'steam', category: 'Exploration', tier: 'bronze', metric: 'hotSpringTrails', target: 1, description: 'Hike to a hot spring.' },
 
   // Habits
-  { id: 'early-bird', name: 'Early Bird', icon: '🌅', category: 'Habits', tier: 'bronze', metric: 'earlyStarts', target: 1, description: 'Start an activity before 6 AM.' },
-  { id: 'dawn-patrol', name: 'Dawn Patrol', icon: '🌄', category: 'Habits', tier: 'silver', metric: 'earlyStarts', target: 10, description: 'Start 10 activities before 6 AM.' },
-  { id: 'four-seasons', name: 'Four Seasons', icon: '🍂', category: 'Habits', tier: 'gold', metric: 'seasons', target: 4, description: 'Get out in spring, summer, fall and winter.' },
+  { id: 'early-bird', name: 'Early Bird', icon: 'sunrise', category: 'Habits', tier: 'bronze', metric: 'earlyStarts', target: 1, description: 'Start an activity before 6 AM.' },
+  { id: 'dawn-patrol', name: 'Dawn Patrol', icon: 'sunrise-mountain', category: 'Habits', tier: 'silver', metric: 'earlyStarts', target: 10, description: 'Start 10 activities before 6 AM.' },
+  { id: 'four-seasons', name: 'Four Seasons', icon: 'leaf', category: 'Habits', tier: 'gold', metric: 'seasons', target: 4, description: 'Get out in spring, summer, fall and winter.' },
 
   // Community
-  { id: 'critic', name: 'Trail Critic', icon: '✍️', category: 'Community', tier: 'bronze', metric: 'reviews', target: 5, description: 'Review 5 trails.' },
-  { id: 'guidebook', name: 'Walking Guidebook', icon: '📚', category: 'Community', tier: 'gold', metric: 'reviews', target: 25, description: 'Review 25 trails.' },
-  { id: 'shutterbug', name: 'Shutterbug', icon: '📸', category: 'Community', tier: 'bronze', metric: 'photos', target: 10, description: 'Upload 10 photos.' },
-  { id: 'trail-leader', name: 'Trail Leader', icon: '🎒', category: 'Community', tier: 'bronze', metric: 'hosted', target: 1, description: 'Plan a group hike.' },
-  { id: 'pack-leader', name: 'Pack Leader', icon: '🐺', category: 'Community', tier: 'gold', metric: 'hosted', target: 10, description: 'Plan 10 group hikes.' },
-  { id: 'tag-along', name: 'Tag Along', icon: '🤝', category: 'Community', tier: 'bronze', metric: 'joined', target: 1, description: "Join someone else's planned hike." },
-  { id: 'social', name: 'Trail Buddies', icon: '👋', category: 'Community', tier: 'bronze', metric: 'friends', target: 5, description: 'Make 5 friends (mutual follows).' },
-  { id: 'popular', name: 'Trail Famous', icon: '⭐', category: 'Community', tier: 'silver', metric: 'followers', target: 25, description: 'Get 25 followers.' },
+  { id: 'critic', name: 'Trail Critic', icon: 'pencil', category: 'Community', tier: 'bronze', metric: 'reviews', target: 5, description: 'Review 5 trails.' },
+  { id: 'guidebook', name: 'Walking Guidebook', icon: 'book', category: 'Community', tier: 'gold', metric: 'reviews', target: 25, description: 'Review 25 trails.' },
+  { id: 'shutterbug', name: 'Shutterbug', icon: 'camera', category: 'Community', tier: 'bronze', metric: 'photos', target: 10, description: 'Upload 10 photos.' },
+  { id: 'trail-leader', name: 'Trail Leader', icon: 'backpack', category: 'Community', tier: 'bronze', metric: 'hosted', target: 1, description: 'Plan a group hike.' },
+  { id: 'pack-leader', name: 'Pack Leader', icon: 'paw', category: 'Community', tier: 'gold', metric: 'hosted', target: 10, description: 'Plan 10 group hikes.' },
+  { id: 'tag-along', name: 'Tag Along', icon: 'user-plus', category: 'Community', tier: 'bronze', metric: 'joined', target: 1, description: "Join someone else's planned hike." },
+  { id: 'social', name: 'Trail Buddies', icon: 'users', category: 'Community', tier: 'bronze', metric: 'friends', target: 5, description: 'Make 5 friends (mutual follows).' },
+  { id: 'popular', name: 'Trail Famous', icon: 'star', category: 'Community', tier: 'silver', metric: 'followers', target: 25, description: 'Get 25 followers.' },
 ];
 
 // One "completionist" pair per region, so adding a region automatically
@@ -62,8 +62,8 @@ export async function allAchievements(db) {
   const regions = await db.all(`
     SELECT r.id, r.name, COUNT(t.id) AS n FROM regions r JOIN trails t ON t.region_id = r.id GROUP BY r.id`);
   const regional = regions.flatMap((r) => [
-    { id: `region-half:${r.id}`, name: `${r.name} Halfway`, icon: '🧩', category: 'Exploration', tier: 'gold', metric: `region:${r.id}`, target: Math.ceil(r.n / 2), description: `Complete half of the trails in ${r.name}.` },
-    { id: `region-all:${r.id}`, name: `${r.name} Completionist`, icon: '🏆', category: 'Exploration', tier: 'platinum', metric: `region:${r.id}`, target: r.n, description: `Complete every trail in ${r.name}.` },
+    { id: `region-half:${r.id}`, name: `${r.name} Halfway`, icon: 'half', category: 'Exploration', tier: 'gold', metric: `region:${r.id}`, target: Math.ceil(r.n / 2), description: `Complete half of the trails in ${r.name}.` },
+    { id: `region-all:${r.id}`, name: `${r.name} Completionist`, icon: 'trophy', category: 'Exploration', tier: 'platinum', metric: `region:${r.id}`, target: r.n, description: `Complete every trail in ${r.name}.` },
   ]);
   return [...STATIC_ACHIEVEMENTS, ...regional];
 }

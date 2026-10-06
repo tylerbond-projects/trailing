@@ -72,14 +72,14 @@ const post = (user, activityId, slug, body, ago) => db.prepare(`INSERT INTO post
 const review = (user, slug, rating, body, vote = 'accurate') => db.prepare(
   'INSERT INTO trail_reviews (id, trail_id, user_id, rating, body, difficulty_vote) VALUES (?, ?, ?, ?, ?, ?)').run(next(), trail(slug).id, ids[user], rating, body, vote);
 
-post('maya.trails', log('maya.trails', 'mount-timpanogos-timpooneke', { ago: 3, hour: 4 }), 'mount-timpanogos-timpooneke', 'Sunrise on Timp never gets old. Goats were out in full force near the saddle 🐐', 3);
+post('maya.trails', log('maya.trails', 'mount-timpanogos-timpooneke', { ago: 3, hour: 4 }), 'mount-timpanogos-timpooneke', 'Sunrise on Timp never gets old. Goats were out in full force near the saddle', 3);
 post('maya.trails', log('maya.trails', 'box-elder-peak', { ago: 12, hour: 6 }), 'box-elder-peak', 'Box Elder had about 1/10th the people Timp did. Upper ridge is loose — poles recommended.', 12);
 log('maya.trails', 'kyhv-peak', { ago: 20, hour: 6 });
 log('maya.trails', 'provo-peak', { ago: 34, hour: 5 });
-post('jrun', log('jrun', 'murdock-canal-trail', { ago: 1, type: 'Run', distance: 13.4, name: 'Long run on Murdock', hour: 6 }), 'murdock-canal-trail', 'Half marathon distance done ✅ legs feel great. 50K training block week 6.', 1);
-post('jrun', log('jrun', 'bonneville-shoreline-provo', { ago: 5, type: 'TrailRun', distance: 7.1, hour: 7 }), 'bonneville-shoreline-provo', 'BST tempo with the crew. That climb out of Rock Canyon 😮‍💨', 5);
+post('jrun', log('jrun', 'murdock-canal-trail', { ago: 1, type: 'Run', distance: 13.4, name: 'Long run on Murdock', hour: 6 }), 'murdock-canal-trail', 'Half marathon distance done legs feel great. 50K training block week 6.', 1);
+post('jrun', log('jrun', 'bonneville-shoreline-provo', { ago: 5, type: 'TrailRun', distance: 7.1, hour: 7 }), 'bonneville-shoreline-provo', 'BST tempo with the crew. That climb out of Rock Canyon', 5);
 log('jrun', 'rock-canyon', { ago: 9, type: 'TrailRun', hour: 6 });
-post('alex_outside', log('alex_outside', 'stewart-falls', { ago: 2, hour: 10 }), 'stewart-falls', 'Aspens are turning! Stewart Falls was busy but worth it. Pup approved 🐶🍂', 2);
+post('alex_outside', log('alex_outside', 'stewart-falls', { ago: 2, hour: 10 }), 'stewart-falls', 'Aspens are turning! Stewart Falls was busy but worth it. Pup approved', 2);
 post('alex_outside', log('alex_outside', 'fifth-water-hot-springs', { ago: 15, hour: 9 }), 'fifth-water-hot-springs', 'Fifth Water soak after a long week. Go early to snag a pool.', 15);
 log('alex_outside', 'battle-creek-falls', { ago: 22 });
 post('priya.k', log('priya.k', 'big-springs-hollow', { ago: 6, hour: 17 }), 'big-springs-hollow', 'Golden hour in South Fork. Late wildflowers + first fall colors.', 6);
@@ -104,7 +104,7 @@ review('demo', 'y-mountain', 4, 'Short but steep! Go for sunset.');
 
 const latestPost = (u) => db.prepare('SELECT id FROM posts WHERE user_id = ? ORDER BY created_at DESC LIMIT 1').get(ids[u]).id;
 db.prepare('INSERT INTO post_comments (id, post_id, user_id, body) VALUES (?, ?, ?, ?)').run(next(), latestPost('maya.trails'), ids.demo, 'Incredible! Taking me next time?');
-db.prepare('INSERT INTO post_comments (id, post_id, user_id, body) VALUES (?, ?, ?, ?)').run(next(), latestPost('maya.trails'), ids.alex_outside, 'Those goats 😍');
+db.prepare('INSERT INTO post_comments (id, post_id, user_id, body) VALUES (?, ?, ?, ?)').run(next(), latestPost('maya.trails'), ids.alex_outside, 'Those goats');
 for (const u of ['demo', 'alex_outside', 'priya.k']) db.prepare('INSERT INTO post_likes (post_id, user_id) SELECT id, ? FROM posts WHERE user_id = ?').run(ids[u], ids['maya.trails']);
 for (const u of ['demo', 'benw']) db.prepare('INSERT INTO post_likes (post_id, user_id) SELECT id, ? FROM posts WHERE user_id = ?').run(ids[u], ids.jrun);
 
@@ -126,10 +126,10 @@ function outing(host, slug, title, days, hourUtc, visibility, members, descripti
 }
 // Hours are UTC; Utah is UTC-6 (MDT) / UTC-7 (MST).
 const c1 = outing('maya.trails', 'box-elder-peak', 'Box Elder sunrise push', 4, 11, 'public', ['priya.k'], 'Meeting at Granite Flat TH at 5am. Headlamps required. Moving at a steady pace with photo breaks at the top.', 'moderate', 8);
-msg(c1, 'priya.k', "I'm in! Bringing my big lens for the summit 📷", '-30 minutes');
+msg(c1, 'priya.k', "I'm in! Bringing my big lens for the summit", '-30 minutes');
 msg(c1, 'maya.trails', 'Yes!! Carpool from Orem?', '-25 minutes');
 outing('jrun', 'bonneville-shoreline-provo', 'Saturday BST trail run', 2, 13, 'public', ['benw'], '7–9 mi at conversational pace. All paces welcome, we regroup at intersections.', 'fast');
-outing('alex_outside', 'stewart-falls', 'Fall colors at Stewart Falls 🍂', 6, 15, 'friends', [], 'Chill hike to see the leaves. Dogs welcome!', 'relaxed');
+outing('alex_outside', 'stewart-falls', 'Fall colors at Stewart Falls', 6, 15, 'friends', [], 'Chill hike to see the leaves. Dogs welcome!', 'relaxed');
 outing('priya.k', 'cascade-springs', 'Photo walk at Cascade Springs', 9, 22, 'public', [], 'Easy golden-hour photo walk. Beginners welcome.', 'relaxed', 10);
 
 const dm = next();

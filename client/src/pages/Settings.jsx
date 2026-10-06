@@ -4,9 +4,11 @@ import { api } from '../lib/api.js';
 import { useAuth } from '../lib/auth.jsx';
 import { Avatar, ErrorText } from '../components/ui.jsx';
 import PhotoPicker from '../components/PhotoPicker.jsx';
+import { IconText } from '../components/Icon.jsx';
+import { getTheme, setTheme } from '../lib/theme.js';
 
 const STRAVA_MSG = {
-  connected: '✅ Strava connected! You can now import activities.',
+  connected: 'Strava connected! You can now import activities.',
   denied: 'Strava connection was cancelled.',
   error: 'Something went wrong connecting to Strava. Please try again.',
 };
@@ -19,6 +21,8 @@ export default function Settings() {
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState('');
   const [strava, setStrava] = useState(null);
+  const [theme, setThemeState] = useState(getTheme());
+  const chooseTheme = (t) => { setTheme(t); setThemeState(t); };
   const set = (k) => (e) => setF({ ...f, [k]: e?.target ? e.target.value : e });
 
   useEffect(() => { api('/strava/status').then(setStrava); }, []);
@@ -63,8 +67,8 @@ export default function Settings() {
         <fieldset>
           <legend>I mostly…</legend>
           <div className="segmented">
-            {[['hiker', '🥾 Hike'], ['runner', '🏃 Run'], ['both', '⛰️ Both']].map(([v, l]) => (
-              <button type="button" key={v} className={f.activity_type === v ? 'active' : ''} onClick={() => set('activity_type')(v)}>{l}</button>
+            {[['hiker', 'boot', 'Hike'], ['runner', 'run', 'Run'], ['both', 'mountain', 'Both']].map(([v, ic, l]) => (
+              <button type="button" key={v} className={f.activity_type === v ? 'active' : ''} onClick={() => set('activity_type')(v)}><IconText icon={ic}>{l}</IconText></button>
             ))}
           </div>
         </fieldset>
@@ -74,8 +78,17 @@ export default function Settings() {
           <span className="muted xsmall">Used to tailor your recommendations.</span>
         </label>
         <ErrorText error={error} />
-        <button className="btn primary">{saved ? 'Saved ✓' : 'Save changes'}</button>
+        <button className="btn primary">{saved ? 'Saved' : 'Save changes'}</button>
       </form>
+
+      <div className="card form">
+        <h2>Appearance</h2>
+        <div className="segmented">
+          {[['system', 'settings', 'System'], ['light', 'sun', 'Light'], ['dark', 'moon', 'Dark']].map(([v, ic, l]) => (
+            <button type="button" key={v} className={theme === v ? 'active' : ''} onClick={() => chooseTheme(v)}><IconText icon={ic}>{l}</IconText></button>
+          ))}
+        </div>
+      </div>
 
       <div className="card form">
         <h2>Connected apps</h2>

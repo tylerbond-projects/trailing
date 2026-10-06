@@ -76,7 +76,7 @@ export async function recommendTrails(db, user, { limit = 20 } = {}) {
     // Bayesian average so a single 5-star review doesn't dominate.
     const bayes = (t.avg_rating * t.review_count + 3.8 * 3) / (t.review_count + 3);
     score += (bayes - 3) * 1.2;
-    if (t.review_count >= 2 && t.avg_rating >= 4.5) reasons.push(`Rated ${t.avg_rating.toFixed(1)}★ by hikers`);
+    if (t.review_count >= 2 && t.avg_rating >= 4.5) reasons.push(`Rated ${t.avg_rating.toFixed(1)} of 5 by hikers`);
 
     const fd = friendDone.get(t.id) || 0;
     if (fd) { score += Math.min(fd, 3) * 0.8; reasons.push(`${fd} friend${fd > 1 ? 's have' : ' has'} done this`); }

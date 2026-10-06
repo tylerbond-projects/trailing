@@ -4,6 +4,7 @@ import { api } from '../lib/api.js';
 import { useAuth } from '../lib/auth.jsx';
 import { ErrorText } from '../components/ui.jsx';
 import TrailArt from '../components/TrailArt.jsx';
+import { IconText } from '../components/Icon.jsx';
 
 const DIFFICULTY_PREFS = [
   { value: 2, label: 'Easy strolls', hint: 'Short, mostly flat' },
@@ -54,8 +55,8 @@ export default function Auth({ mode }) {
             <fieldset>
               <legend>I mostly…</legend>
               <div className="segmented">
-                {[['hiker', '🥾 Hike'], ['runner', '🏃 Run'], ['both', '⛰️ Both']].map(([v, l]) => (
-                  <button type="button" key={v} className={form.activity_type === v ? 'active' : ''} onClick={() => set('activity_type')(v)}>{l}</button>
+                {[['hiker', 'boot', 'Hike'], ['runner', 'run', 'Run'], ['both', 'mountain', 'Both']].map(([v, ic, l]) => (
+                  <button type="button" key={v} className={form.activity_type === v ? 'active' : ''} onClick={() => set('activity_type')(v)}><IconText icon={ic}>{l}</IconText></button>
                 ))}
               </div>
             </fieldset>

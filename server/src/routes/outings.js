@@ -98,7 +98,7 @@ r.post('/:id/join', async (c) => {
     db.stmt('INSERT INTO outing_members (outing_id, user_id) VALUES (?, ?)', o.id, me.id),
     db.stmt('INSERT OR IGNORE INTO conversation_members (conversation_id, user_id) VALUES (?, ?)', o.conversation_id, me.id),
   ]);
-  await sendMessage(c, o.conversation_id, null, `${me.display_name} joined the hike 🎉`);
+  await sendMessage(c, o.conversation_id, null, `${me.display_name} joined the hike`);
   await checkAchievements(c, me.id);
   return c.json({ outing: shape(await loadOuting(db, o.id, me.id)) });
 });

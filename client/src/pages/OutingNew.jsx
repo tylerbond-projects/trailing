@@ -3,6 +3,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { api } from '../lib/api.js';
 import TrailSelect, { useTrails } from '../components/TrailSelect.jsx';
 import { ErrorText } from '../components/ui.jsx';
+import Icon, { IconText } from '../components/Icon.jsx';
 
 function defaultStart() {
   const d = new Date(Date.now() + 2 * 86400000);
@@ -47,8 +48,8 @@ export default function OutingNew() {
         <fieldset>
           <legend>Pace</legend>
           <div className="segmented">
-            {[['relaxed', '🐢 Relaxed'], ['moderate', '🚶 Moderate'], ['fast', '⚡ Fast']].map(([v, l]) => (
-              <button type="button" key={v} className={f.pace === v ? 'active' : ''} onClick={() => set('pace')(v)}>{l}</button>
+            {[['relaxed', 'leaf', 'Relaxed'], ['moderate', 'walk', 'Moderate'], ['fast', 'bolt', 'Fast']].map(([v, ic, l]) => (
+              <button type="button" key={v} className={f.pace === v ? 'active' : ''} onClick={() => set('pace')(v)}><IconText icon={ic}>{l}</IconText></button>
             ))}
           </div>
         </fieldset>
@@ -56,10 +57,10 @@ export default function OutingNew() {
           <legend>Who can see and join?</legend>
           <div className="option-grid two">
             <button type="button" className={`option ${f.visibility === 'public' ? 'active' : ''}`} onClick={() => set('visibility')('public')}>
-              <strong>🌎 Public</strong><span className="muted small">Anyone on Trailing can find and join</span>
+              <strong className="with-icon"><Icon name="globe" />Public</strong><span className="muted small">Anyone on Trailing can find and join</span>
             </button>
             <button type="button" className={`option ${f.visibility === 'friends' ? 'active' : ''}`} onClick={() => set('visibility')('friends')}>
-              <strong>🤝 Friends only</strong><span className="muted small">Only your friends can see it</span>
+              <strong className="with-icon"><Icon name="users" />Friends only</strong><span className="muted small">Only your friends can see it</span>
             </button>
           </div>
         </fieldset>

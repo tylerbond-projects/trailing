@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { api } from '../lib/api.js';
 import PostCard from '../components/PostCard.jsx';
 import { Spinner, Empty } from '../components/ui.jsx';
+import Icon from '../components/Icon.jsx';
 
 export default function Feed() {
   const [posts, setPosts] = useState(null);
@@ -35,10 +36,10 @@ export default function Feed() {
     <div className="page narrow">
       <div className="page-head">
         <h1>Feed</h1>
-        <Link to="/post/new" className="btn primary">+ Share</Link>
+        <Link to="/post/new" className="btn primary"><Icon name="plus" size={17} /> Share</Link>
       </div>
       {posts.length === 0 && (
-        <Empty icon="🥾" title="Your feed is quiet">
+        <Empty icon="boot" title="Your feed is quiet">
           Follow other hikers and runners, or <Link to="/post/new">share your first activity</Link>.
         </Empty>
       )}

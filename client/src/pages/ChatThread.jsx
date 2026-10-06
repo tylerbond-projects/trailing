@@ -5,6 +5,7 @@ import { useAuth } from '../lib/auth.jsx';
 import { useSocketEvent, getSocket } from '../lib/socket.js';
 import { Avatar, Spinner, ErrorText } from '../components/ui.jsx';
 import { parseDate, eventDate } from '../lib/format.js';
+import Icon from '../components/Icon.jsx';
 
 export default function ChatThread() {
   const { id } = useParams();
@@ -76,12 +77,12 @@ export default function ChatThread() {
   return (
     <div className="chat">
       <header className="chat-head">
-        <Link to="/chat" className="icon-btn" aria-label="Back">←</Link>
+        <Link to="/chat" className="icon-btn" aria-label="Back"><Icon name="arrow-left" size={20} /></Link>
         {conv.type === 'direct'
           ? <Link to={`/u/${conv.other.username}`} className="chat-title"><Avatar user={conv.other} size={36} /><strong>{conv.other.display_name}</strong></Link>
           : (
             <Link to={`/hikes/${conv.outing.id}`} className="chat-title">
-              <span className="avatar group" style={{ width: 36, height: 36 }}>🥾</span>
+              <span className="avatar group" style={{ width: 36, height: 36 }}><Icon name="users" size={18} /></span>
               <span><strong>{conv.title}</strong><span className="muted xsmall block">{eventDate(conv.outing.starts_at)} · {conv.members.length} going</span></span>
             </Link>
           )}

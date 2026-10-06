@@ -4,6 +4,7 @@ import { api, assetUrl } from '../lib/api.js';
 import { useAuth } from '../lib/auth.jsx';
 import { Avatar, UserLink, Difficulty } from './ui.jsx';
 import { timeAgo, miles, feet, duration, pace, parseLocal, ACTIVITY_LABEL, ACTIVITY_ICON } from '../lib/format.js';
+import Icon from './Icon.jsx';
 
 export default function PostCard({ post, onDelete }) {
   const { user } = useAuth();
@@ -50,12 +51,12 @@ export default function PostCard({ post, onDelete }) {
         <div className="grow">
           <UserLink user={post.user} />
           <div className="muted small">
-            {a ? <>{ACTIVITY_ICON[a.type]} {ACTIVITY_LABEL[a.type]} · {parseLocal(a.start_date).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}</> : 'Post'}
+            {a ? <><Icon name={ACTIVITY_ICON[a.type]} size={13} className="inline" /> {ACTIVITY_LABEL[a.type]} · {parseLocal(a.start_date).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}</> : 'Post'}
             {' · '}{timeAgo(post.created_at)}
             {a?.source === 'strava' && <span className="strava-tag">via Strava</span>}
           </div>
         </div>
-        {post.user.id === user.id && <button className="icon-btn subtle" onClick={remove} aria-label="Delete post">⋯</button>}
+        {post.user.id === user.id && <button className="icon-btn subtle" onClick={remove} aria-label="Delete post"><Icon name="more" size={20} /></button>}
       </header>
 
       {a && <h3 className="post-title">{a.name}</h3>}
@@ -72,7 +73,7 @@ export default function PostCard({ post, onDelete }) {
 
       {post.trail && (
         <Link to={`/trails/${post.trail.slug}`} className="post-trail">
-          <span>📍 {post.trail.name}</span>
+          <span className="with-icon"><Icon name="pin" size={16} />{post.trail.name}</span>
           <Difficulty score={post.trail.difficulty_score} label={post.trail.difficulty_label} compact />
         </Link>
       )}
@@ -86,8 +87,8 @@ export default function PostCard({ post, onDelete }) {
       )}
 
       <footer className="post-actions">
-        <button className={`action ${liked ? 'liked' : ''}`} onClick={toggleLike}>{liked ? '♥' : '♡'} {likes || ''}</button>
-        <button className="action" onClick={openComments}>💬 {commentCount || ''}</button>
+        <button className={`action ${liked ? 'liked' : ''}`} onClick={toggleLike} aria-label={liked ? 'Unlike' : 'Like'}><Icon name={liked ? 'heart-fill' : 'heart'} size={19} /> {likes || ''}</button>
+        <button className="action" onClick={openComments} aria-label="Comments"><Icon name="chat" size={19} /> {commentCount || ''}</button>
       </footer>
 
       {showComments && (

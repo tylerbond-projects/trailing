@@ -4,7 +4,7 @@ import { api } from '../lib/api.js';
 import TrailCard from '../components/TrailCard.jsx';
 import OutingCard from '../components/OutingCard.jsx';
 import { Spinner, Tabs } from '../components/ui.jsx';
-import { featureLabel } from '../lib/format.js';
+import { Feature } from '../components/Icon.jsx';
 
 export default function ForYou() {
   const [recs, setRecs] = useState(null);
@@ -33,7 +33,7 @@ export default function ForYou() {
         {profile.topFeatures.length > 0 && (
           <div>
             <span className="label">You love</span>
-            <div className="chips small">{profile.topFeatures.map((f) => <span key={f} className="chip static">{featureLabel(f)}</span>)}</div>
+            <div className="chips small">{profile.topFeatures.map((f) => <span key={f} className="chip static"><Feature f={f} /></span>)}</div>
           </div>
         )}
         <div><span className="label">Season</span><strong className="cap">{profile.season}</strong></div>
@@ -62,7 +62,7 @@ export default function ForYou() {
         </>
       ) : (
         saved.length === 0
-          ? <p className="muted">Tap ☆ Save on any trail to build your wishlist.</p>
+          ? <p className="muted">Tap Save on any trail to build your wishlist.</p>
           : <div className="grid">{saved.map((t) => <TrailCard key={t.id} trail={t} />)}</div>
       )}
     </div>
