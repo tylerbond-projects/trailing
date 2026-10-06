@@ -12,7 +12,8 @@
     "db:migrate:remote": "wrangler d1 migrations apply trailing --remote",
     "db:trails:remote": "npm run build:seed && wrangler d1 execute trailing --remote --file seed/trails.sql",
     "deploy": "wrangler deploy",
-    "import:osm": "node scripts/import-osm.js"
+    "import:osm": "node scripts/import-osm.js",
+    "db:demo:remote": "node scripts/build-demo-sql.mjs && wrangler d1 execute trailing --remote --file seed/demo.sql"
   },
   "dependencies": {
     "hono": "^4.13.13"

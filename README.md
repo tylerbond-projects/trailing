@@ -42,6 +42,8 @@ Database changes go out as migrations in `server/migrations/`, applied with:
 npm run db:migrate:remote -w server
 ```
 
+Demo users (log in as `demo` / `password123`) can be added or refreshed with `npm run db:demo:remote -w server`. This only replaces demo accounts; real users are never touched.
+
 Trail data changes go out with:
 
 ```bash
