@@ -1,0 +1,170 @@
+{
+  "region": {
+    "id": "wasatch-back",
+    "name": "Park City & Heber",
+    "state": "UT",
+    "country": "US",
+    "center": [
+      40.62,
+      -111.45
+    ],
+    "zoom": 10
+  },
+  "notes": "Curated starter dataset. Distances, elevations and coordinates are approximate; verify against NPS / USFS / BLM / state park sources before relying on them. Difficulty is computed from distance + elevation gain (server/src/difficulty.js).",
+  "trails": [
+    {
+      "slug": "bloods-lake",
+      "name": "Bloods Lake",
+      "area": "Guardsman Pass",
+      "lat": 40.604,
+      "lng": -111.552,
+      "distance_mi": 2.8,
+      "elevation_gain_ft": 550,
+      "max_elevation_ft": 9500,
+      "route_type": "out-and-back",
+      "features": [
+        "lake",
+        "wildflowers"
+      ],
+      "activities": [
+        "hike",
+        "trail-run"
+      ],
+      "dogs": "leash",
+      "kid_friendly": true,
+      "technical": false,
+      "best_seasons": [
+        "summer",
+        "fall"
+      ],
+      "surface": "dirt",
+      "fee": null,
+      "description": "A short forest hike from Guardsman Pass to a quiet lake ringed by evergreens.",
+      "tips": "Parking is limited at the pass."
+    },
+    {
+      "slug": "round-valley",
+      "name": "Round Valley Loop",
+      "area": "Park City",
+      "lat": 40.675,
+      "lng": -111.49,
+      "distance_mi": 5.0,
+      "elevation_gain_ft": 500,
+      "max_elevation_ft": 6900,
+      "route_type": "loop",
+      "features": [
+        "views",
+        "wildflowers"
+      ],
+      "activities": [
+        "trail-run",
+        "hike",
+        "run"
+      ],
+      "dogs": "yes",
+      "kid_friendly": true,
+      "technical": false,
+      "best_seasons": [
+        "spring",
+        "summer",
+        "fall",
+        "winter"
+      ],
+      "surface": "dirt",
+      "fee": null,
+      "description": "A rolling web of open-space trails just outside Park City — dog friendly and popular for trail runs and winter fat biking.",
+      "tips": "Large off-leash dog area."
+    },
+    {
+      "slug": "mid-mountain",
+      "name": "Mid Mountain Trail",
+      "area": "Park City",
+      "lat": 40.653,
+      "lng": -111.51,
+      "distance_mi": 10.0,
+      "elevation_gain_ft": 800,
+      "max_elevation_ft": 8000,
+      "route_type": "point-to-point",
+      "features": [
+        "views",
+        "shade",
+        "fall-colors"
+      ],
+      "activities": [
+        "trail-run",
+        "hike"
+      ],
+      "dogs": "leash",
+      "kid_friendly": false,
+      "technical": false,
+      "best_seasons": [
+        "summer",
+        "fall"
+      ],
+      "surface": "dirt",
+      "fee": null,
+      "description": "A contour trail traversing the ski resorts at about 8,000 feet — mostly shaded and gently rolling.",
+      "tips": "Do any section as an out-and-back."
+    },
+    {
+      "slug": "dutch-hollow",
+      "name": "Dutch Hollow Loop",
+      "area": "Wasatch Mountain State Park",
+      "lat": 40.53,
+      "lng": -111.5,
+      "distance_mi": 4.0,
+      "elevation_gain_ft": 600,
+      "max_elevation_ft": 6200,
+      "route_type": "loop",
+      "features": [
+        "views",
+        "fall-colors"
+      ],
+      "activities": [
+        "hike",
+        "trail-run"
+      ],
+      "dogs": "leash",
+      "kid_friendly": true,
+      "technical": false,
+      "best_seasons": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "surface": "dirt",
+      "fee": "State park fee",
+      "description": "A pleasant loop through scrub oak and maple with views of Heber Valley and Timp's back side.",
+      "tips": "Spectacular reds in early October."
+    },
+    {
+      "slug": "willow-lake",
+      "name": "Willow Heights Lake",
+      "area": "Big Cottonwood (upper)",
+      "lat": 40.626,
+      "lng": -111.561,
+      "distance_mi": 2.0,
+      "elevation_gain_ft": 600,
+      "max_elevation_ft": 8800,
+      "route_type": "out-and-back",
+      "features": [
+        "lake",
+        "fall-colors"
+      ],
+      "activities": [
+        "hike"
+      ],
+      "dogs": "no",
+      "kid_friendly": true,
+      "technical": false,
+      "best_seasons": [
+        "summer",
+        "fall"
+      ],
+      "surface": "dirt",
+      "fee": null,
+      "description": "A short aspen-lined trail to a peaceful pond — beautiful in autumn.",
+      "tips": "Watershed area: no dogs."
+    }
+  ]
+}

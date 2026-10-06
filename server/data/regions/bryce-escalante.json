@@ -1,0 +1,321 @@
+{
+  "region": {
+    "id": "bryce-escalante",
+    "name": "Bryce, Escalante & Kanab",
+    "state": "UT",
+    "country": "US",
+    "center": [
+      37.5,
+      -111.9
+    ],
+    "zoom": 8
+  },
+  "notes": "Curated starter dataset. Distances, elevations and coordinates are approximate; verify against NPS / USFS / BLM / state park sources before relying on them. Difficulty is computed from distance + elevation gain (server/src/difficulty.js).",
+  "trails": [
+    {
+      "slug": "navajo-queens-garden",
+      "name": "Navajo Loop & Queen's Garden",
+      "area": "Bryce Canyon National Park",
+      "lat": 37.623,
+      "lng": -112.166,
+      "distance_mi": 2.9,
+      "elevation_gain_ft": 600,
+      "max_elevation_ft": 8000,
+      "route_type": "loop",
+      "features": [
+        "views",
+        "canyon"
+      ],
+      "activities": [
+        "hike",
+        "trail-run"
+      ],
+      "dogs": "no",
+      "kid_friendly": true,
+      "technical": false,
+      "best_seasons": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "surface": "dirt",
+      "fee": "National park entrance fee",
+      "description": "Descend among Bryce's hoodoos through Wall Street and Queen's Garden — the park's classic loop.",
+      "tips": "Hike it clockwise for an easier climb out."
+    },
+    {
+      "slug": "fairyland-loop",
+      "name": "Fairyland Loop",
+      "area": "Bryce Canyon National Park",
+      "lat": 37.649,
+      "lng": -112.146,
+      "distance_mi": 8.0,
+      "elevation_gain_ft": 1700,
+      "max_elevation_ft": 8000,
+      "route_type": "loop",
+      "features": [
+        "views",
+        "canyon",
+        "solitude"
+      ],
+      "activities": [
+        "hike",
+        "trail-run"
+      ],
+      "dogs": "no",
+      "kid_friendly": false,
+      "technical": false,
+      "best_seasons": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "surface": "dirt",
+      "fee": "National park entrance fee",
+      "description": "A longer, quieter loop through the hoodoos below Fairyland Point and back along the rim.",
+      "tips": "Bring plenty of water."
+    },
+    {
+      "slug": "peekaboo-loop",
+      "name": "Peekaboo Loop",
+      "area": "Bryce Canyon National Park",
+      "lat": 37.603,
+      "lng": -112.171,
+      "distance_mi": 5.5,
+      "elevation_gain_ft": 1500,
+      "max_elevation_ft": 8300,
+      "route_type": "loop",
+      "features": [
+        "views",
+        "canyon"
+      ],
+      "activities": [
+        "hike"
+      ],
+      "dogs": "no",
+      "kid_friendly": false,
+      "technical": false,
+      "best_seasons": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "surface": "dirt",
+      "fee": "National park entrance fee",
+      "description": "A strenuous loop deep in the amphitheater below Bryce Point.",
+      "tips": "Shared with horses."
+    },
+    {
+      "slug": "mossy-cave",
+      "name": "Mossy Cave",
+      "area": "Bryce Canyon National Park",
+      "lat": 37.664,
+      "lng": -112.111,
+      "distance_mi": 0.8,
+      "elevation_gain_ft": 200,
+      "max_elevation_ft": 7000,
+      "route_type": "out-and-back",
+      "features": [
+        "waterfall",
+        "cave",
+        "river"
+      ],
+      "activities": [
+        "hike"
+      ],
+      "dogs": "no",
+      "kid_friendly": true,
+      "technical": false,
+      "best_seasons": [
+        "spring",
+        "summer",
+        "fall",
+        "winter"
+      ],
+      "surface": "dirt",
+      "fee": null,
+      "description": "A short creekside walk to a small waterfall and a mossy grotto — icicles in winter.",
+      "tips": "Free — it's outside the main fee area."
+    },
+    {
+      "slug": "bristlecone-loop",
+      "name": "Bristlecone Loop",
+      "area": "Bryce Canyon National Park",
+      "lat": 37.474,
+      "lng": -112.24,
+      "distance_mi": 1.0,
+      "elevation_gain_ft": 200,
+      "max_elevation_ft": 9115,
+      "route_type": "loop",
+      "features": [
+        "views",
+        "shade"
+      ],
+      "activities": [
+        "hike"
+      ],
+      "dogs": "no",
+      "kid_friendly": true,
+      "technical": false,
+      "best_seasons": [
+        "summer",
+        "fall"
+      ],
+      "surface": "dirt",
+      "fee": "National park entrance fee",
+      "description": "A short loop at the park's highest point among ancient bristlecone pines.",
+      "tips": "Combine with Rainbow Point overlook."
+    },
+    {
+      "slug": "lower-calf-creek-falls",
+      "name": "Lower Calf Creek Falls",
+      "area": "Grand Staircase-Escalante",
+      "lat": 37.793,
+      "lng": -111.415,
+      "distance_mi": 6.2,
+      "elevation_gain_ft": 250,
+      "max_elevation_ft": 5400,
+      "route_type": "out-and-back",
+      "features": [
+        "waterfall",
+        "river",
+        "history",
+        "canyon"
+      ],
+      "activities": [
+        "hike"
+      ],
+      "dogs": "leash",
+      "kid_friendly": true,
+      "technical": false,
+      "best_seasons": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "surface": "sand",
+      "fee": "Day-use fee",
+      "description": "A sandy canyon walk past ancient rock art to a 126-foot waterfall plunging into a green pool.",
+      "tips": "Sand makes it harder than the numbers suggest."
+    },
+    {
+      "slug": "peekaboo-spooky",
+      "name": "Peek-a-boo & Spooky Gulch",
+      "area": "Grand Staircase-Escalante",
+      "lat": 37.479,
+      "lng": -111.219,
+      "distance_mi": 3.5,
+      "elevation_gain_ft": 400,
+      "max_elevation_ft": 4900,
+      "route_type": "loop",
+      "features": [
+        "canyon"
+      ],
+      "activities": [
+        "hike"
+      ],
+      "dogs": "leash",
+      "kid_friendly": false,
+      "technical": true,
+      "best_seasons": [
+        "spring",
+        "fall",
+        "winter"
+      ],
+      "surface": "sand / slickrock",
+      "fee": null,
+      "description": "Two famous slot canyons — Peek-a-boo starts with a climb, and Spooky narrows to shoulder width.",
+      "tips": "Never enter slots if rain is forecast anywhere upstream."
+    },
+    {
+      "slug": "willis-creek",
+      "name": "Willis Creek Narrows",
+      "area": "Grand Staircase-Escalante",
+      "lat": 37.479,
+      "lng": -112.096,
+      "distance_mi": 4.4,
+      "elevation_gain_ft": 300,
+      "max_elevation_ft": 6000,
+      "route_type": "out-and-back",
+      "features": [
+        "canyon",
+        "river"
+      ],
+      "activities": [
+        "hike"
+      ],
+      "dogs": "leash",
+      "kid_friendly": true,
+      "technical": false,
+      "best_seasons": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "surface": "sand / creek",
+      "fee": null,
+      "description": "An easy, kid-friendly slot canyon with a trickling creek and small waterfalls.",
+      "tips": "One of the best \"first slot canyons\"."
+    },
+    {
+      "slug": "toadstools",
+      "name": "Toadstool Hoodoos",
+      "area": "Kanab / Grand Staircase",
+      "lat": 37.099,
+      "lng": -111.869,
+      "distance_mi": 1.5,
+      "elevation_gain_ft": 100,
+      "max_elevation_ft": 4500,
+      "route_type": "out-and-back",
+      "features": [
+        "views"
+      ],
+      "activities": [
+        "hike"
+      ],
+      "dogs": "leash",
+      "kid_friendly": true,
+      "technical": false,
+      "best_seasons": [
+        "spring",
+        "fall",
+        "winter"
+      ],
+      "surface": "sand",
+      "fee": null,
+      "description": "A short walk to balanced-rock hoodoos with caps of harder stone.",
+      "tips": "Wonderful at sunset."
+    },
+    {
+      "slug": "wire-pass-buckskin",
+      "name": "Wire Pass to Buckskin Gulch",
+      "area": "Vermilion Cliffs",
+      "lat": 37.019,
+      "lng": -112.025,
+      "distance_mi": 3.4,
+      "elevation_gain_ft": 150,
+      "max_elevation_ft": 4900,
+      "route_type": "out-and-back",
+      "features": [
+        "canyon",
+        "history"
+      ],
+      "activities": [
+        "hike"
+      ],
+      "dogs": "leash",
+      "kid_friendly": false,
+      "technical": false,
+      "best_seasons": [
+        "spring",
+        "fall",
+        "winter"
+      ],
+      "surface": "sand",
+      "fee": "Day-use permit fee",
+      "description": "Squeeze through Wire Pass into Buckskin Gulch, one of the longest slot canyons in the world.",
+      "tips": "Flash flood danger is serious — check the forecast.",
+      "permit": "Pay the day-use fee at the trailhead."
+    }
+  ]
+}

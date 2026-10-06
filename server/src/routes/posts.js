@@ -41,6 +41,8 @@ r.post('/', async (c) => {
   const files = filesFrom(b, 'photos');
   let activityId = f('activity_id') ? Number(f('activity_id')) : null;
   let trailId = f('trail_id') ? Number(f('trail_id')) : null;
+  let routeId = f('route_id') ? Number(f('route_id')) : null;
+  if (routeId && !(await db.first('SELECT 1 FROM routes WHERE id = ? AND (is_public = 1 OR user_id = ?)', routeId, me.id))) routeId = null;
   const text = String(f('body') || '').slice(0, 2000);
 
   if (activityId) {
@@ -60,6 +62,7 @@ r.post('/', async (c) => {
       moving_time_s: Math.round((Number(f('duration_min')) || 0) * 60),
       start_date: f('start_date') || new Date().toISOString().slice(0, 19),
       trail_id: trailId,
+      route_id: routeId,
     });
   }
   if (!activityId && !text.trim() && !files.length) return c.json({ error: 'Post is empty' }, 400);

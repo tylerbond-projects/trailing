@@ -6,6 +6,7 @@ import PostCard from '../components/PostCard.jsx';
 import { AchievementBadge } from './Achievements.jsx';
 import { miles, feet, duration, parseLocal, ACTIVITY_ICON } from '../lib/format.js';
 import Icon, { IconText } from '../components/Icon.jsx';
+import { RouteCard } from './Routes.jsx';
 
 const TYPE_LABEL = { hiker: ['boot', 'Hiker'], runner: ['run', 'Runner'], both: ['mountain', 'Hiker & runner'] };
 
@@ -18,16 +19,18 @@ export default function Profile() {
   const [activities, setActivities] = useState(null);
   const [achievements, setAchievements] = useState(null);
   const [list, setList] = useState(null);
+  const [routes, setRoutes] = useState(null);
 
   useEffect(() => {
-    setP(null); setPosts(null); setActivities(null); setAchievements(null); setTab('posts');
+    setP(null); setPosts(null); setActivities(null); setAchievements(null); setRoutes(null); setTab('posts');
     api(`/users/${username}`).then(setP);
     api(`/users/${username}/posts`).then((d) => setPosts(d.posts));
     api(`/users/${username}/achievements`).then((d) => setAchievements(d.achievements));
   }, [username]);
   useEffect(() => {
     if (tab === 'activities' && !activities) api(`/users/${username}/activities`).then((d) => setActivities(d.activities));
-  }, [tab, username, activities]);
+    if (tab === 'routes' && !routes && p) api(p.is_me ? '/routes?scope=mine' : `/routes?scope=user&userId=${p.user.id}`).then((d) => setRoutes(d.routes));
+  }, [tab, username, activities, routes, p]);
 
   async function toggleFollow() {
     const r = await api(`/users/${p.user.id}/follow`, { method: p.following ? 'DELETE' : 'POST' });
@@ -87,7 +90,7 @@ export default function Profile() {
       )}
 
       <Tabs value={tab} onChange={setTab} tabs={[
-        { value: 'posts', label: 'Posts' }, { value: 'activities', label: 'Activities' },
+        { value: 'posts', label: 'Posts' }, { value: 'activities', label: 'Activities' }, { value: 'routes', label: 'Routes' },
         { value: 'achievements', label: 'Achievements', count: earned.length },
       ]} />
 
@@ -111,6 +114,9 @@ export default function Profile() {
           ))}
         </div>
       ))}
+
+      {tab === 'routes' && (!routes ? <Spinner /> : routes.length === 0 ? <Empty icon="route" title="No routes yet" /> :
+        <div className="list">{routes.map((r) => <RouteCard key={r.id} route={r} showUser={false} />)}</div>)}
 
       {tab === 'achievements' && (!achievements ? <Spinner /> : (
         <div className="achievement-grid">

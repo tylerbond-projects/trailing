@@ -6,14 +6,10 @@
   "compatibility_flags": ["nodejs_compat"],
   "observability": { "enabled": true },
 
-  // The React app (client/dist) is served as static assets; the Worker only
-  // handles the API, uploaded photos and the realtime socket.
-  "assets": {
-    "directory": "../client/dist",
-    "binding": "ASSETS",
-    "not_found_handling": "single-page-application",
-    "run_worker_first": ["/api/*", "/uploads/*", "/ws"]
-  },
+  // The React app is served by Cloudflare Pages (client/, project "trailing"),
+  // which forwards /api, /uploads and /ws to this Worker via a service binding.
+  // The Worker has no public URL of its own.
+  "workers_dev": false,
 
   "d1_databases": [
     { "binding": "DB", "database_name": "trailing", "database_id": "e45ebd6c-5351-4c39-b91c-5db1e81ec71a", "migrations_dir": "migrations" }
@@ -23,8 +19,11 @@
   // One Durable Object holds every open WebSocket and fans out chat messages,
   // typing indicators, notifications and achievement unlocks.
   "durable_objects": { "bindings": [{ "name": "REALTIME", "class_name": "Realtime" }] },
-  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Realtime"] }]
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Realtime"] }],
+
+  "vars": { "FEEDBACK_TO": "tylerbond.projects@gmail.com" }
 
   // Secrets (set with `wrangler secret put NAME`, or in .dev.vars locally):
-  //   JWT_SECRET, STRAVA_CLIENT_ID, STRAVA_CLIENT_SECRET
+  //   JWT_SECRET, STRAVA_CLIENT_ID, STRAVA_CLIENT_SECRET,
+  //   RESEND_API_KEY (feedback emails), GOOGLE_PLACES_API_KEY (trail cover photos)
 }

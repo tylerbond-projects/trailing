@@ -1,0 +1,160 @@
+{
+  "region": {
+    "id": "uintas",
+    "name": "Uinta Mountains",
+    "state": "UT",
+    "country": "US",
+    "center": [
+      40.72,
+      -110.7
+    ],
+    "zoom": 9
+  },
+  "notes": "Curated starter dataset. Distances, elevations and coordinates are approximate; verify against NPS / USFS / BLM / state park sources before relying on them. Difficulty is computed from distance + elevation gain (server/src/difficulty.js).",
+  "trails": [
+    {
+      "slug": "bald-mountain",
+      "name": "Bald Mountain",
+      "area": "Mirror Lake Highway",
+      "lat": 40.6879,
+      "lng": -110.9036,
+      "distance_mi": 4.0,
+      "elevation_gain_ft": 1200,
+      "max_elevation_ft": 11943,
+      "route_type": "out-and-back",
+      "features": [
+        "summit",
+        "views",
+        "solitude"
+      ],
+      "activities": [
+        "hike"
+      ],
+      "dogs": "leash",
+      "kid_friendly": false,
+      "technical": false,
+      "best_seasons": [
+        "summer"
+      ],
+      "surface": "rock",
+      "fee": "Recreation pass",
+      "description": "A rocky climb to a nearly 12,000-foot summit with views across dozens of Uinta lakes.",
+      "tips": "Afternoon lightning is common — summit early."
+    },
+    {
+      "slug": "lofty-lake-loop",
+      "name": "Lofty Lake Loop",
+      "area": "Mirror Lake Highway",
+      "lat": 40.727,
+      "lng": -110.884,
+      "distance_mi": 4.2,
+      "elevation_gain_ft": 800,
+      "max_elevation_ft": 10800,
+      "route_type": "loop",
+      "features": [
+        "lake",
+        "wildflowers",
+        "views"
+      ],
+      "activities": [
+        "hike"
+      ],
+      "dogs": "leash",
+      "kid_friendly": true,
+      "technical": false,
+      "best_seasons": [
+        "summer"
+      ],
+      "surface": "dirt",
+      "fee": "Recreation pass",
+      "description": "A high-alpine loop past Cutthroat, Lofty and Scout lakes.",
+      "tips": "Bring bug spray in July."
+    },
+    {
+      "slug": "ruth-lake",
+      "name": "Ruth Lake",
+      "area": "Mirror Lake Highway",
+      "lat": 40.741,
+      "lng": -110.878,
+      "distance_mi": 1.8,
+      "elevation_gain_ft": 300,
+      "max_elevation_ft": 10400,
+      "route_type": "out-and-back",
+      "features": [
+        "lake"
+      ],
+      "activities": [
+        "hike"
+      ],
+      "dogs": "leash",
+      "kid_friendly": true,
+      "technical": false,
+      "best_seasons": [
+        "summer"
+      ],
+      "surface": "dirt",
+      "fee": "Recreation pass",
+      "description": "An easy walk to a clear lake beneath Hayden Peak — perfect for families.",
+      "tips": "Good fishing."
+    },
+    {
+      "slug": "mirror-lake-loop",
+      "name": "Mirror Lake Shoreline",
+      "area": "Mirror Lake Highway",
+      "lat": 40.702,
+      "lng": -110.887,
+      "distance_mi": 1.5,
+      "elevation_gain_ft": 50,
+      "max_elevation_ft": 10050,
+      "route_type": "loop",
+      "features": [
+        "lake",
+        "accessible",
+        "views"
+      ],
+      "activities": [
+        "hike"
+      ],
+      "dogs": "leash",
+      "kid_friendly": true,
+      "technical": false,
+      "best_seasons": [
+        "summer"
+      ],
+      "surface": "dirt / paved",
+      "fee": "Recreation pass",
+      "description": "A flat loop around one of the Uintas' most famous lakes.",
+      "tips": "Great sunrise reflections of Bald Mountain."
+    },
+    {
+      "slug": "kings-peak",
+      "name": "Kings Peak via Henrys Fork",
+      "area": "High Uintas Wilderness",
+      "lat": 40.91,
+      "lng": -110.33,
+      "distance_mi": 28.8,
+      "elevation_gain_ft": 5000,
+      "max_elevation_ft": 13528,
+      "route_type": "out-and-back",
+      "features": [
+        "summit",
+        "lake",
+        "solitude",
+        "wildlife"
+      ],
+      "activities": [
+        "hike"
+      ],
+      "dogs": "leash",
+      "kid_friendly": false,
+      "technical": true,
+      "best_seasons": [
+        "summer"
+      ],
+      "surface": "dirt / talus",
+      "fee": null,
+      "description": "The highest point in Utah, usually done as a 2–3 day backpack through Henrys Fork basin and over Gunsight Pass.",
+      "tips": "Plan for storms and altitude; most people camp near Dollar Lake."
+    }
+  ]
+}

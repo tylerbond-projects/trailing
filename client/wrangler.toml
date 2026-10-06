@@ -1,0 +1,9 @@
+# Cloudflare Pages project: serves the React app at https://trailing.pages.dev
+name = "trailing"
+pages_build_output_dir = "./dist"
+compatibility_date = "2026-09-01"
+
+# /api, /uploads and /ws are forwarded to the API Worker (server/).
+[[services]]
+binding = "API"
+service = "trailing"

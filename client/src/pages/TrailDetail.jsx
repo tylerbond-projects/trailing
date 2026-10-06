@@ -9,6 +9,7 @@ import OutingCard from '../components/OutingCard.jsx';
 import { Difficulty, Stars, Spinner, Avatar, UserLink, Modal, ErrorText } from '../components/ui.jsx';
 import { miles, feet, durationMin, timeAgo } from '../lib/format.js';
 import Icon, { Feature, IconText } from '../components/Icon.jsx';
+import { useCover, Attribution } from '../lib/cover.jsx';
 
 const DOGS = { leash: 'Allowed on leash', yes: 'Allowed', no: 'Not allowed' };
 const VOTE_LABEL = { easier: 'Easier than rated', accurate: 'About right', harder: 'Harder than rated' };
@@ -20,6 +21,7 @@ export default function TrailDetail() {
   const [reviewOpen, setReviewOpen] = useState(false);
   const [photoOpen, setPhotoOpen] = useState(false);
   const [lightbox, setLightbox] = useState(null);
+  const [cover] = useCover(slug);
 
   const load = useCallback(() => api(`/trails/${slug}`).then(setData).catch((e) => setError(e.message)), [slug]);
   useEffect(() => { setData(null); load(); window.scrollTo(0, 0); }, [load]);
@@ -37,7 +39,8 @@ export default function TrailDetail() {
   return (
     <div className="page trail-detail">
       <div className="hero">
-        {photos[0] ? <img src={assetUrl(photos[0].url)} alt="" /> : <TrailArt trail={t} />}
+        {cover?.url ? <img src={cover.url} alt={t.name} /> : photos[0] ? <img src={assetUrl(photos[0].url)} alt="" /> : <TrailArt trail={t} />}
+        <Attribution cover={cover} className="hero-credit" />
         <div className="hero-overlay">
           <div className="muted-light small">{t.area}</div>
           <h1>{t.name}</h1>
@@ -52,7 +55,7 @@ export default function TrailDetail() {
       <div className="action-bar">
         <button className={`btn ${data.saved ? 'active' : ''}`} onClick={toggleSave}><Icon name={data.saved ? 'star-fill' : 'star'} size={17} /> {data.saved ? 'Saved' : 'Save'}</button>
         <Link className="btn primary" to={`/post/new?trail=${t.slug}`}><Icon name={data.done ? 'check' : 'boot'} size={17} /> {data.done ? 'Log again' : 'Log this hike'}</Link>
-        <Link className="btn" to={`/hikes/new?trail=${t.slug}`}><Icon name="users" size={17} /> Plan a group hike</Link>
+        <Link className="btn" to={`/hikes/new?trail=${t.slug}`}><Icon name="users" size={17} /> <span className="label-long">Plan a group hike</span><span className="label-short">Group hike</span></Link>
         <a className="btn" href={`https://www.google.com/maps/dir/?api=1&destination=${t.lat},${t.lng}`} target="_blank" rel="noreferrer"><Icon name="compass" size={17} /> Directions</a>
       </div>
 
@@ -159,11 +162,11 @@ export default function TrailDetail() {
               <dt><IconText icon="pin">Trailhead</IconText></dt><dd>{t.lat.toFixed(4)}, {t.lng.toFixed(4)}</dd>
             </dl>
           </section>
-          <TrailMap trails={[t]} center={[t.lat, t.lng]} zoom={13} height={260} />
+          <TrailMap trails={[t]} center={[t.lat, t.lng]} zoom={13} height={260} lockOnTouch />
           {nearby.length > 0 && (
             <section>
               <h3>Nearby trails</h3>
-              <div className="list">{nearby.map((n) => <TrailCard key={n.id} trail={n} />)}</div>
+              <div className="list">{nearby.map((n) => <TrailCard key={n.id} trail={n} compact />)}</div>
             </section>
           )}
         </aside>

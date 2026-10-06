@@ -25,9 +25,9 @@ export async function matchTrail(db, lat, lng) {
 
 export function createActivity(db, userId, a) {
   return db.insert(`INSERT INTO activities (user_id, source, strava_id, name, type, distance_m, moving_time_s,
-    elevation_gain_m, start_date, trail_id, polyline) VALUES (?,?,?,?,?,?,?,?,?,?,?)`,
+    elevation_gain_m, start_date, trail_id, polyline, route_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)`,
   userId, a.source || 'manual', a.strava_id ?? null, a.name, a.type, a.distance_m || 0, a.moving_time_s || 0,
-  a.elevation_gain_m || 0, a.start_date, a.trail_id ?? null, a.polyline ?? null);
+  a.elevation_gain_m || 0, a.start_date, a.trail_id ?? null, a.polyline ?? null, a.route_id ?? null);
 }
 
 export function formatActivity(a) {
@@ -37,6 +37,7 @@ export function formatActivity(a) {
     distance_mi: Math.round((a.distance_m / M_PER_MI) * 100) / 100,
     elevation_gain_ft: Math.round(a.elevation_gain_m * FT_PER_M),
     moving_time_s: a.moving_time_s, start_date: a.start_date, trail_id: a.trail_id, polyline: a.polyline,
+    route_id: a.route_id ?? null, route_name: a.route_name ?? null,
   };
 }
 
@@ -55,7 +56,7 @@ export async function hydratePosts(db, rows, viewerId) {
     db.stmt(`SELECT post_id, COUNT(*) n, MAX(user_id = ?) mine FROM post_likes WHERE post_id IN (${ph}) GROUP BY post_id`, viewerId, ...ids),
     db.stmt(`SELECT post_id, COUNT(*) n FROM post_comments WHERE post_id IN (${ph}) GROUP BY post_id`, ...ids),
     db.stmt(`SELECT * FROM users WHERE id IN (${placeholders(userIds)})`, ...userIds),
-    db.stmt(`SELECT * FROM activities WHERE id IN (${placeholders(activityIds.length ? activityIds : none)})`, ...(activityIds.length ? activityIds : none)),
+    db.stmt(`SELECT a.*, r.name AS route_name FROM activities a LEFT JOIN routes r ON r.id = a.route_id WHERE a.id IN (${placeholders(activityIds.length ? activityIds : none)})`, ...(activityIds.length ? activityIds : none)),
     db.stmt(`SELECT id, slug, name, area, difficulty_score, difficulty_label, distance_mi, elevation_gain_ft, features FROM trails
       WHERE id IN (${placeholders(trailIds.length ? trailIds : none)})`, ...(trailIds.length ? trailIds : none)),
   ])).map((r) => r.results);

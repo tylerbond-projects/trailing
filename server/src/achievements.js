@@ -52,6 +52,8 @@ const STATIC_ACHIEVEMENTS = [
   { id: 'trail-leader', name: 'Trail Leader', icon: 'backpack', category: 'Community', tier: 'bronze', metric: 'hosted', target: 1, description: 'Plan a group hike.' },
   { id: 'pack-leader', name: 'Pack Leader', icon: 'paw', category: 'Community', tier: 'gold', metric: 'hosted', target: 10, description: 'Plan 10 group hikes.' },
   { id: 'tag-along', name: 'Tag Along', icon: 'user-plus', category: 'Community', tier: 'bronze', metric: 'joined', target: 1, description: "Join someone else's planned hike." },
+  { id: 'route-builder', name: 'Route Builder', icon: 'route', category: 'Exploration', tier: 'bronze', metric: 'routes', target: 1, description: 'Create your own route.' },
+  { id: 'cartographer', name: 'Cartographer', icon: 'route', category: 'Exploration', tier: 'silver', metric: 'routes', target: 10, description: 'Create 10 routes.' },
   { id: 'social', name: 'Trail Buddies', icon: 'users', category: 'Community', tier: 'bronze', metric: 'friends', target: 5, description: 'Make 5 friends (mutual follows).' },
   { id: 'popular', name: 'Trail Famous', icon: 'star', category: 'Community', tier: 'silver', metric: 'followers', target: 25, description: 'Get 25 followers.' },
 ];
@@ -60,7 +62,7 @@ const STATIC_ACHIEVEMENTS = [
 // adds new achievements.
 export async function allAchievements(db) {
   const regions = await db.all(`
-    SELECT r.id, r.name, COUNT(t.id) AS n FROM regions r JOIN trails t ON t.region_id = r.id GROUP BY r.id`);
+    SELECT r.id, r.name, COUNT(t.id) AS n FROM regions r JOIN trails t ON t.region_id = r.id GROUP BY r.id HAVING n >= 6`);
   const regional = regions.flatMap((r) => [
     { id: `region-half:${r.id}`, name: `${r.name} Halfway`, icon: 'half', category: 'Exploration', tier: 'gold', metric: `region:${r.id}`, target: Math.ceil(r.n / 2), description: `Complete half of the trails in ${r.name}.` },
     { id: `region-all:${r.id}`, name: `${r.name} Completionist`, icon: 'trophy', category: 'Exploration', tier: 'platinum', metric: `region:${r.id}`, target: r.n, description: `Complete every trail in ${r.name}.` },
@@ -70,7 +72,7 @@ export async function allAchievements(db) {
 
 export async function userStats(db, userId) {
   const n = (sql, ...p) => db.stmt(sql, ...p);
-  const [a, trailRows, reviews, photos, hosted, joined, followers, friends] = (await db.batch([
+  const [a, trailRows, reviews, photos, hosted, joined, followers, friends, routes] = (await db.batch([
     n(`SELECT COUNT(*) AS activities,
         COALESCE(SUM(distance_m),0) AS dist, COALESCE(SUM(elevation_gain_m),0) AS gain,
         COALESCE(MAX(elevation_gain_m),0) AS maxGain,
@@ -93,6 +95,7 @@ export async function userStats(db, userId) {
     n('SELECT COUNT(*) n FROM follows WHERE followee_id = ?', userId),
     n(`SELECT COUNT(*) n FROM follows f1 JOIN follows f2
       ON f1.followee_id = f2.follower_id AND f2.followee_id = f1.follower_id WHERE f1.follower_id = ?`, userId),
+    n('SELECT COUNT(*) n FROM routes WHERE user_id = ?', userId),
   ])).map((r) => r.results);
 
   const s = a[0];
@@ -118,6 +121,7 @@ export async function userStats(db, userId) {
     joined: joined[0].n,
     followers: followers[0].n,
     friends: friends[0].n,
+    routes: routes[0].n,
   };
   for (const t of trailRows) stats[`region:${t.region_id}`] = (stats[`region:${t.region_id}`] || 0) + 1;
   return stats;

@@ -1,0 +1,415 @@
+{
+  "region": {
+    "id": "southwest-utah",
+    "name": "Zion & St. George",
+    "state": "UT",
+    "country": "US",
+    "center": [
+      37.25,
+      -113.2
+    ],
+    "zoom": 9
+  },
+  "notes": "Curated starter dataset. Distances, elevations and coordinates are approximate; verify against NPS / USFS / BLM / state park sources before relying on them. Difficulty is computed from distance + elevation gain (server/src/difficulty.js).",
+  "trails": [
+    {
+      "slug": "angels-landing",
+      "name": "Angels Landing",
+      "area": "Zion National Park",
+      "lat": 37.2592,
+      "lng": -112.9508,
+      "distance_mi": 5.4,
+      "elevation_gain_ft": 1500,
+      "max_elevation_ft": 5790,
+      "route_type": "out-and-back",
+      "features": [
+        "summit",
+        "views",
+        "canyon"
+      ],
+      "activities": [
+        "hike"
+      ],
+      "dogs": "no",
+      "kid_friendly": false,
+      "technical": true,
+      "best_seasons": [
+        "spring",
+        "fall"
+      ],
+      "surface": "paved / rock",
+      "fee": "National park entrance fee",
+      "description": "Zion's most famous hike: switchbacks up Walter's Wiggles, then a chain-assisted ridge with sheer drops on both sides.",
+      "tips": "Not for anyone uncomfortable with exposure.",
+      "permit": "Permit required (lottery) for the chain section beyond Scout Lookout."
+    },
+    {
+      "slug": "the-narrows",
+      "name": "The Narrows (bottom up)",
+      "area": "Zion National Park",
+      "lat": 37.2852,
+      "lng": -112.9477,
+      "distance_mi": 9.4,
+      "elevation_gain_ft": 350,
+      "max_elevation_ft": 4600,
+      "route_type": "out-and-back",
+      "features": [
+        "river",
+        "canyon",
+        "shade"
+      ],
+      "activities": [
+        "hike"
+      ],
+      "dogs": "no",
+      "kid_friendly": false,
+      "technical": false,
+      "best_seasons": [
+        "summer",
+        "fall"
+      ],
+      "surface": "river",
+      "fee": "National park entrance fee",
+      "description": "Wade up the Virgin River between walls up to 1,000 feet tall. Turn around anywhere.",
+      "tips": "Check flash flood risk before going. Rent canyoneering shoes and a pole in Springdale."
+    },
+    {
+      "slug": "observation-point-east-mesa",
+      "name": "Observation Point via East Mesa",
+      "area": "Zion National Park",
+      "lat": 37.2959,
+      "lng": -112.9205,
+      "distance_mi": 6.7,
+      "elevation_gain_ft": 700,
+      "max_elevation_ft": 6521,
+      "route_type": "out-and-back",
+      "features": [
+        "views",
+        "summit"
+      ],
+      "activities": [
+        "hike",
+        "trail-run"
+      ],
+      "dogs": "no",
+      "kid_friendly": false,
+      "technical": false,
+      "best_seasons": [
+        "spring",
+        "fall"
+      ],
+      "surface": "sand / dirt",
+      "fee": "National park entrance fee",
+      "description": "A mostly flat mesa-top walk to one of the best views in Zion, looking down on Angels Landing.",
+      "tips": "High-clearance vehicle helpful for the trailhead road."
+    },
+    {
+      "slug": "emerald-pools",
+      "name": "Emerald Pools",
+      "area": "Zion National Park",
+      "lat": 37.2509,
+      "lng": -112.9573,
+      "distance_mi": 3.0,
+      "elevation_gain_ft": 620,
+      "max_elevation_ft": 4600,
+      "route_type": "loop",
+      "features": [
+        "waterfall",
+        "lake",
+        "shade"
+      ],
+      "activities": [
+        "hike"
+      ],
+      "dogs": "no",
+      "kid_friendly": true,
+      "technical": false,
+      "best_seasons": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "surface": "paved / dirt",
+      "fee": "National park entrance fee",
+      "description": "A family-friendly loop to a series of pools and seasonal waterfalls beneath towering cliffs.",
+      "tips": "The Upper Pool is the quietest."
+    },
+    {
+      "slug": "canyon-overlook",
+      "name": "Canyon Overlook",
+      "area": "Zion National Park",
+      "lat": 37.2131,
+      "lng": -112.9405,
+      "distance_mi": 1.0,
+      "elevation_gain_ft": 160,
+      "max_elevation_ft": 5200,
+      "route_type": "out-and-back",
+      "features": [
+        "views",
+        "canyon"
+      ],
+      "activities": [
+        "hike"
+      ],
+      "dogs": "no",
+      "kid_friendly": true,
+      "technical": false,
+      "best_seasons": [
+        "spring",
+        "summer",
+        "fall",
+        "winter"
+      ],
+      "surface": "rock",
+      "fee": "National park entrance fee",
+      "description": "A short ledge trail to a stunning view down Pine Creek into Zion Canyon.",
+      "tips": "Tiny parking area east of the tunnel — go early."
+    },
+    {
+      "slug": "watchman-trail",
+      "name": "Watchman Trail",
+      "area": "Zion National Park",
+      "lat": 37.2002,
+      "lng": -112.987,
+      "distance_mi": 3.3,
+      "elevation_gain_ft": 370,
+      "max_elevation_ft": 4300,
+      "route_type": "out-and-back",
+      "features": [
+        "views"
+      ],
+      "activities": [
+        "hike",
+        "trail-run"
+      ],
+      "dogs": "no",
+      "kid_friendly": true,
+      "technical": false,
+      "best_seasons": [
+        "spring",
+        "fall",
+        "winter"
+      ],
+      "surface": "dirt",
+      "fee": "National park entrance fee",
+      "description": "An easy climb from the visitor center to a viewpoint of the Watchman and Springdale.",
+      "tips": "Beautiful at sunset."
+    },
+    {
+      "slug": "parus-trail",
+      "name": "Pa'rus Trail",
+      "area": "Zion National Park",
+      "lat": 37.2002,
+      "lng": -112.987,
+      "distance_mi": 3.5,
+      "elevation_gain_ft": 50,
+      "max_elevation_ft": 4000,
+      "route_type": "out-and-back",
+      "features": [
+        "river",
+        "accessible",
+        "views"
+      ],
+      "activities": [
+        "run",
+        "hike"
+      ],
+      "dogs": "leash",
+      "kid_friendly": true,
+      "technical": false,
+      "best_seasons": [
+        "spring",
+        "summer",
+        "fall",
+        "winter"
+      ],
+      "surface": "paved",
+      "fee": "National park entrance fee",
+      "description": "A paved riverside path — the only trail in Zion where dogs and bikes are allowed.",
+      "tips": "Great easy run with canyon views."
+    },
+    {
+      "slug": "taylor-creek",
+      "name": "Taylor Creek (Double Arch Alcove)",
+      "area": "Zion — Kolob Canyons",
+      "lat": 37.462,
+      "lng": -113.201,
+      "distance_mi": 5.0,
+      "elevation_gain_ft": 450,
+      "max_elevation_ft": 5700,
+      "route_type": "out-and-back",
+      "features": [
+        "canyon",
+        "river",
+        "history"
+      ],
+      "activities": [
+        "hike"
+      ],
+      "dogs": "no",
+      "kid_friendly": true,
+      "technical": false,
+      "best_seasons": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "surface": "dirt",
+      "fee": "National park entrance fee",
+      "description": "Follow a creek past two pioneer cabins into a narrow box canyon ending at a huge arched alcove.",
+      "tips": "Multiple easy creek crossings."
+    },
+    {
+      "slug": "kanarra-falls",
+      "name": "Kanarra Falls",
+      "area": "Kanarraville",
+      "lat": 37.537,
+      "lng": -113.18,
+      "distance_mi": 4.0,
+      "elevation_gain_ft": 600,
+      "max_elevation_ft": 6000,
+      "route_type": "out-and-back",
+      "features": [
+        "waterfall",
+        "canyon",
+        "river"
+      ],
+      "activities": [
+        "hike"
+      ],
+      "dogs": "no",
+      "kid_friendly": false,
+      "technical": false,
+      "best_seasons": [
+        "summer",
+        "fall"
+      ],
+      "surface": "river",
+      "fee": "Permit fee",
+      "description": "Wade a slot canyon to waterfalls, including one climbed with a famous log ladder.",
+      "tips": null,
+      "permit": "Daily permits are limited — buy online in advance."
+    },
+    {
+      "slug": "lava-flow-snow-canyon",
+      "name": "Lava Flow Trail",
+      "area": "Snow Canyon State Park",
+      "lat": 37.204,
+      "lng": -113.64,
+      "distance_mi": 2.5,
+      "elevation_gain_ft": 200,
+      "max_elevation_ft": 3800,
+      "route_type": "out-and-back",
+      "features": [
+        "cave",
+        "views"
+      ],
+      "activities": [
+        "hike",
+        "trail-run"
+      ],
+      "dogs": "leash",
+      "kid_friendly": true,
+      "technical": false,
+      "best_seasons": [
+        "spring",
+        "fall",
+        "winter"
+      ],
+      "surface": "lava / sand",
+      "fee": "State park fee",
+      "description": "Cross a jagged lava field to small lava tubes you can explore with a headlamp.",
+      "tips": "Bring a light for the tubes."
+    },
+    {
+      "slug": "yant-flat",
+      "name": "Yant Flat (Candy Cliffs)",
+      "area": "Pine Valley Mountains",
+      "lat": 37.231,
+      "lng": -113.474,
+      "distance_mi": 3.2,
+      "elevation_gain_ft": 400,
+      "max_elevation_ft": 5200,
+      "route_type": "out-and-back",
+      "features": [
+        "views"
+      ],
+      "activities": [
+        "hike",
+        "trail-run"
+      ],
+      "dogs": "leash",
+      "kid_friendly": true,
+      "technical": false,
+      "best_seasons": [
+        "spring",
+        "fall",
+        "winter"
+      ],
+      "surface": "sand / slickrock",
+      "fee": null,
+      "description": "Wander out to swirling, candy-striped sandstone cliffs.",
+      "tips": "The dirt access road is rough when wet."
+    },
+    {
+      "slug": "red-reef",
+      "name": "Red Reef Trail",
+      "area": "Red Cliffs Recreation Area",
+      "lat": 37.223,
+      "lng": -113.406,
+      "distance_mi": 2.0,
+      "elevation_gain_ft": 200,
+      "max_elevation_ft": 3400,
+      "route_type": "out-and-back",
+      "features": [
+        "canyon",
+        "waterfall",
+        "history"
+      ],
+      "activities": [
+        "hike",
+        "trail-run"
+      ],
+      "dogs": "leash",
+      "kid_friendly": true,
+      "technical": false,
+      "best_seasons": [
+        "spring",
+        "fall",
+        "winter"
+      ],
+      "surface": "sand / rock",
+      "fee": "Day-use fee",
+      "description": "A sandy canyon trail with red rock pools, a seasonal waterfall and ancient petroglyphs.",
+      "tips": "Hot in summer — go early."
+    },
+    {
+      "slug": "ramparts-overlook",
+      "name": "Ramparts Overlook",
+      "area": "Cedar Breaks National Monument",
+      "lat": 37.611,
+      "lng": -112.84,
+      "distance_mi": 4.0,
+      "elevation_gain_ft": 700,
+      "max_elevation_ft": 10400,
+      "route_type": "out-and-back",
+      "features": [
+        "views",
+        "wildflowers"
+      ],
+      "activities": [
+        "hike"
+      ],
+      "dogs": "no",
+      "kid_friendly": true,
+      "technical": false,
+      "best_seasons": [
+        "summer"
+      ],
+      "surface": "dirt",
+      "fee": "National park entrance fee",
+      "description": "A high-elevation rim walk along a vast amphitheater of colorful hoodoos.",
+      "tips": "At over 10,000 feet — take it slow."
+    }
+  ]
+}

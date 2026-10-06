@@ -58,5 +58,10 @@ export const FEATURES = {
   solitude: { icon: 'moon', label: 'Solitude' },
   accessible: { icon: 'accessible', label: 'Accessible' },
   climbing: { icon: 'carabiner', label: 'Climbing' },
+  arch: { icon: 'arch', label: 'Arch' },
+  history: { icon: 'history', label: 'History' },
 };
 export const featureLabel = (f) => FEATURES[f]?.label || f;
+
+export const metersToMiles = (m) => m / 1609.344;
+export const metersToFeet = (m) => m * 3.28084;

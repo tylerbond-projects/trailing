@@ -23,7 +23,7 @@ export default function NewPost() {
         { value: 'manual', label: <IconText icon="pencil">Log manually</IconText> },
         { value: 'strava', label: <IconText icon="activity">Import from Strava</IconText> },
       ]} />
-      {tab === 'strava' ? <StravaImport /> : <ManualPost initialTrail={params.get('trail')} />}
+      {tab === 'strava' ? <StravaImport /> : <ManualPost initialTrail={params.get('trail')} routeId={params.get('route')} />}
     </div>
   );
 }
@@ -38,7 +38,7 @@ function Composer({ body, setBody, photos, setPhotos, trailId, setTrailId }) {
   );
 }
 
-function ManualPost({ initialTrail }) {
+function ManualPost({ initialTrail, routeId }) {
   const navigate = useNavigate();
   const trails = useTrails();
   const [trailId, setTrailIdRaw] = useState(null);
@@ -48,6 +48,16 @@ function ManualPost({ initialTrail }) {
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
   const set = (k) => (e) => setA({ ...a, [k]: e.target.value });
+  const [route, setRoute] = useState(null);
+
+  useEffect(() => {
+    if (!routeId) return;
+    api(`/routes/${routeId}`).then(({ route: r }) => {
+      setRoute(r);
+      setA((s) => ({ ...s, type: r.activity === 'hike' ? 'Hike' : 'Run', name: r.name,
+        distance_mi: (r.distance_m / 1609.344).toFixed(2), elevation_gain_ft: Math.round(r.elevation_gain_m * 3.28084) }));
+    }).catch(() => {});
+  }, [routeId]);
 
   // Picking a trail pre-fills its distance and elevation.
   function setTrailId(id) {
@@ -70,6 +80,7 @@ function ManualPost({ initialTrail }) {
     const form = new FormData();
     for (const [k, v] of Object.entries(a)) form.append(k, v);
     if (trailId) form.append('trail_id', trailId);
+    if (route) form.append('route_id', route.id);
     form.append('body', body);
     photos.forEach((p) => form.append('photos', p));
     try {
@@ -88,6 +99,7 @@ function ManualPost({ initialTrail }) {
           <button type="button" key={t} className={a.type === t ? 'active' : ''} onClick={() => setA({ ...a, type: t })}><IconText icon={ACTIVITY_ICON[t]}>{ACTIVITY_LABEL[t]}</IconText></button>
         ))}
       </div>
+      {route && <div className="post-trail"><span className="with-icon"><Icon name="route" size={16} />Route: {route.name}</span></div>}
       <Composer {...{ body, setBody, photos, setPhotos, trailId, setTrailId }} />
       <label>Title<input value={a.name} onChange={set('name')} placeholder="Morning hike" /></label>
       <div className="row-3">

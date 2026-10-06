@@ -18,6 +18,9 @@ import Profile from './pages/Profile.jsx';
 import People from './pages/People.jsx';
 import Achievements from './pages/Achievements.jsx';
 import Settings from './pages/Settings.jsx';
+import Routes_ from './pages/Routes.jsx';
+import RouteBuilder from './pages/RouteBuilder.jsx';
+import RouteDetail from './pages/RouteDetail.jsx';
 
 export default function App() {
   const { user, loading } = useAuth();
@@ -39,6 +42,9 @@ export default function App() {
           <Route path="explore" element={<Explore />} />
           <Route path="trails/:slug" element={<TrailDetail />} />
           <Route path="for-you" element={<ForYou />} />
+          <Route path="routes" element={<Routes_ />} />
+          <Route path="routes/new" element={<RouteBuilder />} />
+          <Route path="routes/:id" element={<RouteDetail />} />
           <Route path="hikes" element={<Outings />} />
           <Route path="hikes/new" element={<OutingNew />} />
           <Route path="hikes/:id" element={<OutingDetail />} />

@@ -8,12 +8,13 @@ import Icon from './Icon.jsx';
 
 const NAV = [
   { to: '/', label: 'Feed', icon: 'home', end: true },
-  { to: '/explore', label: 'Explore', icon: 'map' },
+  { to: '/explore', label: 'Explore', icon: 'map', also: ['/routes'] },
   { to: '/for-you', label: 'For You', icon: 'sparkle' },
   { to: '/hikes', label: 'Group Hikes', short: 'Hikes', icon: 'users' },
   { to: '/chat', label: 'Chat', icon: 'chat', badge: 'unread' },
 ];
 const MORE = [
+  { to: '/routes', label: 'My Routes', icon: 'route', desktopOnly: true },
   { to: '/achievements', label: 'Achievements', icon: 'trophy' },
   { to: '/people', label: 'Find People', icon: 'search' },
   { to: '/settings', label: 'Settings', icon: 'settings' },
@@ -30,7 +31,7 @@ export default function Layout() {
   useSocketEvent('message', () => setTimeout(refreshUnread, 300));
 
   const navItem = (n, mobile) => (
-    <NavLink key={n.to} to={n.to} end={n.end} className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
+    <NavLink key={n.to} to={n.to} end={n.end} className={({ isActive }) => `nav-item ${isActive || (mobile && n.also?.some((p) => location.pathname.startsWith(p))) ? 'active' : ''}`}>
       <span className="nav-icon"><Icon name={n.icon} size={22} />{n.badge && unread > 0 && <span className="badge">{unread > 9 ? '9+' : unread}</span>}</span>
       <span className="nav-label">{mobile ? n.short || n.label : n.label}</span>
     </NavLink>

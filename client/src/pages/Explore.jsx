@@ -5,6 +5,8 @@ import TrailMap from '../components/Map.jsx';
 import { Spinner, Empty } from '../components/ui.jsx';
 import { storage } from '../lib/storage.js';
 import { Feature, IconText } from '../components/Icon.jsx';
+import { ExploreSwitch } from './Routes.jsx';
+import { locate } from '../lib/geo.js';
 
 const DIFFICULTY = [
   { label: 'Easy', min: 1, max: 2 }, { label: 'Moderate', min: 3, max: 4 },
@@ -12,7 +14,7 @@ const DIFFICULTY = [
 ];
 const LENGTHS = [{ label: '< 3 mi', v: 3 }, { label: '< 6 mi', v: 6 }, { label: '< 10 mi', v: 10 }];
 const FEATURES = ['waterfall', 'summit', 'lake', 'views', 'fall-colors', 'wildflowers', 'river', 'hot-springs', 'cave', 'solitude'];
-const SORTS = [['popular', 'Most popular'], ['rating', 'Top rated'], ['easiest', 'Easiest'], ['hardest', 'Hardest'], ['shortest', 'Shortest'], ['longest', 'Longest'], ['name', 'A–Z']];
+const SORTS = [['nearest', 'Nearest to me'], ['popular', 'Most popular'], ['rating', 'Top rated'], ['easiest', 'Easiest'], ['hardest', 'Hardest'], ['shortest', 'Shortest'], ['longest', 'Longest'], ['name', 'A–Z']];
 
 export default function Explore() {
   const [trails, setTrails] = useState(null);
@@ -20,6 +22,7 @@ export default function Explore() {
   const [q, setQ] = useState('');
   const [debounced, setDebounced] = useState('');
   const [filters, setFilters] = useState({ region: '', diff: null, maxDistance: null, features: [], run: false, dogs: false, kid: false, sort: 'popular' });
+  const [here, setHere] = useState(null);
   const [view, setViewRaw] = useState(storage.get('explore.view') || 'list');
   const setView = (v) => { setViewRaw(v); storage.set('explore.view', v); };
 
@@ -27,7 +30,8 @@ export default function Explore() {
   useEffect(() => { const t = setTimeout(() => setDebounced(q), 250); return () => clearTimeout(t); }, [q]);
 
   const query = useMemo(() => {
-    const p = new URLSearchParams({ sort: filters.sort });
+    const p = new URLSearchParams({ sort: filters.sort === 'nearest' && !here ? 'popular' : filters.sort });
+    if (filters.sort === 'nearest' && here) p.set('near', `${here[0]},${here[1]}`);
     if (debounced) p.set('q', debounced);
     if (filters.region) p.set('region', filters.region);
     if (filters.diff) { p.set('minDifficulty', filters.diff.min); p.set('maxDifficulty', filters.diff.max); }
@@ -37,7 +41,7 @@ export default function Explore() {
     if (filters.dogs) p.set('dogs', '1');
     if (filters.kid) p.set('kid', '1');
     return p.toString();
-  }, [debounced, filters]);
+  }, [debounced, filters, here]);
 
   useEffect(() => { api(`/trails?${query}`).then((d) => setTrails(d.trails)); }, [query]);
 
@@ -50,6 +54,10 @@ export default function Explore() {
     <div className="page">
       <div className="page-head">
         <h1>Explore trails</h1>
+        <ExploreSwitch value="trails" />
+      </div>
+      <div className="row between">
+        <span />
         <div className="segmented small">
           <button className={view === 'list' ? 'active' : ''} onClick={() => setView('list')}><IconText icon="list" size={15}>List</IconText></button>
           <button className={view === 'map' ? 'active' : ''} onClick={() => setView('map')}><IconText icon="map" size={15}>Map</IconText></button>
@@ -65,7 +73,11 @@ export default function Explore() {
               {regions.map((r) => <option key={r.id} value={r.id}>{r.name}</option>)}
             </select>
           )}
-          <select value={filters.sort} onChange={(e) => setFilters({ ...filters, sort: e.target.value })} aria-label="Sort">
+          <select value={filters.sort} onChange={async (e) => {
+            const sort = e.target.value;
+            if (sort === 'nearest' && !here) { const p = await locate(); if (!p) { alert('Allow location access to sort by distance.'); return; } setHere(p); }
+            setFilters({ ...filters, sort });
+          }} aria-label="Sort">
             {SORTS.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
           </select>
         </div>

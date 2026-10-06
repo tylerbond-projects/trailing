@@ -16,14 +16,16 @@ function pin(trail) {
 }
 
 /** Leaflet map of trails. Clicking a pin opens the trail. */
-export default function TrailMap({ trails, center, zoom = 10, height = 420 }) {
+export default function TrailMap({ trails, center, zoom = 10, height = 420, lockOnTouch = false }) {
   const el = useRef(null);
   const map = useRef(null);
   const layer = useRef(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    map.current = L.map(el.current, { scrollWheelZoom: false }).setView(center || [40.3, -111.68], zoom);
+    // lockOnTouch: embedded maps on phones ignore one-finger drags so the page can scroll past them.
+    const touchLocked = lockOnTouch && L.Browser.mobile;
+    map.current = L.map(el.current, { scrollWheelZoom: false, dragging: !touchLocked, tap: !touchLocked }).setView(center || [39.5, -111.6], zoom);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 18,
       attribution: '&copy; OpenStreetMap contributors',

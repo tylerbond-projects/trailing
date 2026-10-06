@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "mkdir -p ../client/dist && wrangler dev --port 8787",
+    "dev": "wrangler dev --port 8787",
     "build:seed": "node scripts/build-trails-sql.mjs",
     "db:migrate:local": "wrangler d1 migrations apply trailing --local",
     "db:trails:local": "npm run build:seed && wrangler d1 execute trailing --local --file seed/trails.sql",

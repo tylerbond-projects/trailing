@@ -1,0 +1,134 @@
+{
+  "region": {
+    "id": "eastern-utah",
+    "name": "San Rafael & Eastern Utah",
+    "state": "UT",
+    "country": "US",
+    "center": [
+      39.3,
+      -110.3
+    ],
+    "zoom": 8
+  },
+  "notes": "Curated starter dataset. Distances, elevations and coordinates are approximate; verify against NPS / USFS / BLM / state park sources before relying on them. Difficulty is computed from distance + elevation gain (server/src/difficulty.js).",
+  "trails": [
+    {
+      "slug": "goblin-valley",
+      "name": "Valley of Goblins",
+      "area": "Goblin Valley State Park",
+      "lat": 38.566,
+      "lng": -110.707,
+      "distance_mi": 1.5,
+      "elevation_gain_ft": 100,
+      "max_elevation_ft": 5100,
+      "route_type": "loop",
+      "features": [
+        "views"
+      ],
+      "activities": [
+        "hike"
+      ],
+      "dogs": "leash",
+      "kid_friendly": true,
+      "technical": false,
+      "best_seasons": [
+        "spring",
+        "fall",
+        "winter"
+      ],
+      "surface": "sand",
+      "fee": "State park fee",
+      "description": "Wander freely among thousands of mushroom-shaped hoodoos.",
+      "tips": "A dark-sky park — stay for the stars."
+    },
+    {
+      "slug": "little-wild-horse-bell",
+      "name": "Little Wild Horse & Bell Canyon",
+      "area": "San Rafael Swell",
+      "lat": 38.584,
+      "lng": -110.802,
+      "distance_mi": 8.0,
+      "elevation_gain_ft": 800,
+      "max_elevation_ft": 5400,
+      "route_type": "loop",
+      "features": [
+        "canyon"
+      ],
+      "activities": [
+        "hike"
+      ],
+      "dogs": "leash",
+      "kid_friendly": false,
+      "technical": false,
+      "best_seasons": [
+        "spring",
+        "fall",
+        "winter"
+      ],
+      "surface": "sand / slickrock",
+      "fee": null,
+      "description": "One of Utah's best non-technical slot canyon loops.",
+      "tips": "Some short scrambles and possible pools."
+    },
+    {
+      "slug": "fossil-discovery-trail",
+      "name": "Fossil Discovery Trail",
+      "area": "Dinosaur National Monument",
+      "lat": 40.44,
+      "lng": -109.301,
+      "distance_mi": 2.4,
+      "elevation_gain_ft": 150,
+      "max_elevation_ft": 4900,
+      "route_type": "out-and-back",
+      "features": [
+        "history",
+        "views"
+      ],
+      "activities": [
+        "hike"
+      ],
+      "dogs": "no",
+      "kid_friendly": true,
+      "technical": false,
+      "best_seasons": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "surface": "dirt",
+      "fee": "National park entrance fee",
+      "description": "Spot dinosaur bones still embedded in the rock along this short interpretive trail.",
+      "tips": "Visit the Quarry Exhibit Hall too."
+    },
+    {
+      "slug": "moonshine-arch",
+      "name": "Moonshine Arch",
+      "area": "Vernal",
+      "lat": 40.547,
+      "lng": -109.529,
+      "distance_mi": 1.6,
+      "elevation_gain_ft": 200,
+      "max_elevation_ft": 5600,
+      "route_type": "out-and-back",
+      "features": [
+        "arch"
+      ],
+      "activities": [
+        "hike",
+        "trail-run"
+      ],
+      "dogs": "leash",
+      "kid_friendly": true,
+      "technical": false,
+      "best_seasons": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "surface": "sand / slickrock",
+      "fee": null,
+      "description": "An easy walk to a graceful sandstone arch just north of Vernal.",
+      "tips": "Short and sweet for kids."
+    }
+  ]
+}

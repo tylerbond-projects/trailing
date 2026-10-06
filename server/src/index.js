@@ -9,6 +9,8 @@ import outingRoutes from './routes/outings.js';
 import chatRoutes from './routes/chat.js';
 import stravaRoutes from './routes/strava.js';
 import achievementRoutes from './routes/achievements.js';
+import routeRoutes from './routes/routes.js';
+import feedbackRoutes from './routes/feedback.js';
 
 export { Realtime } from './realtime.js';
 
@@ -28,6 +30,8 @@ app.route('/api/outings', outingRoutes);
 app.route('/api/conversations', chatRoutes);
 app.route('/api/strava', stravaRoutes);
 app.route('/api/achievements', achievementRoutes);
+app.route('/api/routes', routeRoutes);
+app.route('/api/feedback', feedbackRoutes);
 app.all('/api/*', (c) => c.json({ error: 'Not found' }, 404));
 
 // Uploaded photos live in R2.

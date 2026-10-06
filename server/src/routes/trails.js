@@ -5,6 +5,8 @@ import { filesFrom, storePhoto, field } from '../uploads.js';
 import { checkAchievements } from '../achievements.js';
 import { recommendTrails } from '../recommend.js';
 import { visibleOutings } from './outings.js';
+import { haversineM } from '../routing.js';
+import { trailCover } from '../photos.js';
 
 const r = new Hono();
 r.use('*', requireAuth);
@@ -40,6 +42,13 @@ r.get('/', async (c) => {
   if (q.activity) add('EXISTS (SELECT 1 FROM json_each(t.activities) WHERE value = ?)', q.activity);
   if (q.dogs === '1') where.push("t.dogs IN ('leash','yes')");
   if (q.kid === '1') where.push('t.kid_friendly = 1');
+  const [nlat, nlng] = (q.near || '').split(',').map(Number);
+  const near = Number.isFinite(nlat) && Number.isFinite(nlng);
+  let order = SORTS[q.sort] || SORTS.popular;
+  if (near && q.sort === 'nearest') {
+    params.push(nlat, nlng);
+    order = `((t.lat - ?${params.length - 1}) * (t.lat - ?${params.length - 1}) + (t.lng - ?${params.length}) * (t.lng - ?${params.length}) * 0.58)`;
+  }
 
   // ?1 is the viewer; the remaining anonymous ? map to params[1..] in order.
   const rows = await c.get('db').all(`
@@ -48,8 +57,9 @@ r.get('/', async (c) => {
       EXISTS(SELECT 1 FROM activities a WHERE a.trail_id = t.id AND a.user_id = ?1) AS done
     FROM trails t LEFT JOIN trail_reviews r ON r.trail_id = t.id
     ${where.length ? 'WHERE ' + numbered(where.join(' AND '), 2) : ''}
-    GROUP BY t.id ORDER BY ${SORTS[q.sort] || SORTS.popular}`, ...params);
-  return c.json({ trails: rows.map((t) => ({ ...parseTrail(t), saved: !!t.saved, done: !!t.done })) });
+    GROUP BY t.id ORDER BY ${order}`, ...params);
+  const milesFrom = (t) => (near ? Math.round((haversineM([nlat, nlng], [t.lat, t.lng]) / 1609.344) * 10) / 10 : undefined);
+  return c.json({ trails: rows.map((t) => ({ ...parseTrail(t), saved: !!t.saved, done: !!t.done, miles_away: milesFrom(t) })) });
 });
 
 // Rewrite anonymous `?` placeholders as ?N starting at `from` (D1 can't mix them with ?1).
@@ -107,6 +117,15 @@ r.get('/:slug', async (c) => {
     outings: await visibleOutings(db, uid, { trailId: t.id }),
     nearby: nearby.map(parseTrail),
   });
+});
+
+// Main photo for a trail from its Google Maps listing (when configured).
+r.get('/:slug/cover', async (c) => {
+  const t = await c.get('db').first('SELECT id, slug, name, area, lat, lng, google_place_id FROM trails WHERE slug = ?', c.req.param('slug'));
+  if (!t) return c.json({ error: 'Trail not found' }, 404);
+  const cover = await trailCover(c.env, c.get('db'), t, Number(c.req.query('w')) || 1200);
+  c.header('Cache-Control', 'private, max-age=3600');
+  return c.json({ cover });
 });
 
 r.post('/:id/reviews', async (c) => {

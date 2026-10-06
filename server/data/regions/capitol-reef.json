@@ -1,0 +1,199 @@
+{
+  "region": {
+    "id": "capitol-reef",
+    "name": "Capitol Reef",
+    "state": "UT",
+    "country": "US",
+    "center": [
+      38.27,
+      -111.22
+    ],
+    "zoom": 11
+  },
+  "notes": "Curated starter dataset. Distances, elevations and coordinates are approximate; verify against NPS / USFS / BLM / state park sources before relying on them. Difficulty is computed from distance + elevation gain (server/src/difficulty.js).",
+  "trails": [
+    {
+      "slug": "hickman-bridge",
+      "name": "Hickman Bridge",
+      "area": "Capitol Reef National Park",
+      "lat": 38.2887,
+      "lng": -111.2276,
+      "distance_mi": 1.8,
+      "elevation_gain_ft": 400,
+      "max_elevation_ft": 5800,
+      "route_type": "out-and-back",
+      "features": [
+        "arch",
+        "views"
+      ],
+      "activities": [
+        "hike"
+      ],
+      "dogs": "no",
+      "kid_friendly": true,
+      "technical": false,
+      "best_seasons": [
+        "spring",
+        "summer",
+        "fall",
+        "winter"
+      ],
+      "surface": "dirt / slickrock",
+      "fee": "National park entrance fee",
+      "description": "A short climb to a 133-foot natural bridge.",
+      "tips": "Carry water — no shade."
+    },
+    {
+      "slug": "cassidy-arch",
+      "name": "Cassidy Arch",
+      "area": "Capitol Reef National Park",
+      "lat": 38.239,
+      "lng": -111.193,
+      "distance_mi": 3.4,
+      "elevation_gain_ft": 950,
+      "max_elevation_ft": 6000,
+      "route_type": "out-and-back",
+      "features": [
+        "arch",
+        "views",
+        "canyon"
+      ],
+      "activities": [
+        "hike"
+      ],
+      "dogs": "no",
+      "kid_friendly": false,
+      "technical": false,
+      "best_seasons": [
+        "spring",
+        "fall",
+        "winter"
+      ],
+      "surface": "slickrock",
+      "fee": "National park entrance fee",
+      "description": "Climb out of Grand Wash to an arch named for outlaw Butch Cassidy.",
+      "tips": "Follow the cairns on slickrock."
+    },
+    {
+      "slug": "grand-wash",
+      "name": "Grand Wash",
+      "area": "Capitol Reef National Park",
+      "lat": 38.265,
+      "lng": -111.23,
+      "distance_mi": 4.4,
+      "elevation_gain_ft": 200,
+      "max_elevation_ft": 5400,
+      "route_type": "out-and-back",
+      "features": [
+        "canyon"
+      ],
+      "activities": [
+        "hike",
+        "trail-run"
+      ],
+      "dogs": "no",
+      "kid_friendly": true,
+      "technical": false,
+      "best_seasons": [
+        "spring",
+        "fall",
+        "winter"
+      ],
+      "surface": "gravel",
+      "fee": "National park entrance fee",
+      "description": "A flat walk through towering narrows.",
+      "tips": "Avoid during storms."
+    },
+    {
+      "slug": "navajo-knobs",
+      "name": "Navajo Knobs",
+      "area": "Capitol Reef National Park",
+      "lat": 38.2887,
+      "lng": -111.2276,
+      "distance_mi": 9.4,
+      "elevation_gain_ft": 2100,
+      "max_elevation_ft": 6980,
+      "route_type": "out-and-back",
+      "features": [
+        "views",
+        "summit",
+        "solitude"
+      ],
+      "activities": [
+        "hike"
+      ],
+      "dogs": "no",
+      "kid_friendly": false,
+      "technical": false,
+      "best_seasons": [
+        "spring",
+        "fall",
+        "winter"
+      ],
+      "surface": "slickrock",
+      "fee": "National park entrance fee",
+      "description": "A long slickrock route past Rim Overlook to a pair of knobs with sweeping views of the Waterpocket Fold.",
+      "tips": "Little shade — start early."
+    },
+    {
+      "slug": "capitol-gorge-tanks",
+      "name": "Capitol Gorge & The Tanks",
+      "area": "Capitol Reef National Park",
+      "lat": 38.209,
+      "lng": -111.17,
+      "distance_mi": 2.0,
+      "elevation_gain_ft": 200,
+      "max_elevation_ft": 5600,
+      "route_type": "out-and-back",
+      "features": [
+        "canyon",
+        "history"
+      ],
+      "activities": [
+        "hike"
+      ],
+      "dogs": "no",
+      "kid_friendly": true,
+      "technical": false,
+      "best_seasons": [
+        "spring",
+        "fall",
+        "winter"
+      ],
+      "surface": "gravel",
+      "fee": "National park entrance fee",
+      "description": "Walk an old wagon road past a pioneer register to natural water pockets.",
+      "tips": "Great for kids."
+    },
+    {
+      "slug": "chimney-rock",
+      "name": "Chimney Rock Loop",
+      "area": "Capitol Reef National Park",
+      "lat": 38.316,
+      "lng": -111.304,
+      "distance_mi": 3.6,
+      "elevation_gain_ft": 800,
+      "max_elevation_ft": 6400,
+      "route_type": "loop",
+      "features": [
+        "views"
+      ],
+      "activities": [
+        "hike",
+        "trail-run"
+      ],
+      "dogs": "no",
+      "kid_friendly": false,
+      "technical": false,
+      "best_seasons": [
+        "spring",
+        "fall",
+        "winter"
+      ],
+      "surface": "dirt",
+      "fee": "National park entrance fee",
+      "description": "A loop climbing above colorful badlands with great views.",
+      "tips": "Best in the late afternoon light."
+    }
+  ]
+}

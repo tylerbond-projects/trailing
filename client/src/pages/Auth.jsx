@@ -44,7 +44,7 @@ export default function Auth({ mode }) {
       <div className="auth-art"><TrailArt trail={{ slug: 'trailing-auth-cover', features: ['summit', 'lake', 'shade'] }} /></div>
       <form className="auth-card card" onSubmit={submit}>
         <div className="brand big"><img src="/icon.svg" alt="" /> Trailing</div>
-        <p className="muted">{signup ? 'Join hikers and runners exploring Utah County.' : 'Welcome back to the trail.'}</p>
+        <p className="muted">{signup ? 'Join hikers and runners exploring Utah.' : 'Welcome back to the trail.'}</p>
 
         {signup ? (
           <>

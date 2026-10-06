@@ -1,0 +1,300 @@
+{
+  "region": {
+    "id": "northern-utah",
+    "name": "Northern Utah",
+    "state": "UT",
+    "country": "US",
+    "center": [
+      41.3,
+      -111.9
+    ],
+    "zoom": 9
+  },
+  "notes": "Curated starter dataset. Distances, elevations and coordinates are approximate; verify against NPS / USFS / BLM / state park sources before relying on them. Difficulty is computed from distance + elevation gain (server/src/difficulty.js).",
+  "trails": [
+    {
+      "slug": "waterfall-canyon-ogden",
+      "name": "Waterfall Canyon",
+      "area": "Ogden",
+      "lat": 41.201,
+      "lng": -111.933,
+      "distance_mi": 2.4,
+      "elevation_gain_ft": 1100,
+      "max_elevation_ft": 5800,
+      "route_type": "out-and-back",
+      "features": [
+        "waterfall",
+        "canyon"
+      ],
+      "activities": [
+        "hike",
+        "trail-run"
+      ],
+      "dogs": "leash",
+      "kid_friendly": true,
+      "technical": false,
+      "best_seasons": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "surface": "dirt / rock",
+      "fee": null,
+      "description": "A short, steep climb into a rocky canyon ending at a 200-foot waterfall.",
+      "tips": "Best flow in May and June."
+    },
+    {
+      "slug": "malans-peak",
+      "name": "Malan's Peak",
+      "area": "Ogden",
+      "lat": 41.215,
+      "lng": -111.937,
+      "distance_mi": 4.5,
+      "elevation_gain_ft": 2100,
+      "max_elevation_ft": 6900,
+      "route_type": "out-and-back",
+      "features": [
+        "summit",
+        "views",
+        "city-views"
+      ],
+      "activities": [
+        "hike",
+        "trail-run"
+      ],
+      "dogs": "leash",
+      "kid_friendly": false,
+      "technical": false,
+      "best_seasons": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "surface": "dirt",
+      "fee": null,
+      "description": "Switchbacks lead to a rocky point with sweeping views over Ogden and the Great Salt Lake.",
+      "tips": "Connects to the Bonneville Shoreline Trail."
+    },
+    {
+      "slug": "ben-lomond-peak",
+      "name": "Ben Lomond Peak",
+      "area": "North Ogden",
+      "lat": 41.344,
+      "lng": -111.938,
+      "distance_mi": 14.5,
+      "elevation_gain_ft": 4300,
+      "max_elevation_ft": 9712,
+      "route_type": "out-and-back",
+      "features": [
+        "summit",
+        "views",
+        "wildflowers"
+      ],
+      "activities": [
+        "hike"
+      ],
+      "dogs": "leash",
+      "kid_friendly": false,
+      "technical": false,
+      "best_seasons": [
+        "summer",
+        "fall"
+      ],
+      "surface": "dirt",
+      "fee": null,
+      "description": "A long ridge route to the commanding peak above North Ogden.",
+      "tips": "Little shade on the upper ridge."
+    },
+    {
+      "slug": "adams-canyon",
+      "name": "Adams Canyon",
+      "area": "Layton",
+      "lat": 41.065,
+      "lng": -111.923,
+      "distance_mi": 3.8,
+      "elevation_gain_ft": 1500,
+      "max_elevation_ft": 5900,
+      "route_type": "out-and-back",
+      "features": [
+        "waterfall",
+        "canyon",
+        "shade"
+      ],
+      "activities": [
+        "hike",
+        "trail-run"
+      ],
+      "dogs": "leash",
+      "kid_friendly": true,
+      "technical": false,
+      "best_seasons": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "surface": "sand / dirt",
+      "fee": null,
+      "description": "Sandy switchbacks give way to a shaded canyon and a 40-foot waterfall.",
+      "tips": "The first half mile is soft sand."
+    },
+    {
+      "slug": "frary-peak",
+      "name": "Frary Peak (Antelope Island)",
+      "area": "Antelope Island State Park",
+      "lat": 40.9887,
+      "lng": -112.214,
+      "distance_mi": 6.6,
+      "elevation_gain_ft": 2100,
+      "max_elevation_ft": 6596,
+      "route_type": "out-and-back",
+      "features": [
+        "summit",
+        "views",
+        "wildlife",
+        "lake"
+      ],
+      "activities": [
+        "hike",
+        "trail-run"
+      ],
+      "dogs": "leash",
+      "kid_friendly": false,
+      "technical": false,
+      "best_seasons": [
+        "spring",
+        "fall"
+      ],
+      "surface": "dirt",
+      "fee": "State park entrance fee",
+      "description": "The high point of Antelope Island, with views over the Great Salt Lake and bison grazing below.",
+      "tips": "Biting gnats can be fierce in late spring."
+    },
+    {
+      "slug": "wind-cave-logan",
+      "name": "Wind Caves",
+      "area": "Logan Canyon",
+      "lat": 41.747,
+      "lng": -111.725,
+      "distance_mi": 3.6,
+      "elevation_gain_ft": 1100,
+      "max_elevation_ft": 5800,
+      "route_type": "out-and-back",
+      "features": [
+        "cave",
+        "views",
+        "fall-colors"
+      ],
+      "activities": [
+        "hike",
+        "trail-run"
+      ],
+      "dogs": "leash",
+      "kid_friendly": true,
+      "technical": false,
+      "best_seasons": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "surface": "dirt",
+      "fee": null,
+      "description": "Climb to a set of wind-carved limestone arches and caves high above Logan Canyon.",
+      "tips": "Gorgeous in fall."
+    },
+    {
+      "slug": "naomi-peak",
+      "name": "Naomi Peak via Tony Grove",
+      "area": "Logan Canyon",
+      "lat": 41.893,
+      "lng": -111.642,
+      "distance_mi": 6.6,
+      "elevation_gain_ft": 1900,
+      "max_elevation_ft": 9979,
+      "route_type": "out-and-back",
+      "features": [
+        "summit",
+        "lake",
+        "wildflowers",
+        "views"
+      ],
+      "activities": [
+        "hike"
+      ],
+      "dogs": "leash",
+      "kid_friendly": false,
+      "technical": false,
+      "best_seasons": [
+        "summer",
+        "fall"
+      ],
+      "surface": "dirt",
+      "fee": "Day-use fee",
+      "description": "From Tony Grove Lake, climb through one of Utah's best wildflower basins to the high point of the Bear River Range.",
+      "tips": "Wildflowers peak in late July."
+    },
+    {
+      "slug": "jardine-juniper",
+      "name": "Jardine Juniper",
+      "area": "Logan Canyon",
+      "lat": 41.798,
+      "lng": -111.645,
+      "distance_mi": 10.5,
+      "elevation_gain_ft": 2000,
+      "max_elevation_ft": 7100,
+      "route_type": "out-and-back",
+      "features": [
+        "views",
+        "shade",
+        "fall-colors"
+      ],
+      "activities": [
+        "hike",
+        "trail-run"
+      ],
+      "dogs": "leash",
+      "kid_friendly": false,
+      "technical": false,
+      "best_seasons": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "surface": "dirt",
+      "fee": null,
+      "description": "A long forested climb to one of the oldest Rocky Mountain junipers on Earth — around 1,500 years old.",
+      "tips": "Great early-season trail run."
+    },
+    {
+      "slug": "ogden-river-parkway",
+      "name": "Ogden River Parkway",
+      "area": "Ogden",
+      "lat": 41.235,
+      "lng": -111.96,
+      "distance_mi": 6.4,
+      "elevation_gain_ft": 200,
+      "max_elevation_ft": 4500,
+      "route_type": "out-and-back",
+      "features": [
+        "river",
+        "accessible"
+      ],
+      "activities": [
+        "run",
+        "hike"
+      ],
+      "dogs": "leash",
+      "kid_friendly": true,
+      "technical": false,
+      "best_seasons": [
+        "spring",
+        "summer",
+        "fall",
+        "winter"
+      ],
+      "surface": "paved",
+      "fee": null,
+      "description": "A paved path along the Ogden River from the city to the mouth of Ogden Canyon.",
+      "tips": "Popular with runners year-round."
+    }
+  ]
+}

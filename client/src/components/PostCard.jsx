@@ -78,6 +78,12 @@ export default function PostCard({ post, onDelete }) {
         </Link>
       )}
 
+      {a?.route_id && (
+        <Link to={`/routes/${a.route_id}`} className="post-trail">
+          <span className="with-icon"><Icon name="route" size={16} />{a.route_name || 'Custom route'}</span>
+        </Link>
+      )}
+
       {post.photos.length > 0 && (
         <div className={`photo-grid n${Math.min(post.photos.length, 4)}`}>
           {post.photos.slice(0, 4).map((url) => (

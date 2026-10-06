@@ -6,6 +6,7 @@ import { Avatar, ErrorText } from '../components/ui.jsx';
 import PhotoPicker from '../components/PhotoPicker.jsx';
 import { IconText } from '../components/Icon.jsx';
 import { getTheme, setTheme } from '../lib/theme.js';
+import Icon from '../components/Icon.jsx';
 
 const STRAVA_MSG = {
   connected: 'Strava connected! You can now import activities.',
@@ -23,6 +24,18 @@ export default function Settings() {
   const [strava, setStrava] = useState(null);
   const [theme, setThemeState] = useState(getTheme());
   const chooseTheme = (t) => { setTheme(t); setThemeState(t); };
+  const [fb, setFb] = useState({ category: 'general', message: '' });
+  const [fbState, setFbState] = useState({ sending: false, sent: false, error: '' });
+
+  async function sendFeedback(e) {
+    e.preventDefault();
+    setFbState({ sending: true, sent: false, error: '' });
+    try {
+      await api('/feedback', { method: 'POST', body: { ...fb, page: document.referrer ? new URL(document.referrer).pathname : '/settings' } });
+      setFb({ category: fb.category, message: '' });
+      setFbState({ sending: false, sent: true, error: '' });
+    } catch (err) { setFbState({ sending: false, sent: false, error: err.message }); }
+  }
   const set = (k) => (e) => setF({ ...f, [k]: e?.target ? e.target.value : e });
 
   useEffect(() => { api('/strava/status').then(setStrava); }, []);
@@ -106,6 +119,26 @@ export default function Settings() {
             : <button className="btn strava" onClick={connect}>Connect</button>)}
         </div>
       </div>
+
+      <form className="card form" onSubmit={sendFeedback}>
+        <h2>Send feedback</h2>
+        <p className="muted small">Found a bug, have an idea, or spotted wrong trail info? It goes straight to the Trailing team.</p>
+        <label>Type
+          <select value={fb.category} onChange={(e) => setFb({ ...fb, category: e.target.value })}>
+            <option value="general">General feedback</option>
+            <option value="idea">Feature idea</option>
+            <option value="bug">Bug report</option>
+            <option value="trail-data">Trail info correction</option>
+          </select>
+        </label>
+        <label>Message
+          <textarea rows={4} value={fb.message} onChange={(e) => { setFb({ ...fb, message: e.target.value }); if (fbState.sent) setFbState({ ...fbState, sent: false }); }}
+            placeholder="Tell us what's on your mind…" maxLength={5000} required />
+        </label>
+        <ErrorText error={fbState.error} />
+        {fbState.sent && <p className="success-text with-icon"><Icon name="check-circle" size={16} />Thanks! Your feedback was sent.</p>}
+        <button className="btn primary" disabled={fbState.sending || fb.message.trim().length < 3}><Icon name="send" size={16} /> {fbState.sending ? 'Sending…' : 'Send feedback'}</button>
+      </form>
 
       <div className="card form">
         <h2>Account</h2>

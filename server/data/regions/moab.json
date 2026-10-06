@@ -1,0 +1,418 @@
+{
+  "region": {
+    "id": "moab",
+    "name": "Moab & Southeast Utah",
+    "state": "UT",
+    "country": "US",
+    "center": [
+      38.5,
+      -109.7
+    ],
+    "zoom": 9
+  },
+  "notes": "Curated starter dataset. Distances, elevations and coordinates are approximate; verify against NPS / USFS / BLM / state park sources before relying on them. Difficulty is computed from distance + elevation gain (server/src/difficulty.js).",
+  "trails": [
+    {
+      "slug": "delicate-arch",
+      "name": "Delicate Arch",
+      "area": "Arches National Park",
+      "lat": 38.7357,
+      "lng": -109.5205,
+      "distance_mi": 3.2,
+      "elevation_gain_ft": 630,
+      "max_elevation_ft": 4800,
+      "route_type": "out-and-back",
+      "features": [
+        "arch",
+        "views"
+      ],
+      "activities": [
+        "hike"
+      ],
+      "dogs": "no",
+      "kid_friendly": true,
+      "technical": false,
+      "best_seasons": [
+        "spring",
+        "fall",
+        "winter"
+      ],
+      "surface": "slickrock",
+      "fee": "National park entrance fee",
+      "description": "Utah's most famous landmark: climb slickrock to a freestanding 52-foot arch.",
+      "tips": "Sunset is spectacular and crowded.",
+      "permit": "Timed-entry reservation may be required in peak season."
+    },
+    {
+      "slug": "devils-garden",
+      "name": "Devils Garden Primitive Loop",
+      "area": "Arches National Park",
+      "lat": 38.783,
+      "lng": -109.595,
+      "distance_mi": 7.8,
+      "elevation_gain_ft": 1000,
+      "max_elevation_ft": 5300,
+      "route_type": "loop",
+      "features": [
+        "arch",
+        "views",
+        "canyon"
+      ],
+      "activities": [
+        "hike"
+      ],
+      "dogs": "no",
+      "kid_friendly": false,
+      "technical": true,
+      "best_seasons": [
+        "spring",
+        "fall",
+        "winter"
+      ],
+      "surface": "slickrock / sand",
+      "fee": "National park entrance fee",
+      "description": "Past Landscape Arch and seven others on fins of sandstone, with some scrambling.",
+      "tips": "The primitive section involves fin-walking."
+    },
+    {
+      "slug": "double-arch",
+      "name": "Double Arch",
+      "area": "Arches National Park",
+      "lat": 38.6915,
+      "lng": -109.54,
+      "distance_mi": 0.6,
+      "elevation_gain_ft": 50,
+      "max_elevation_ft": 5100,
+      "route_type": "out-and-back",
+      "features": [
+        "arch"
+      ],
+      "activities": [
+        "hike"
+      ],
+      "dogs": "no",
+      "kid_friendly": true,
+      "technical": false,
+      "best_seasons": [
+        "spring",
+        "summer",
+        "fall",
+        "winter"
+      ],
+      "surface": "sand",
+      "fee": "National park entrance fee",
+      "description": "A very short walk to two huge arches sharing one foundation.",
+      "tips": "Pair with the nearby Windows loop."
+    },
+    {
+      "slug": "windows-loop",
+      "name": "Windows Loop",
+      "area": "Arches National Park",
+      "lat": 38.6875,
+      "lng": -109.537,
+      "distance_mi": 1.0,
+      "elevation_gain_ft": 150,
+      "max_elevation_ft": 5200,
+      "route_type": "loop",
+      "features": [
+        "arch",
+        "views"
+      ],
+      "activities": [
+        "hike"
+      ],
+      "dogs": "no",
+      "kid_friendly": true,
+      "technical": false,
+      "best_seasons": [
+        "spring",
+        "summer",
+        "fall",
+        "winter"
+      ],
+      "surface": "gravel",
+      "fee": "National park entrance fee",
+      "description": "An easy loop to North and South Window and Turret Arch.",
+      "tips": "Take the primitive return trail for fewer people."
+    },
+    {
+      "slug": "corona-arch",
+      "name": "Corona Arch",
+      "area": "Moab (Potash Road)",
+      "lat": 38.58,
+      "lng": -109.62,
+      "distance_mi": 3.0,
+      "elevation_gain_ft": 450,
+      "max_elevation_ft": 4400,
+      "route_type": "out-and-back",
+      "features": [
+        "arch",
+        "views"
+      ],
+      "activities": [
+        "hike",
+        "trail-run"
+      ],
+      "dogs": "leash",
+      "kid_friendly": true,
+      "technical": true,
+      "best_seasons": [
+        "spring",
+        "fall",
+        "winter"
+      ],
+      "surface": "slickrock",
+      "fee": null,
+      "description": "A huge arch reached via slickrock, a short ladder and safety cables.",
+      "tips": "Bowtie Arch is along the way."
+    },
+    {
+      "slug": "fisher-towers",
+      "name": "Fisher Towers",
+      "area": "Castle Valley",
+      "lat": 38.725,
+      "lng": -109.309,
+      "distance_mi": 4.4,
+      "elevation_gain_ft": 1000,
+      "max_elevation_ft": 4800,
+      "route_type": "out-and-back",
+      "features": [
+        "views",
+        "canyon"
+      ],
+      "activities": [
+        "hike",
+        "trail-run"
+      ],
+      "dogs": "leash",
+      "kid_friendly": false,
+      "technical": false,
+      "best_seasons": [
+        "spring",
+        "fall",
+        "winter"
+      ],
+      "surface": "dirt",
+      "fee": null,
+      "description": "Wind among towering mud-and-stone spires above the Colorado River.",
+      "tips": "A short ladder near the start."
+    },
+    {
+      "slug": "grandstaff-canyon",
+      "name": "Grandstaff Canyon",
+      "area": "Moab",
+      "lat": 38.611,
+      "lng": -109.533,
+      "distance_mi": 4.8,
+      "elevation_gain_ft": 550,
+      "max_elevation_ft": 4500,
+      "route_type": "out-and-back",
+      "features": [
+        "arch",
+        "river",
+        "shade",
+        "canyon"
+      ],
+      "activities": [
+        "hike",
+        "trail-run"
+      ],
+      "dogs": "leash",
+      "kid_friendly": true,
+      "technical": false,
+      "best_seasons": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "surface": "sand / creek",
+      "fee": null,
+      "description": "Follow a creek through a green canyon to Morning Glory, a 243-foot natural bridge.",
+      "tips": "Lots of creek crossings — expect wet feet."
+    },
+    {
+      "slug": "dead-horse-rim",
+      "name": "Dead Horse Point Rim Trail",
+      "area": "Dead Horse Point State Park",
+      "lat": 38.47,
+      "lng": -109.74,
+      "distance_mi": 5.0,
+      "elevation_gain_ft": 400,
+      "max_elevation_ft": 6000,
+      "route_type": "loop",
+      "features": [
+        "views"
+      ],
+      "activities": [
+        "hike",
+        "trail-run"
+      ],
+      "dogs": "leash",
+      "kid_friendly": true,
+      "technical": false,
+      "best_seasons": [
+        "spring",
+        "summer",
+        "fall",
+        "winter"
+      ],
+      "surface": "dirt / slickrock",
+      "fee": "State park fee",
+      "description": "A rim loop with a dizzying view of the Colorado River's gooseneck 2,000 feet below.",
+      "tips": "Superb at sunrise."
+    },
+    {
+      "slug": "mesa-arch",
+      "name": "Mesa Arch",
+      "area": "Canyonlands — Island in the Sky",
+      "lat": 38.389,
+      "lng": -109.868,
+      "distance_mi": 0.7,
+      "elevation_gain_ft": 80,
+      "max_elevation_ft": 6100,
+      "route_type": "loop",
+      "features": [
+        "arch",
+        "views"
+      ],
+      "activities": [
+        "hike"
+      ],
+      "dogs": "no",
+      "kid_friendly": true,
+      "technical": false,
+      "best_seasons": [
+        "spring",
+        "summer",
+        "fall",
+        "winter"
+      ],
+      "surface": "dirt",
+      "fee": "National park entrance fee",
+      "description": "A short walk to an arch perched on the edge of a cliff — iconic at sunrise.",
+      "tips": "Arrive well before sunrise for a spot."
+    },
+    {
+      "slug": "grand-view-point",
+      "name": "Grand View Point",
+      "area": "Canyonlands — Island in the Sky",
+      "lat": 38.311,
+      "lng": -109.858,
+      "distance_mi": 2.0,
+      "elevation_gain_ft": 150,
+      "max_elevation_ft": 6100,
+      "route_type": "out-and-back",
+      "features": [
+        "views"
+      ],
+      "activities": [
+        "hike"
+      ],
+      "dogs": "no",
+      "kid_friendly": true,
+      "technical": false,
+      "best_seasons": [
+        "spring",
+        "summer",
+        "fall",
+        "winter"
+      ],
+      "surface": "dirt",
+      "fee": "National park entrance fee",
+      "description": "A rim walk to the end of the Island in the Sky mesa.",
+      "tips": "Unbeatable views for the effort."
+    },
+    {
+      "slug": "druid-arch",
+      "name": "Druid Arch",
+      "area": "Canyonlands — The Needles",
+      "lat": 38.141,
+      "lng": -109.827,
+      "distance_mi": 11.0,
+      "elevation_gain_ft": 1100,
+      "max_elevation_ft": 5800,
+      "route_type": "out-and-back",
+      "features": [
+        "arch",
+        "canyon",
+        "solitude"
+      ],
+      "activities": [
+        "hike"
+      ],
+      "dogs": "no",
+      "kid_friendly": false,
+      "technical": true,
+      "best_seasons": [
+        "spring",
+        "fall",
+        "winter"
+      ],
+      "surface": "sand / slickrock",
+      "fee": "National park entrance fee",
+      "description": "A long route through the Needles to a towering, temple-like arch.",
+      "tips": "Final section includes a ladder and scramble."
+    },
+    {
+      "slug": "natural-bridges-loop",
+      "name": "Natural Bridges Loop",
+      "area": "Natural Bridges National Monument",
+      "lat": 37.61,
+      "lng": -110.005,
+      "distance_mi": 8.6,
+      "elevation_gain_ft": 1000,
+      "max_elevation_ft": 6400,
+      "route_type": "loop",
+      "features": [
+        "arch",
+        "canyon",
+        "history"
+      ],
+      "activities": [
+        "hike"
+      ],
+      "dogs": "no",
+      "kid_friendly": false,
+      "technical": false,
+      "best_seasons": [
+        "spring",
+        "fall",
+        "winter"
+      ],
+      "surface": "slickrock / sand",
+      "fee": "National park entrance fee",
+      "description": "Visit all three massive natural bridges by walking the canyon bottoms and mesa top.",
+      "tips": "Ladders on some descents."
+    },
+    {
+      "slug": "house-on-fire",
+      "name": "House on Fire",
+      "area": "Bears Ears — Mule Canyon",
+      "lat": 37.532,
+      "lng": -109.731,
+      "distance_mi": 2.0,
+      "elevation_gain_ft": 200,
+      "max_elevation_ft": 6000,
+      "route_type": "out-and-back",
+      "features": [
+        "history",
+        "canyon"
+      ],
+      "activities": [
+        "hike"
+      ],
+      "dogs": "leash",
+      "kid_friendly": true,
+      "technical": false,
+      "best_seasons": [
+        "spring",
+        "fall",
+        "winter"
+      ],
+      "surface": "sand",
+      "fee": "Day-use fee",
+      "description": "A short canyon walk to an Ancestral Puebloan granary whose rock ceiling glows like flames in morning light.",
+      "tips": "Look but don't touch — protect the site."
+    }
+  ]
+}

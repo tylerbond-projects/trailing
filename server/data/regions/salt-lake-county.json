@@ -1,0 +1,481 @@
+{
+  "region": {
+    "id": "salt-lake-county",
+    "name": "Salt Lake County",
+    "state": "UT",
+    "country": "US",
+    "center": [
+      40.66,
+      -111.8
+    ],
+    "zoom": 10
+  },
+  "notes": "Curated starter dataset. Distances, elevations and coordinates are approximate; verify against NPS / USFS / BLM / state park sources before relying on them. Difficulty is computed from distance + elevation gain (server/src/difficulty.js).",
+  "trails": [
+    {
+      "slug": "lake-blanche",
+      "name": "Lake Blanche",
+      "area": "Big Cottonwood Canyon",
+      "lat": 40.6326,
+      "lng": -111.7234,
+      "distance_mi": 6.8,
+      "elevation_gain_ft": 2700,
+      "max_elevation_ft": 8900,
+      "route_type": "out-and-back",
+      "features": [
+        "lake",
+        "views",
+        "wildflowers"
+      ],
+      "activities": [
+        "hike"
+      ],
+      "dogs": "no",
+      "kid_friendly": false,
+      "technical": false,
+      "best_seasons": [
+        "summer",
+        "fall"
+      ],
+      "surface": "dirt / rock",
+      "fee": null,
+      "description": "A steep, rewarding climb to three alpine lakes beneath the dramatic quartzite face of Sundial Peak.",
+      "tips": "Dogs are not allowed anywhere in Big Cottonwood Canyon (protected watershed)."
+    },
+    {
+      "slug": "donut-falls",
+      "name": "Donut Falls",
+      "area": "Big Cottonwood Canyon",
+      "lat": 40.646,
+      "lng": -111.643,
+      "distance_mi": 1.5,
+      "elevation_gain_ft": 250,
+      "max_elevation_ft": 7500,
+      "route_type": "out-and-back",
+      "features": [
+        "waterfall",
+        "cave",
+        "shade"
+      ],
+      "activities": [
+        "hike"
+      ],
+      "dogs": "no",
+      "kid_friendly": true,
+      "technical": false,
+      "best_seasons": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "surface": "dirt",
+      "fee": null,
+      "description": "A short family favorite to a waterfall that drops through a hole in the rock into a small cave.",
+      "tips": "The rocks inside the cave are slick — wear shoes with grip."
+    },
+    {
+      "slug": "lake-mary-martha",
+      "name": "Lake Mary & Lake Martha",
+      "area": "Brighton",
+      "lat": 40.598,
+      "lng": -111.584,
+      "distance_mi": 3.0,
+      "elevation_gain_ft": 1000,
+      "max_elevation_ft": 9600,
+      "route_type": "out-and-back",
+      "features": [
+        "lake",
+        "wildflowers",
+        "views"
+      ],
+      "activities": [
+        "hike"
+      ],
+      "dogs": "no",
+      "kid_friendly": true,
+      "technical": false,
+      "best_seasons": [
+        "summer",
+        "fall"
+      ],
+      "surface": "dirt",
+      "fee": null,
+      "description": "Climb from Brighton through wildflower meadows to two sparkling alpine lakes ringed by granite.",
+      "tips": "Continue to Lake Catherine for an extra mile of scenery."
+    },
+    {
+      "slug": "cecret-lake",
+      "name": "Cecret Lake",
+      "area": "Little Cottonwood Canyon / Albion Basin",
+      "lat": 40.5785,
+      "lng": -111.6136,
+      "distance_mi": 1.8,
+      "elevation_gain_ft": 450,
+      "max_elevation_ft": 9875,
+      "route_type": "out-and-back",
+      "features": [
+        "lake",
+        "wildflowers",
+        "wildlife"
+      ],
+      "activities": [
+        "hike"
+      ],
+      "dogs": "no",
+      "kid_friendly": true,
+      "technical": false,
+      "best_seasons": [
+        "summer"
+      ],
+      "surface": "dirt",
+      "fee": "Albion Basin day-use fee",
+      "description": "A short walk through Albion Basin, one of the best wildflower displays in the Wasatch, to a cirque lake below Sugarloaf Peak.",
+      "tips": "Peak wildflowers are usually mid-July. Moose are common — keep your distance."
+    },
+    {
+      "slug": "red-pine-lake",
+      "name": "Red Pine Lake",
+      "area": "Little Cottonwood Canyon",
+      "lat": 40.5807,
+      "lng": -111.6807,
+      "distance_mi": 6.8,
+      "elevation_gain_ft": 1950,
+      "max_elevation_ft": 9650,
+      "route_type": "out-and-back",
+      "features": [
+        "lake",
+        "views",
+        "shade"
+      ],
+      "activities": [
+        "hike"
+      ],
+      "dogs": "no",
+      "kid_friendly": false,
+      "technical": false,
+      "best_seasons": [
+        "summer",
+        "fall"
+      ],
+      "surface": "dirt",
+      "fee": null,
+      "description": "A steady forested climb to a deep blue lake surrounded by granite peaks.",
+      "tips": "Upper Red Pine Lake is a short scramble beyond."
+    },
+    {
+      "slug": "mount-olympus",
+      "name": "Mount Olympus",
+      "area": "Holladay / Wasatch Front",
+      "lat": 40.6575,
+      "lng": -111.7895,
+      "distance_mi": 7.0,
+      "elevation_gain_ft": 4200,
+      "max_elevation_ft": 9026,
+      "route_type": "out-and-back",
+      "features": [
+        "summit",
+        "views",
+        "city-views"
+      ],
+      "activities": [
+        "hike"
+      ],
+      "dogs": "leash",
+      "kid_friendly": false,
+      "technical": true,
+      "best_seasons": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "surface": "dirt / rock",
+      "fee": null,
+      "description": "A relentless climb up the face of the Salt Lake Valley's most iconic peak, finishing with a hands-on scramble to the summit.",
+      "tips": "Start very early in summer — the lower trail is fully exposed."
+    },
+    {
+      "slug": "ensign-peak",
+      "name": "Ensign Peak",
+      "area": "Salt Lake City",
+      "lat": 40.79,
+      "lng": -111.8899,
+      "distance_mi": 0.9,
+      "elevation_gain_ft": 400,
+      "max_elevation_ft": 5414,
+      "route_type": "out-and-back",
+      "features": [
+        "views",
+        "city-views"
+      ],
+      "activities": [
+        "hike",
+        "trail-run"
+      ],
+      "dogs": "leash",
+      "kid_friendly": true,
+      "technical": false,
+      "best_seasons": [
+        "spring",
+        "summer",
+        "fall",
+        "winter"
+      ],
+      "surface": "dirt",
+      "fee": null,
+      "description": "A short, historic climb with a panoramic view over downtown Salt Lake City and the Great Salt Lake.",
+      "tips": "Great for sunset."
+    },
+    {
+      "slug": "living-room",
+      "name": "Living Room Trail",
+      "area": "Salt Lake City / Red Butte",
+      "lat": 40.7625,
+      "lng": -111.8256,
+      "distance_mi": 2.4,
+      "elevation_gain_ft": 1000,
+      "max_elevation_ft": 5900,
+      "route_type": "out-and-back",
+      "features": [
+        "views",
+        "city-views"
+      ],
+      "activities": [
+        "hike",
+        "trail-run"
+      ],
+      "dogs": "leash",
+      "kid_friendly": true,
+      "technical": false,
+      "best_seasons": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "surface": "dirt",
+      "fee": null,
+      "description": "Climb above the University of Utah to a ridge where hikers have built \"furniture\" from sandstone slabs.",
+      "tips": "Bring a headlamp if you stay for sunset."
+    },
+    {
+      "slug": "grandeur-peak",
+      "name": "Grandeur Peak via Church Fork",
+      "area": "Millcreek Canyon",
+      "lat": 40.6977,
+      "lng": -111.745,
+      "distance_mi": 6.0,
+      "elevation_gain_ft": 2600,
+      "max_elevation_ft": 8299,
+      "route_type": "out-and-back",
+      "features": [
+        "summit",
+        "views",
+        "city-views",
+        "shade"
+      ],
+      "activities": [
+        "hike",
+        "trail-run"
+      ],
+      "dogs": "leash",
+      "kid_friendly": false,
+      "technical": false,
+      "best_seasons": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "surface": "dirt",
+      "fee": "Millcreek Canyon fee",
+      "description": "A shaded canyon climb to a summit overlooking the entire Salt Lake Valley.",
+      "tips": "Millcreek allows dogs off-leash on odd-numbered days."
+    },
+    {
+      "slug": "dog-lake-millcreek",
+      "name": "Dog Lake via Big Water",
+      "area": "Millcreek Canyon",
+      "lat": 40.683,
+      "lng": -111.646,
+      "distance_mi": 5.2,
+      "elevation_gain_ft": 1400,
+      "max_elevation_ft": 8750,
+      "route_type": "out-and-back",
+      "features": [
+        "lake",
+        "shade",
+        "wildflowers"
+      ],
+      "activities": [
+        "hike",
+        "trail-run"
+      ],
+      "dogs": "leash",
+      "kid_friendly": true,
+      "technical": false,
+      "best_seasons": [
+        "summer",
+        "fall"
+      ],
+      "surface": "dirt",
+      "fee": "Millcreek Canyon fee",
+      "description": "A gentle forested trail to a small lake — popular with dog owners and trail runners.",
+      "tips": "Mountain bikes use this trail on even days."
+    },
+    {
+      "slug": "bells-canyon",
+      "name": "Bells Canyon Lower Falls",
+      "area": "Sandy / Granite",
+      "lat": 40.5704,
+      "lng": -111.8001,
+      "distance_mi": 4.6,
+      "elevation_gain_ft": 1600,
+      "max_elevation_ft": 6200,
+      "route_type": "out-and-back",
+      "features": [
+        "waterfall",
+        "views"
+      ],
+      "activities": [
+        "hike"
+      ],
+      "dogs": "no",
+      "kid_friendly": false,
+      "technical": false,
+      "best_seasons": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "surface": "dirt / granite",
+      "fee": null,
+      "description": "Pass a reservoir and climb a rocky granite canyon to a roaring waterfall.",
+      "tips": "Protected watershed: no dogs or swimming."
+    },
+    {
+      "slug": "ghost-falls",
+      "name": "Ghost Falls (Corner Canyon)",
+      "area": "Draper",
+      "lat": 40.513,
+      "lng": -111.83,
+      "distance_mi": 2.7,
+      "elevation_gain_ft": 500,
+      "max_elevation_ft": 5400,
+      "route_type": "out-and-back",
+      "features": [
+        "waterfall",
+        "shade"
+      ],
+      "activities": [
+        "hike",
+        "trail-run"
+      ],
+      "dogs": "leash",
+      "kid_friendly": true,
+      "technical": false,
+      "best_seasons": [
+        "spring",
+        "summer",
+        "fall"
+      ],
+      "surface": "dirt",
+      "fee": null,
+      "description": "An easy outing in the Corner Canyon trail network to a seasonal waterfall.",
+      "tips": "Corner Canyon has dozens of miles of trail for longer runs."
+    },
+    {
+      "slug": "silver-lake-brighton",
+      "name": "Silver Lake Boardwalk",
+      "area": "Brighton",
+      "lat": 40.603,
+      "lng": -111.585,
+      "distance_mi": 1.0,
+      "elevation_gain_ft": 50,
+      "max_elevation_ft": 8740,
+      "route_type": "loop",
+      "features": [
+        "lake",
+        "accessible",
+        "wildlife"
+      ],
+      "activities": [
+        "hike"
+      ],
+      "dogs": "no",
+      "kid_friendly": true,
+      "technical": false,
+      "best_seasons": [
+        "summer",
+        "fall"
+      ],
+      "surface": "boardwalk",
+      "fee": null,
+      "description": "A flat boardwalk loop around a mountain lake — great for wildlife spotting and all abilities.",
+      "tips": "Look for moose in the willows at dawn and dusk."
+    },
+    {
+      "slug": "city-creek-canyon",
+      "name": "City Creek Canyon Road",
+      "area": "Salt Lake City",
+      "lat": 40.783,
+      "lng": -111.88,
+      "distance_mi": 11.0,
+      "elevation_gain_ft": 1500,
+      "max_elevation_ft": 5900,
+      "route_type": "out-and-back",
+      "features": [
+        "river",
+        "shade",
+        "fall-colors"
+      ],
+      "activities": [
+        "run",
+        "hike"
+      ],
+      "dogs": "leash",
+      "kid_friendly": true,
+      "technical": false,
+      "best_seasons": [
+        "spring",
+        "summer",
+        "fall",
+        "winter"
+      ],
+      "surface": "paved",
+      "fee": null,
+      "description": "A quiet paved canyon road right above downtown, closed to cars on many days — a local favorite for long runs.",
+      "tips": "Check the city schedule for car-free days."
+    },
+    {
+      "slug": "bonneville-shoreline-slc",
+      "name": "Bonneville Shoreline Trail (Salt Lake)",
+      "area": "Salt Lake City",
+      "lat": 40.772,
+      "lng": -111.83,
+      "distance_mi": 6.0,
+      "elevation_gain_ft": 800,
+      "max_elevation_ft": 5400,
+      "route_type": "point-to-point",
+      "features": [
+        "views",
+        "city-views"
+      ],
+      "activities": [
+        "hike",
+        "trail-run",
+        "run"
+      ],
+      "dogs": "leash",
+      "kid_friendly": true,
+      "technical": false,
+      "best_seasons": [
+        "spring",
+        "summer",
+        "fall",
+        "winter"
+      ],
+      "surface": "dirt",
+      "fee": null,
+      "description": "Rolling foothill singletrack above the city with constant valley views.",
+      "tips": "Many trailheads let you choose your distance."
+    }
+  ]
+}
