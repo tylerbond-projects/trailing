@@ -6,7 +6,7 @@ import { Spinner, Empty } from '../components/ui.jsx';
 import { storage } from '../lib/storage.js';
 import { Feature, IconText } from '../components/Icon.jsx';
 import { ExploreSwitch } from './Routes.jsx';
-import { locate } from '../lib/geo.js';
+import { locate, locationGranted } from '../lib/geo.js';
 
 const DIFFICULTY = [
   { label: 'Easy', min: 1, max: 2 }, { label: 'Moderate', min: 3, max: 4 },
@@ -27,6 +27,18 @@ export default function Explore() {
   const setView = (v) => { setViewRaw(v); storage.set('explore.view', v); };
 
   useEffect(() => { api('/trails/regions').then((d) => setRegions(d.regions)); }, []);
+
+  // If location is already allowed, sort nearest-first without prompting.
+  useEffect(() => {
+    locationGranted().then(async (ok) => {
+      if (!ok) return;
+      const p = await locate();
+      if (p) { setHere(p); setFilters((f) => (f.sort === 'popular' ? { ...f, sort: 'nearest' } : f)); }
+    });
+  }, []);
+
+  // Opening the map asks for location (once) so it can start near the viewer.
+  useEffect(() => { if (view === 'map' && !here) locate().then((p) => p && setHere(p)); }, [view]); // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => { const t = setTimeout(() => setDebounced(q), 250); return () => clearTimeout(t); }, [q]);
 
   const query = useMemo(() => {
@@ -43,7 +55,11 @@ export default function Explore() {
     return p.toString();
   }, [debounced, filters, here]);
 
-  useEffect(() => { api(`/trails?${query}`).then((d) => setTrails(d.trails)); }, [query]);
+  useEffect(() => {
+    let current = true; // ignore responses for filters that have since changed
+    api(`/trails?${query}`).then((d) => { if (current) setTrails(d.trails); });
+    return () => { current = false; };
+  }, [query]);
 
   const toggle = (k, v) => setFilters((f) => ({ ...f, [k]: f[k] === v ? null : v }));
   const toggleFeature = (v) => setFilters((f) => ({ ...f, features: f.features.includes(v) ? f.features.filter((x) => x !== v) : [...f.features, v] }));
@@ -103,7 +119,7 @@ export default function Explore() {
           </p>
           {trails.length === 0 && <Empty icon="search" title="No trails match those filters" />}
           {view === 'map'
-            ? <TrailMap trails={trails} height={560} />
+            ? <TrailMap trails={trails} height={560} userLocation={here} />
             : <div className="grid">{trails.map((t) => <TrailCard key={t.id} trail={t} />)}</div>}
         </>
       )}

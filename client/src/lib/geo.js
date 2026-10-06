@@ -33,3 +33,11 @@ export function locate({ timeout = 8000 } = {}) {
 }
 
 export const UTAH_CENTER = [39.5, -111.6];
+
+/** True if the viewer already allowed location (no prompt will be shown). */
+export async function locationGranted() {
+  try { return (await navigator.permissions.query({ name: 'geolocation' })).state === 'granted'; } catch { return false; }
+}
+
+/** Zoom that shows roughly the nearest 20–30 miles, slightly closer on phones. */
+export const nearbyZoom = () => (window.innerWidth < 600 ? 9.5 : 10);

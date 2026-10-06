@@ -6,12 +6,12 @@ import Icon, { Feature } from './Icon.jsx';
 import { useCover, Attribution } from '../lib/cover.jsx';
 
 export default function TrailCard({ trail, reasons, children, compact }) {
-  const [cover, coverRef] = useCover(trail.slug, { lazy: true, width: compact ? 300 : 700 });
+  const [cover, coverRef] = useCover(trail, { lazy: true, width: compact ? 300 : 700 });
   return (
     <Link to={`/trails/${trail.slug}`} className={`trail-card card ${compact ? 'compact' : ''}`}>
       <div className="trail-card-art" ref={coverRef}>
         {cover?.url ? <img src={cover.url} alt="" loading="lazy" className="cover-img" /> : <TrailArt trail={trail} />}
-        {!compact && <Attribution cover={cover} />}
+        {!compact && <Attribution cover={cover} compact />}
         <div className="trail-card-badges">
           <Difficulty score={trail.difficulty_score} label={trail.difficulty_label} />
           {trail.done && <span className="pill pill-done with-icon"><Icon name="check" size={12} strokeWidth={2.5} />Done</span>}

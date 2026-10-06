@@ -9,12 +9,15 @@ import crypto from 'node:crypto';
 import { DatabaseSync } from 'node:sqlite';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
+import { planRoute } from '../src/routing.js';
 
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 execFileSync('node', [path.join(root, 'scripts', 'build-trails-sql.mjs')], { stdio: 'inherit' });
 
 const db = new DatabaseSync(':memory:');
-db.exec(fs.readFileSync(path.join(root, 'migrations', '0001_init.sql'), 'utf8'));
+for (const m of fs.readdirSync(path.join(root, 'migrations')).filter((f) => f.endsWith('.sql')).sort()) {
+  db.exec(fs.readFileSync(path.join(root, 'migrations', m), 'utf8'));
+}
 db.exec(fs.readFileSync(path.join(root, 'seed', 'trails.sql'), 'utf8'));
 
 const ID_BASE = 900000; // keep demo ids far away from real rows
@@ -139,10 +142,76 @@ msg(dm, 'maya.trails', 'Are you coming to Box Elder this week?', '-50 minutes');
 msg(dm, 'demo', 'Thinking about it! How hard is the ridge?', '-45 minutes');
 msg(dm, 'maya.trails', "Steep + loose but you'll crush it. Poles help a ton.", '-40 minutes');
 
+// ---- Example routes ---------------------------------------------------------------
+// Planned with the same snapping/elevation services as the in-app builder.
+// Results are cached in seed/demo-routes.json so re-seeding is fast and offline.
+// Waypoints sit on real paths (coordinates taken from OpenStreetMap).
+const ROUTES = [
+  { user: 'demo', name: 'BYU Campus Loop', activity: 'run', desc: 'Easy loop around campus and up past the Y. Water fountains near the stadium.',
+    waypoints: [[40.2338, -111.6585], [40.2440, -111.6450], [40.2500, -111.6600], [40.2338, -111.6585]] },
+  { user: 'demo', name: 'Provo River Parkway to Riverwoods', activity: 'run', desc: 'Paved riverside miles — flat, shady and great for long easy runs.', outAndBack: true,
+    waypoints: [[40.2831, -111.6594], [40.2974, -111.6573], [40.3264, -111.6405]] },
+  { user: 'jrun', name: 'Murdock Canal Tempo', activity: 'run', desc: 'Paved with mile markers. My go-to tempo route.', outAndBack: true,
+    waypoints: [[40.4128, -111.7961], [40.4216, -111.8145], [40.4305, -111.8306]] },
+  { user: 'jrun', name: 'Rock Canyon to the Y (BST)', activity: 'run', desc: 'Bonneville Shoreline singletrack between Rock Canyon and the Y trailhead. Rolling and rocky.', outAndBack: true,
+    waypoints: [[40.2695, -111.6316], [40.2583, -111.6288], [40.2472, -111.6277]] },
+  { user: 'benw', name: 'Parkway Sunrise 8', activity: 'run', desc: 'My standard early 8 on the Provo River Parkway.', outAndBack: true,
+    waypoints: [[40.2444, -111.6821], [40.2635, -111.6613], [40.2831, -111.6594]] },
+  { user: 'alex_outside', name: 'Liberty Park Loop', activity: 'run', desc: 'Shady loop around the park. Dogs welcome on leash.',
+    waypoints: [[40.7490, -111.8760], [40.7490, -111.8720], [40.7424, -111.8720], [40.7424, -111.8760], [40.7490, -111.8760]] },
+  { user: 'priya.k', name: 'Sugar House Park Sunset Walk', activity: 'hike', desc: 'Gentle loop with views of the Wasatch — beautiful at golden hour.', private: true,
+    waypoints: [[40.7250, -111.8528], [40.7250, -111.8430], [40.7197, -111.8430], [40.7197, -111.8528], [40.7250, -111.8528]] },
+  { user: 'maya.trails', name: 'Y Mountain Switchbacks', activity: 'hike', desc: 'Up the 12 switchbacks to the Y. Quick leg burner before work.', outAndBack: true,
+    waypoints: [[40.2448, -111.6276], [40.2482, -111.6205]] },
+  { user: 'maya.trails', name: 'Ogden River Parkway', activity: 'run', desc: 'Shady paved path up to the mouth of Ogden Canyon.', outAndBack: true,
+    waypoints: [[41.2352, -111.9645], [41.2364, -111.9611], [41.2370, -111.9284]] },
+];
+const cachePath = path.join(root, 'seed', 'demo-routes.json');
+const cache = fs.existsSync(cachePath) ? JSON.parse(fs.readFileSync(cachePath, 'utf8')) : {};
+const routeIds = {};
+for (const r of ROUTES) {
+  const key = JSON.stringify([r.waypoints, !!r.outAndBack]);
+  if (!cache[r.name] || cache[r.name].key !== key) {
+    const plan = await planRoute(r.waypoints, { snap: true, outAndBack: !!r.outAndBack });
+    cache[r.name] = { key, plan };
+    console.log(`Planned "${r.name}": ${(plan.distance_m / 1609.344).toFixed(2)} mi, +${Math.round(plan.elevation_gain_m * 3.28)} ft, snapped=${plan.snapped}`);
+  }
+  const { plan } = cache[r.name];
+  const id = next();
+  routeIds[r.name] = id;
+  db.prepare(`INSERT INTO routes (id, user_id, name, description, activity, waypoints, path, snapped, out_and_back, distance_m,
+    elevation_gain_m, elevation_profile, start_lat, start_lng, is_public, created_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?, datetime('now', ?))`)
+    .run(id, ids[r.user], r.name, r.desc, r.activity, JSON.stringify(plan.waypoints), JSON.stringify(plan.path), plan.snapped ? 1 : 0,
+      r.outAndBack ? 1 : 0, plan.distance_m, plan.elevation_gain_m, JSON.stringify(plan.profile), plan.path[0][0], plan.path[0][1],
+      r.private ? 0 : 1, `-${3 + Object.keys(routeIds).length * 2} days`);
+}
+fs.writeFileSync(cachePath, JSON.stringify(cache));
+
+// Runs logged on those routes (some with posts).
+function runOn(user, routeName, { ago, minutesPerMile, hour = 6, body }) {
+  const r = ROUTES.find((x) => x.name === routeName);
+  const { plan } = cache[routeName];
+  const mi = plan.distance_m / 1609.344;
+  const aid = next();
+  db.prepare(`INSERT INTO activities (id, user_id, source, name, type, distance_m, moving_time_s, elevation_gain_m, start_date, route_id)
+    VALUES (?, ?, 'manual', ?, ?, ?, ?, ?, ?, ?)`).run(aid, ids[user], routeName, r.activity === 'hike' ? 'Hike' : 'Run',
+    plan.distance_m, Math.round(mi * minutesPerMile * 60), plan.elevation_gain_m, daysAgo(ago, hour), routeIds[routeName]);
+  if (body) db.prepare(`INSERT INTO posts (id, user_id, activity_id, body, created_at) VALUES (?, ?, ?, ?, datetime('now', ?))`)
+    .run(next(), ids[user], aid, body, `-${ago} days`);
+}
+runOn('jrun', 'Murdock Canal Tempo', { ago: 6, minutesPerMile: 7.4, body: 'Tempo Tuesday on Murdock. Negative splits!' });
+runOn('jrun', 'Murdock Canal Tempo', { ago: 13, minutesPerMile: 7.6 });
+runOn('jrun', 'Rock Canyon to the Y (BST)', { ago: 3, minutesPerMile: 9.8 });
+runOn('demo', 'BYU Campus Loop', { ago: 2, minutesPerMile: 9.1, hour: 7, body: 'Made a new route around campus — come run it with me.' });
+runOn('demo', 'Provo River Parkway to Riverwoods', { ago: 11, minutesPerMile: 9.6 });
+runOn('benw', 'Parkway Sunrise 8', { ago: 1, minutesPerMile: 8.2, hour: 5 });
+runOn('alex_outside', 'Liberty Park Loop', { ago: 4, minutesPerMile: 10.5, hour: 18, body: 'Evening loops at Liberty with the pup.' });
+runOn('maya.trails', 'Y Mountain Switchbacks', { ago: 9, minutesPerMile: 22, hour: 6 });
+
 // ---- Dump ---------------------------------------------------------------------
 const slugById = new Map(db.prepare('SELECT id, slug FROM trails').all().map((t) => [t.id, t.slug]));
 const lit = (v) => (v == null ? 'NULL' : typeof v === 'number' || typeof v === 'bigint' ? String(v) : `'${String(v).replace(/'/g, "''")}'`);
-const TABLES = ['users', 'follows', 'activities', 'posts', 'post_likes', 'post_comments', 'trail_reviews',
+const TABLES = ['users', 'follows', 'routes', 'activities', 'posts', 'post_likes', 'post_comments', 'trail_reviews',
   'conversations', 'conversation_members', 'messages', 'outings', 'outing_members'];
 const names = USERS.map((u) => lit(u.username)).join(', ');
 // Only demo rows are removed on re-run: deleting the demo users cascades to

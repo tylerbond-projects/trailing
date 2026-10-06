@@ -1,3 +1,7 @@
 .dev.vars
 .wrangler
 seed/demo.sql
+scripts/photos/out/
+scripts/photos/thumbs/
+scripts/photos/sheets/
+scripts/photos/rows.json

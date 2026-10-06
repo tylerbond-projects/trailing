@@ -30,7 +30,7 @@ export function RouteCard({ route: r, showUser = true }) {
         <div className="outing-meta">
           {showUser && r.user && <><Avatar user={r.user} size={20} /><span className="small">{r.user.display_name}</span></>}
           {!r.is_public && <span className="pill small with-icon"><Icon name="lock" size={11} />Private</span>}
-          {r.times_logged > 0 && <span className="small muted">· run {r.times_logged}×</span>}
+          {r.times_logged > 0 && <span className="small muted">{showUser && r.user ? '· ' : ''}Run {r.times_logged}×</span>}
         </div>
       </div>
     </Link>

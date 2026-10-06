@@ -20,6 +20,7 @@ export default function RouteBuilder() {
   const [plan, setPlan] = useState(null);
   const [planning, setPlanning] = useState(false);
   const [center, setCenter] = useState(null);
+  const [here, setHere] = useState(null);
   const [hoverPt, setHoverPt] = useState(null);
   const [pace, setPace] = useState(Number(storage.get('trailing.pace')) || 9);
   const [form, setForm] = useState({ name: '', description: '', is_public: true, activity: 'run' });
@@ -28,7 +29,7 @@ export default function RouteBuilder() {
   const seq = useRef(0);
 
   // Start near the runner if they allow location.
-  useEffect(() => { if (!waypoints.length) locate().then((p) => p && setCenter(p)); }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => { locate().then((p) => { if (!p) return; setHere(p); if (!waypoints.length) setCenter(p); }); }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Re-plan (snap + elevation) shortly after the drawing changes.
   useEffect(() => {
@@ -75,10 +76,9 @@ export default function RouteBuilder() {
       <div className="builder-grid">
         <div className="builder-map">
           <RouteMap editable path={path} waypoints={waypoints} onAdd={add} onMove={move} onRemove={remove}
-            center={center} highlight={hoverPt} height="100%">
+            center={center} highlight={hoverPt} height="100%" userLocation={here}>
           <div className="map-tools">
             <button type="button" className="tool" onClick={() => setWaypoints((w) => w.slice(0, -1))} disabled={!waypoints.length} aria-label="Undo last point"><Icon name="undo" /></button>
-            <button type="button" className="tool" onClick={() => locate().then((p) => p && setCenter([...p]))} aria-label="Center on my location"><Icon name="locate" /></button>
             <button type="button" className="tool" onClick={() => { if (confirm('Clear this route?')) setWaypoints([]); }} disabled={!waypoints.length} aria-label="Clear route"><Icon name="trash" /></button>
           </div>
           {planning && <div className="map-status">Planning…</div>}

@@ -16,6 +16,7 @@
     "db:demo:remote": "node scripts/build-demo-sql.mjs && wrangler d1 execute trailing --remote --file seed/demo.sql"
   },
   "dependencies": {
+    "fast-png": "^8.0.0",
     "hono": "^4.13.13"
   },
   "devDependencies": {

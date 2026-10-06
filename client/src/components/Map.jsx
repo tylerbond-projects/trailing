@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useMapUX, MapControls } from './MapControls.jsx';
+import { nearbyZoom } from '../lib/geo.js';
 
 const COLORS = { Easy: '#3f8f5b', Moderate: '#c9a227', Hard: '#e07a3f', 'Very Hard': '#c4452f', Strenuous: '#7d2e46' };
 
@@ -17,7 +18,7 @@ function pin(trail) {
 }
 
 /** Leaflet map of trails. Clicking a pin opens the trail. */
-export default function TrailMap({ trails, center, zoom = 10, height = 420, lockOnTouch = false }) {
+export default function TrailMap({ trails, center, zoom = 10, height = 420, lockOnTouch = false, userLocation, onLocate }) {
   const el = useRef(null);
   const map = useRef(null);
   const layer = useRef(null);
@@ -27,6 +28,7 @@ export default function TrailMap({ trails, center, zoom = 10, height = 420, lock
   const touchLocked = lockOnTouch && L.Browser.mobile;
   const ux = useMapUX(map, wrap, { touchLocked, ready });
   const bounds = useRef(null);
+  const you = useRef(null);
 
   useEffect(() => {
     // lockOnTouch: embedded maps on phones ignore one-finger drags so the page can scroll past them
@@ -56,8 +58,17 @@ export default function TrailMap({ trails, center, zoom = 10, height = 420, lock
       }
     }
     bounds.current = pts;
-    if (pts.length > 1 && !center) map.current.fitBounds(pts, { padding: [30, 30] });
+    if (pts.length > 1 && !center && !userLocation) map.current.fitBounds(pts, { padding: [30, 30] });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [trails, center, navigate]);
+
+  // Start near the viewer when we know where they are.
+  useEffect(() => {
+    if (!ready || !userLocation) return;
+    you.current?.remove();
+    you.current = L.circleMarker(userLocation, { radius: 8, className: 'you-dot', interactive: false }).addTo(map.current);
+    map.current.setView(userLocation, nearbyZoom());
+  }, [ready, userLocation]);
 
   const fit = () => {
     const pts = bounds.current || [];
@@ -68,7 +79,8 @@ export default function TrailMap({ trails, center, zoom = 10, height = 420, lock
   return (
     <div ref={wrap} className={`map-wrap ${ux.fullscreen ? 'map-fullscreen' : ''}`} style={{ height }}>
       <div ref={el} className="map" />
-      {ready && <MapControls mapRef={map} ux={ux} onFit={fit} fitLabel={trails.length > 1 ? 'Show all trails' : 'Back to trailhead'} />}
+      {ready && <MapControls mapRef={map} ux={ux} onFit={fit} fitLabel={trails.length > 1 ? 'Show all trails' : 'Back to trailhead'}
+        onLocate={onLocate || (userLocation ? () => map.current.setView(userLocation, nearbyZoom()) : null)} />}
     </div>
   );
 }

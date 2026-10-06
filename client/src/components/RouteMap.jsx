@@ -15,7 +15,7 @@ const pinIcon = (label, kind) => L.divIcon({
  * Map for drawing/viewing a route.
  *  editable: tap the map to add a point; drag points to move; tap a point to remove it.
  */
-export default function RouteMap({ path = [], waypoints = [], editable = false, onAdd, onMove, onRemove, highlight, center, height = 420, fitKey, lockOnTouch = false, children }) {
+export default function RouteMap({ path = [], waypoints = [], editable = false, onAdd, onMove, onRemove, highlight, center, height = 420, fitKey, lockOnTouch = false, children, userLocation }) {
   const el = useRef(null);
   const map = useRef(null);
   const layers = useRef({});
@@ -42,7 +42,14 @@ export default function RouteMap({ path = [], waypoints = [], editable = false, 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => { if (center && map.current) map.current.setView(center, 15); }, [center]);
+  // Neighborhood-level zoom (~2 miles across) — a good scale for drawing a run.
+  useEffect(() => { if (center && map.current) map.current.setView(center, 14.5); }, [center]);
+  const you = useRef(null);
+  useEffect(() => {
+    if (!ready || !userLocation) return;
+    you.current?.remove();
+    you.current = L.circleMarker(userLocation, { radius: 8, className: 'you-dot', interactive: false }).addTo(map.current);
+  }, [ready, userLocation]);
 
   useEffect(() => { layers.current.line.setLatLngs(path); }, [path]);
 
@@ -86,7 +93,8 @@ export default function RouteMap({ path = [], waypoints = [], editable = false, 
   return (
     <div ref={wrap} className={`map-wrap ${ux.fullscreen ? 'map-fullscreen' : ''}`} style={{ height }}>
       <div ref={el} className={`map route-map ${editable ? 'editable' : ''}`} />
-      {ready && <MapControls mapRef={map} ux={ux} onFit={path.length > 1 || waypoints.length ? fit : null} fitLabel="Fit route" />}
+      {ready && <MapControls mapRef={map} ux={ux} onFit={path.length > 1 || waypoints.length ? fit : null} fitLabel="Fit route"
+        onLocate={userLocation ? () => map.current.setView(userLocation, 14.5) : null} />}
       {children}
     </div>
   );

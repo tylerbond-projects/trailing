@@ -44,7 +44,7 @@ Database changes go out as migrations in `server/migrations/`, applied with:
 npm run db:migrate:remote -w server
 ```
 
-Demo users (log in as `demo` / `password123`) can be added or refreshed with `npm run db:demo:remote -w server`. This only replaces demo accounts; real users are never touched.
+Demo users (log in as `demo` / `password123`), including example routes, can be added or refreshed with `npm run db:demo:remote -w server`. This only replaces demo accounts; real users are never touched. Route geometry is cached in `seed/demo-routes.json`.
 
 Trail data changes go out with:
 
@@ -119,13 +119,26 @@ OSM doesn't include elevation gain, so imported trails are marked `needs_review`
 
 > ⚠️ The Utah County numbers (distances, elevation, coordinates, dog rules, fees) were put together by hand and are **approximate**. Check them against USFS, the National Park Service or OpenStreetMap before a public launch.
 
-## Cover photos (Google Places)
+## Trail photos (Wikimedia Commons)
+
+62 trails have an openly licensed cover photo (CC0, public domain, CC BY or CC BY-SA) from Wikimedia Commons. The photos are hosted in R2 at `/uploads/cover-<slug>.jpg` (1280px) and `cover-<slug>-sm.jpg` (500px), and every photo shows its author and license with links. These licenses require that credit, so keep it.
+
+Pipeline (in `server/`):
+1. `node scripts/find-trail-photos.mjs [slug…]` gathers candidates from matching Commons categories, Commons search and the Wikipedia lead image. It keeps only free licenses, Utah locations and landscape photos, and writes them to `scripts/photos/candidates.json`.
+2. `node scripts/photo-sheets.mjs` builds contact sheets in `scripts/photos/sheets/` for review by eye.
+3. Record the chosen candidate index per trail in `scripts/photos/picks.json`.
+4. `node scripts/build-trail-photos.mjs` downloads the picks and writes `data/trail-photos.json` and `seed/trail-covers.sql`.
+5. `scripts/upload-trail-photos.sh --remote`, then `npx wrangler d1 execute trailing --remote --file seed/trail-covers.sql`.
+
+The other 57 trails had no good, correctly identified free photo, so they use the generated illustration. A user-uploaded photo also replaces the illustration on the trail page.
+
+## Cover photos (Google Places, optional)
 
 With `GOOGLE_PLACES_API_KEY` set (Places API (New) enabled, billing on), each trail's main photo comes from its Google Maps listing. The server finds the place with Text Search near the trailhead and ignores matches more than 15 km away. It then fetches the listing's first photo and shows the photographer credit, as Google's terms require. Only the place id is stored; photo URLs are fetched fresh, and cards load them only when they scroll into view. Without the key, trails fall back to user photos and then to the generated illustration.
 
 ## Route planning services
 
-Snapping uses the public OSRM foot router at routing.openstreetmap.de. Elevation comes from Open-Meteo's elevation API, which is free for non-commercial use. Both are called only from `server/src/routing.js`, so moving to a paid provider (Mapbox, Stadia, GraphHopper) means changing that one file.
+Snapping uses the public OSRM foot router at routing.openstreetmap.de. Elevation comes from the AWS Terrain Tiles open dataset (Terrarium PNGs decoded in the Worker; about 10 m resolution in the US, no key or rate limit). Open-Meteo is the fallback. Both are called only from `server/src/routing.js`, so moving to a paid provider (Mapbox, Stadia, GraphHopper) means changing that one file.
 
 ## Turning it into an app
 

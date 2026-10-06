@@ -1,4 +1,4 @@
-import { parseTrail, placeholders } from './db.js';
+import { parseTrail, placeholders, COVER_COLS } from './db.js';
 import { friendIds } from './auth.js';
 
 const SEASONS = ['winter', 'winter', 'spring', 'spring', 'spring', 'summer', 'summer', 'summer', 'fall', 'fall', 'fall', 'winter'];
@@ -13,8 +13,8 @@ export const currentSeason = (d = new Date()) => SEASONS[d.getMonth()];
  */
 export async function recommendTrails(db, user, { limit = 20 } = {}) {
   const [trailRows, doneRows, savedRows, ratingRows, friends, upcomingRows] = await Promise.all([
-    db.all(`SELECT t.*, COALESCE(AVG(r.rating), 0) AS avg_rating, COUNT(r.id) AS review_count
-      FROM trails t LEFT JOIN trail_reviews r ON r.trail_id = t.id GROUP BY t.id`),
+    db.all(`SELECT t.*, ${COVER_COLS}, COALESCE(AVG(r.rating), 0) AS avg_rating, COUNT(r.id) AS review_count
+      FROM trails t LEFT JOIN trail_reviews r ON r.trail_id = t.id LEFT JOIN trail_covers c ON c.trail_id = t.id GROUP BY t.id`),
     db.all('SELECT DISTINCT trail_id FROM activities WHERE user_id = ? AND trail_id IS NOT NULL', user.id),
     db.all('SELECT trail_id FROM saved_trails WHERE user_id = ?', user.id),
     db.all('SELECT trail_id, rating FROM trail_reviews WHERE user_id = ?', user.id),

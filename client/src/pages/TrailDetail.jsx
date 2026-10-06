@@ -21,7 +21,7 @@ export default function TrailDetail() {
   const [reviewOpen, setReviewOpen] = useState(false);
   const [photoOpen, setPhotoOpen] = useState(false);
   const [lightbox, setLightbox] = useState(null);
-  const [cover] = useCover(slug);
+  const [cover] = useCover(data?.trail);
 
   const load = useCallback(() => api(`/trails/${slug}`).then(setData).catch((e) => setError(e.message)), [slug]);
   useEffect(() => { setData(null); load(); window.scrollTo(0, 0); }, [load]);

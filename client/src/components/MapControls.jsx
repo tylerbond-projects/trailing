@@ -90,7 +90,7 @@ export function useMapUX(mapRef, wrapRef, { touchLocked = false, wheelAlways = f
   return { fullscreen, setFullscreen, hint, zoom };
 }
 
-export function MapControls({ mapRef, ux, onFit, fitLabel = 'Fit to view' }) {
+export function MapControls({ mapRef, ux, onFit, fitLabel = 'Fit to view', onLocate }) {
   const map = mapRef.current;
   const min = map?.getMinZoom() ?? 0, max = map?.getMaxZoom() ?? 19;
   return (
@@ -100,6 +100,7 @@ export function MapControls({ mapRef, ux, onFit, fitLabel = 'Fit to view' }) {
           <button type="button" className="map-btn" onClick={() => map?.zoomIn(1)} disabled={ux.zoom != null && ux.zoom >= max} aria-label="Zoom in" title="Zoom in"><Icon name="plus" size={20} /></button>
           <button type="button" className="map-btn" onClick={() => map?.zoomOut(1)} disabled={ux.zoom != null && ux.zoom <= min} aria-label="Zoom out" title="Zoom out"><Icon name="minus" size={20} /></button>
         </div>
+        {onLocate && <button type="button" className="map-btn solo" onClick={onLocate} aria-label="Center on my location" title="My location"><Icon name="locate" size={19} /></button>}
         {onFit && <button type="button" className="map-btn solo" onClick={onFit} aria-label={fitLabel} title={fitLabel}><Icon name="fit" size={19} /></button>}
         <button type="button" className="map-btn solo" onClick={() => ux.setFullscreen(!ux.fullscreen)}
           aria-label={ux.fullscreen ? 'Exit full screen' : 'Full screen map'} title={ux.fullscreen ? 'Exit full screen (Esc)' : 'Full screen'}>

@@ -1,5 +1,5 @@
 import { Hono } from 'hono';
-import { parseTrail } from '../db.js';
+import { parseTrail, COVER_COLS } from '../db.js';
 import { requireAuth, publicUser, readJson } from '../auth.js';
 import { filesFrom, storePhoto, field } from '../uploads.js';
 import { checkAchievements } from '../achievements.js';
@@ -52,10 +52,10 @@ r.get('/', async (c) => {
 
   // ?1 is the viewer; the remaining anonymous ? map to params[1..] in order.
   const rows = await c.get('db').all(`
-    SELECT t.*, COALESCE(AVG(r.rating), 0) AS avg_rating, COUNT(r.id) AS review_count,
+    SELECT t.*, ${COVER_COLS}, COALESCE(AVG(r.rating), 0) AS avg_rating, COUNT(r.id) AS review_count,
       EXISTS(SELECT 1 FROM saved_trails s WHERE s.trail_id = t.id AND s.user_id = ?1) AS saved,
       EXISTS(SELECT 1 FROM activities a WHERE a.trail_id = t.id AND a.user_id = ?1) AS done
-    FROM trails t LEFT JOIN trail_reviews r ON r.trail_id = t.id
+    FROM trails t LEFT JOIN trail_reviews r ON r.trail_id = t.id LEFT JOIN trail_covers c ON c.trail_id = t.id
     ${where.length ? 'WHERE ' + numbered(where.join(' AND '), 2) : ''}
     GROUP BY t.id ORDER BY ${order}`, ...params);
   const milesFrom = (t) => (near ? Math.round((haversineM([nlat, nlng], [t.lat, t.lng]) / 1609.344) * 10) / 10 : undefined);
@@ -71,16 +71,16 @@ function numbered(sql, from) {
 r.get('/recommended', async (c) => c.json(await recommendTrails(c.get('db'), c.get('user'), { limit: Number(c.req.query('limit')) || 20 })));
 
 r.get('/saved', async (c) => {
-  const rows = await c.get('db').all(`SELECT t.*, COALESCE((SELECT AVG(rating) FROM trail_reviews WHERE trail_id = t.id),0) AS avg_rating,
+  const rows = await c.get('db').all(`SELECT t.*, ${COVER_COLS}, COALESCE((SELECT AVG(rating) FROM trail_reviews WHERE trail_id = t.id),0) AS avg_rating,
     (SELECT COUNT(*) FROM trail_reviews WHERE trail_id = t.id) AS review_count
-    FROM saved_trails s JOIN trails t ON t.id = s.trail_id WHERE s.user_id = ? ORDER BY s.created_at DESC`, c.get('user').id);
+    FROM saved_trails s JOIN trails t ON t.id = s.trail_id LEFT JOIN trail_covers c ON c.trail_id = t.id WHERE s.user_id = ? ORDER BY s.created_at DESC`, c.get('user').id);
   return c.json({ trails: rows.map((t) => ({ ...parseTrail(t), saved: true })) });
 });
 
 r.get('/:slug', async (c) => {
   const db = c.get('db');
   const uid = c.get('user').id;
-  const t = await db.first('SELECT * FROM trails WHERE slug = ?', c.req.param('slug'));
+  const t = await db.first(`SELECT t.*, ${COVER_COLS} FROM trails t LEFT JOIN trail_covers c ON c.trail_id = t.id WHERE t.slug = ?`, c.req.param('slug'));
   if (!t) return c.json({ error: 'Trail not found' }, 404);
 
   const [reviews, photos, completions, nearby, saved, done] = (await db.batch([
@@ -93,8 +93,9 @@ r.get('/:slug', async (c) => {
       JOIN posts po ON po.id = pp.post_id JOIN users u ON u.id = po.user_id WHERE po.trail_id = ?1)
       ORDER BY created_at DESC LIMIT 60`, t.id),
     db.stmt('SELECT COUNT(DISTINCT user_id) n FROM activities WHERE trail_id = ?', t.id),
-    db.stmt(`SELECT id, slug, name, area, difficulty_score, difficulty_label, distance_mi, elevation_gain_ft, features,
-      ((lat - ?1) * (lat - ?1) + (lng - ?2) * (lng - ?2)) AS d2 FROM trails WHERE id != ?3 ORDER BY d2 LIMIT 4`, t.lat, t.lng, t.id),
+    db.stmt(`SELECT t.id, t.slug, t.name, t.area, t.difficulty_score, t.difficulty_label, t.distance_mi, t.elevation_gain_ft, t.features, ${COVER_COLS},
+      ((t.lat - ?1) * (t.lat - ?1) + (t.lng - ?2) * (t.lng - ?2)) AS d2 FROM trails t LEFT JOIN trail_covers c ON c.trail_id = t.id
+      WHERE t.id != ?3 ORDER BY d2 LIMIT 4`, t.lat, t.lng, t.id),
     db.stmt('SELECT 1 AS x FROM saved_trails WHERE user_id = ? AND trail_id = ?', uid, t.id),
     db.stmt('SELECT 1 AS x FROM activities WHERE user_id = ? AND trail_id = ? LIMIT 1', uid, t.id),
   ])).map((x) => x.results);
