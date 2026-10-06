@@ -75,13 +75,15 @@ export default function RouteBuilder() {
       <div className="builder-grid">
         <div className="builder-map">
           <RouteMap editable path={path} waypoints={waypoints} onAdd={add} onMove={move} onRemove={remove}
-            center={center} highlight={hoverPt} height="100%" />
+            center={center} highlight={hoverPt} height="100%">
           <div className="map-tools">
             <button type="button" className="tool" onClick={() => setWaypoints((w) => w.slice(0, -1))} disabled={!waypoints.length} aria-label="Undo last point"><Icon name="undo" /></button>
             <button type="button" className="tool" onClick={() => locate().then((p) => p && setCenter([...p]))} aria-label="Center on my location"><Icon name="locate" /></button>
             <button type="button" className="tool" onClick={() => { if (confirm('Clear this route?')) setWaypoints([]); }} disabled={!waypoints.length} aria-label="Clear route"><Icon name="trash" /></button>
           </div>
           {planning && <div className="map-status">Planning…</div>}
+          {plan && <div className="map-chip">{mi.toFixed(2)} mi · {Math.round(metersToFeet(plan.elevation_gain_m)).toLocaleString()} ft gain</div>}
+          </RouteMap>
         </div>
 
         <div className="builder-panel">

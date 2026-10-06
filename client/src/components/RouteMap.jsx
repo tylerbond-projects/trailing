@@ -1,7 +1,8 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { UTAH_CENTER } from '../lib/geo.js';
+import { useMapUX, MapControls } from './MapControls.jsx';
 
 const pinIcon = (label, kind) => L.divIcon({
   className: 'route-pin',
@@ -14,16 +15,19 @@ const pinIcon = (label, kind) => L.divIcon({
  * Map for drawing/viewing a route.
  *  editable: tap the map to add a point; drag points to move; tap a point to remove it.
  */
-export default function RouteMap({ path = [], waypoints = [], editable = false, onAdd, onMove, onRemove, highlight, center, height = 420, fitKey, lockOnTouch = false }) {
+export default function RouteMap({ path = [], waypoints = [], editable = false, onAdd, onMove, onRemove, highlight, center, height = 420, fitKey, lockOnTouch = false, children }) {
   const el = useRef(null);
   const map = useRef(null);
   const layers = useRef({});
   const handlers = useRef({});
   handlers.current = { onAdd, onMove, onRemove };
+  const wrap = useRef(null);
+  const [ready, setReady] = useState(false);
+  const touchLocked = lockOnTouch && L.Browser.mobile;
+  const ux = useMapUX(map, wrap, { touchLocked, wheelAlways: editable, ready });
 
   useEffect(() => {
-    const touchLocked = lockOnTouch && L.Browser.mobile;
-    const m = L.map(el.current, { scrollWheelZoom: editable, dragging: !touchLocked, tap: !touchLocked, doubleClickZoom: !editable })
+    const m = L.map(el.current, { zoomControl: false, zoomSnap: 0.5, scrollWheelZoom: editable, dragging: !touchLocked, tap: !touchLocked, doubleClickZoom: !editable })
       .setView(center || UTAH_CENTER, center ? 14 : 7);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '&copy; OpenStreetMap contributors' }).addTo(m);
     layers.current = {
@@ -33,6 +37,7 @@ export default function RouteMap({ path = [], waypoints = [], editable = false, 
     };
     if (editable) m.on('click', (e) => handlers.current.onAdd?.([e.latlng.lat, e.latlng.lng]));
     map.current = m;
+    setReady(true);
     return () => m.remove();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -72,5 +77,17 @@ export default function RouteMap({ path = [], waypoints = [], editable = false, 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fitKey]);
 
-  return <div ref={el} className={`map route-map ${editable ? 'editable' : ''}`} style={{ height }} />;
+  const fit = () => {
+    const pts = path.length > 1 ? path : waypoints;
+    if (pts.length > 1) map.current.fitBounds(pts, { padding: [24, 24] });
+    else if (pts.length === 1) map.current.setView(pts[0], 16);
+  };
+
+  return (
+    <div ref={wrap} className={`map-wrap ${ux.fullscreen ? 'map-fullscreen' : ''}`} style={{ height }}>
+      <div ref={el} className={`map route-map ${editable ? 'editable' : ''}`} />
+      {ready && <MapControls mapRef={map} ux={ux} onFit={path.length > 1 || waypoints.length ? fit : null} fitLabel="Fit route" />}
+      {children}
+    </div>
+  );
 }

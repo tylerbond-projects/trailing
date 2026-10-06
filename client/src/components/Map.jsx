@@ -1,7 +1,8 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import { useMapUX, MapControls } from './MapControls.jsx';
 
 const COLORS = { Easy: '#3f8f5b', Moderate: '#c9a227', Hard: '#e07a3f', 'Very Hard': '#c4452f', Strenuous: '#7d2e46' };
 
@@ -20,17 +21,24 @@ export default function TrailMap({ trails, center, zoom = 10, height = 420, lock
   const el = useRef(null);
   const map = useRef(null);
   const layer = useRef(null);
+  const wrap = useRef(null);
+  const [ready, setReady] = useState(false);
   const navigate = useNavigate();
+  const touchLocked = lockOnTouch && L.Browser.mobile;
+  const ux = useMapUX(map, wrap, { touchLocked, ready });
+  const bounds = useRef(null);
 
   useEffect(() => {
-    // lockOnTouch: embedded maps on phones ignore one-finger drags so the page can scroll past them.
-    const touchLocked = lockOnTouch && L.Browser.mobile;
-    map.current = L.map(el.current, { scrollWheelZoom: false, dragging: !touchLocked, tap: !touchLocked }).setView(center || [39.5, -111.6], zoom);
+    // lockOnTouch: embedded maps on phones ignore one-finger drags so the page can scroll past them
+    // (pinch still zooms, and full screen unlocks everything).
+    map.current = L.map(el.current, { zoomControl: false, zoomSnap: 0.5, scrollWheelZoom: false, dragging: !touchLocked, tap: !touchLocked })
+      .setView(center || [39.5, -111.6], zoom);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 18,
       attribution: '&copy; OpenStreetMap contributors',
     }).addTo(map.current);
     layer.current = L.layerGroup().addTo(map.current);
+    setReady(true);
     return () => map.current.remove();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -47,8 +55,20 @@ export default function TrailMap({ trails, center, zoom = 10, height = 420, lock
         m.on('click', () => navigate(`/trails/${t.slug}`));
       }
     }
+    bounds.current = pts;
     if (pts.length > 1 && !center) map.current.fitBounds(pts, { padding: [30, 30] });
   }, [trails, center, navigate]);
 
-  return <div ref={el} className="map" style={{ height }} />;
+  const fit = () => {
+    const pts = bounds.current || [];
+    if (pts.length > 1) map.current.fitBounds(pts, { padding: [30, 30] });
+    else map.current.setView(center || pts[0] || [39.5, -111.6], zoom);
+  };
+
+  return (
+    <div ref={wrap} className={`map-wrap ${ux.fullscreen ? 'map-fullscreen' : ''}`} style={{ height }}>
+      <div ref={el} className="map" />
+      {ready && <MapControls mapRef={map} ux={ux} onFit={fit} fitLabel={trails.length > 1 ? 'Show all trails' : 'Back to trailhead'} />}
+    </div>
+  );
 }
