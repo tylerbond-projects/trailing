@@ -2,10 +2,10 @@
 // per trail so each one gets a consistent "cover".
 const PALETTES = [
   { sky: ['#f7c59f', '#f3e1c7'], far: '#9db4a6', mid: '#5f8a72', near: '#2f5a45' },
-  { sky: ['#a7c7e7', '#e9f1f7'], far: '#a3b6c9', mid: '#6b8aa6', near: '#3c5a73' },
+  { sky: ['#e8d9b8', '#f6efdf'], far: '#b9b79a', mid: '#8a8c6a', near: '#4f5a3e' },
   { sky: ['#f2a477', '#fbd8b8'], far: '#c79a86', mid: '#9a6a58', near: '#5e3f36' },
   { sky: ['#cbd9c4', '#f2f0e4'], far: '#9fb39a', mid: '#6f8d68', near: '#3f5f3a' },
-  { sky: ['#b9a7d8', '#f1e4ee'], far: '#a59cb8', mid: '#76708f', near: '#4a4562' },
+  { sky: ['#efcfa8', '#f8ecd9'], far: '#c8a98a', mid: '#a07a5c', near: '#5c4a38' },
 ];
 
 function rng(seed) {
