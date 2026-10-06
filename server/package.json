@@ -1,0 +1,23 @@
+{
+  "name": "trailing-server",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "mkdir -p ../client/dist && wrangler dev --port 8787",
+    "build:seed": "node scripts/build-trails-sql.mjs",
+    "db:migrate:local": "wrangler d1 migrations apply trailing --local",
+    "db:trails:local": "npm run build:seed && wrangler d1 execute trailing --local --file seed/trails.sql",
+    "db:demo:local": "node scripts/build-demo-sql.mjs && wrangler d1 execute trailing --local --file seed/demo.sql",
+    "setup:local": "npm run db:migrate:local && npm run db:trails:local && npm run db:demo:local",
+    "db:migrate:remote": "wrangler d1 migrations apply trailing --remote",
+    "db:trails:remote": "npm run build:seed && wrangler d1 execute trailing --remote --file seed/trails.sql",
+    "deploy": "wrangler deploy",
+    "import:osm": "node scripts/import-osm.js"
+  },
+  "dependencies": {
+    "hono": "^4.13.13"
+  },
+  "devDependencies": {
+    "wrangler": "^4.147.0"
+  }
+}

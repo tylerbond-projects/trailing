@@ -1,0 +1,10 @@
+{
+  "name": "Trailing",
+  "short_name": "Trailing",
+  "description": "The social trail app for hikers and runners.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f6f3ec",
+  "theme_color": "#2f6b4f",
+  "icons": [{ "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }]
+}

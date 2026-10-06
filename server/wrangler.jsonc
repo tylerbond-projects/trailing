@@ -1,0 +1,30 @@
+{
+  "$schema": "../node_modules/wrangler/config-schema.json",
+  "name": "trailing",
+  "main": "src/index.js",
+  "compatibility_date": "2026-09-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": { "enabled": true },
+
+  // The React app (client/dist) is served as static assets; the Worker only
+  // handles the API, uploaded photos and the realtime socket.
+  "assets": {
+    "directory": "../client/dist",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": ["/api/*", "/uploads/*", "/ws"]
+  },
+
+  "d1_databases": [
+    { "binding": "DB", "database_name": "trailing", "database_id": "REPLACE_WITH_D1_ID", "migrations_dir": "migrations" }
+  ],
+  "r2_buckets": [{ "binding": "PHOTOS", "bucket_name": "trailing-photos" }],
+
+  // One Durable Object holds every open WebSocket and fans out chat messages,
+  // typing indicators, notifications and achievement unlocks.
+  "durable_objects": { "bindings": [{ "name": "REALTIME", "class_name": "Realtime" }] },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Realtime"] }]
+
+  // Secrets (set with `wrangler secret put NAME`, or in .dev.vars locally):
+  //   JWT_SECRET, STRAVA_CLIENT_ID, STRAVA_CLIENT_SECRET
+}
